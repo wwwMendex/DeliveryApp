@@ -1,0 +1,7 @@
+{
+  "name": "FratelliApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
