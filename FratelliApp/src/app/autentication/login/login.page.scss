@@ -1,0 +1,55 @@
+    
+    .bg-login{
+        width: 100%;
+        height: 100%;
+        background-image: url('/assets/imgs/background_login.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+    .bg-register{
+        z-index: 999;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/assets/imgs/background_register.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+    .overlay{
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.952), rgba(0, 0, 0, 0.788), rgba(0, 0, 0, 0.466), rgba(0, 0, 0, 0.952));
+    }
+    .logo-login{
+        width: 45%;
+    }
+    h2{
+        letter-spacing: 4px;
+        text-shadow: 1px 1px 5px rgba(235, 232, 191, 0.4);
+    }
+    h5{
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.555);
+    }
+    .seta{
+        width: 15%;
+    }
+    .bg-transparent{
+        --ion-item-background: transparent;
+        --padding-start: 0;
+
+    }
+    .placeholder{
+        --placeholder-opacity: 0.85;
+    }
+    ion-button{
+        --background: rgb(235, 39, 25);
+        --background-hover: rgb(238, 56, 43);
+        --background-activated: rgb(163, 26, 16);
+        --background-focused: rgb(241, 68, 25);
+        --box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.842);
+    }
+    a:hover{
+        cursor: pointer;
+    }

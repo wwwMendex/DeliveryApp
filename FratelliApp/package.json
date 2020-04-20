@@ -1,7 +1,7 @@
 {
-  "name": "FratelliApp",
+  "name": "fratelliapp",
   "version": "0.0.1",
-  "author": "Ionic Framework",
+  "author": "wwwMendex",
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
@@ -13,8 +13,10 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^8.0.0",
     "@angular/common": "~8.2.14",
     "@angular/core": "~8.2.14",
+    "@angular/fire": "^6.0.0",
     "@angular/forms": "~8.2.14",
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
@@ -25,6 +27,7 @@
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^5.0.0",
     "core-js": "^3.0.0",
+    "firebase": "^7.14.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
@@ -37,6 +40,7 @@
     "@angular/language-service": "~8.2.14",
     "@capacitor/cli": "2.0.1",
     "@ionic/angular-toolkit": "^2.1.1",
+    "@ionic/lab": "3.1.3",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
@@ -53,5 +57,5 @@
     "tslint": "~5.15.0",
     "typescript": "~3.4.3"
   },
-  "description": "An Ionic project"
+  "description": "Pizza Delivery App"
 }

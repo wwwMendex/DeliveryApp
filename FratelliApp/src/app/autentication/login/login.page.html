@@ -1,0 +1,92 @@
+<ion-content>
+  <!-- Background login -->
+  <div class="bg-login">
+    <!-- Overlay -->
+    <div class="overlay">
+      <!-- Login Container -->
+      <div>
+        <!-- Logo -->
+        <div class="center pad-top-15-percent">
+          <img class="logo-login" src="/assets/imgs/3@Fratelli logo-laranja.png" alt="Fratelli logo">
+        </div>
+
+        <!-- Textos -->
+        <div class="mg-top-25-percent"></div>
+          <div>
+            <!-- Titulo -->
+            <h2 class="century branco center bold">VAMOS COMEÇAR!</h2>
+            <!-- Subtitulo -->
+            <h5 class="no-margin  italic bold center corbel laranja-avermelhado">
+              Identifique-se para poder entrar
+            </h5>
+            <div class="center pad-top-10">
+              <img class="seta" src="/assets/imgs/arrow-down.png" alt="seta apontando para baixo">
+            </div>
+          </div>
+          <!-- Forms -->
+          <div class="mg-top-10 pad-25">
+            <ion-item class="bg-transparent ">
+              <ion-input class="branco bold italic placeholder" type="email" placeholder="Seu e-mail" [(ngModel)]="loginForm.email"></ion-input>
+            </ion-item>
+            <ion-item class="bg-transparent mg-top-10">
+              <ion-input class="branco bold italic placeholder" type="password" placeholder="Sua senha" [(ngModel)]="loginForm.password"></ion-input>
+            </ion-item>
+
+            <ion-button class="bold italic branco mg-top-25" expand="block" shape="round" (click)="fazerLogin()">Quero pedir pizzas!</ion-button>
+          </div>
+          <div class="center mg-top-15">
+            <a class="branco century no-margin" (click)="goToRegister()">Ainda não sou registrado</a>
+          </div>
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Background register -->
+  <div class="bg-register" *ngIf="register" [@slideInOut]>
+    <!-- Overlay -->
+    <div class="overlay">
+      <!-- Register Container -->
+      <div>
+        <!-- Logo -->
+        <div class="center pad-top-15-percent">
+          <img class="logo-login" src="/assets/imgs/3@Fratelli logo-laranja.png" alt="Fratelli logo">
+        </div>
+
+        <!-- Textos -->
+        <div class="mg-top-5-percent"></div>
+          <div>
+            <!-- Titulo -->
+            <h2 class="century branco center bold">TUDO BEM!</h2>
+            <!-- Subtitulo -->
+            <h5 class="no-margin  italic bold center corbel laranja-avermelhado">
+              Vamos precisar de algumas informações...
+            </h5>
+          </div>
+          <!-- Forms -->
+          <div class="pad-25">
+            <ion-item class="bg-transparent ">
+              <ion-input class="branco bold italic placeholder" type="text" placeholder="Como você se chama?" [(ngModel)]="registerForm.name"></ion-input>
+            </ion-item>
+            <ion-item class="bg-transparent ">
+              <ion-input class="branco bold italic placeholder" type="email" placeholder="E-mail para login" [(ngModel)]="registerForm.email"></ion-input>
+            </ion-item>
+            <ion-item class="bg-transparent ">
+              <ion-input class="branco bold italic placeholder" type="text" placeholder="Um telefone para contato" [(ngModel)]="registerForm.tel"></ion-input>
+            </ion-item>
+            <ion-item class="bg-transparent mg-top-10">
+              <ion-input class="branco bold italic placeholder" type="password" placeholder="Escolha uma nova senha" [(ngModel)]="registerForm.password"></ion-input>
+            </ion-item>
+
+            <ion-button class="bold italic branco mg-top-20" expand="block" shape="round" (click)="fazerCadastro()">Tudo pronto! Entrar</ion-button>
+          </div>
+          <div class="center mg-top-10">
+            <a class="branco century no-margin" (click)="goToLogin()">Já possuo cadastro</a>
+          </div>
+          
+        
+      </div>
+    </div>
+  </div>
+</ion-content>

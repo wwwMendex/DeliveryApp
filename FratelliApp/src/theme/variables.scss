@@ -1,8 +1,12 @@
-// Ionic Variables and Theming. For more info, please see:
-// http://ionicframework.com/docs/theming/
 
-/** Ionic CSS Variables **/
 :root {
+
+
+
+
+
+
+  
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -229,4 +233,5 @@
   ion-title.title-large {
     --color: white;
   }
+
 }
