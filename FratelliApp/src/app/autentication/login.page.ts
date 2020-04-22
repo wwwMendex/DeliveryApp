@@ -1,8 +1,10 @@
 import { Component, OnInit,} from '@angular/core';
 import { trigger, transition, animate, style } from '@angular/animations'
-import { AuthProvider } from '../../../providers/auth';
-import { FirebaseProvider } from '../../../providers/firebase';
+import { AuthProvider } from '../../providers/auth';
+import { FirebaseProvider } from '../../providers/firebase';
 import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +38,14 @@ export class LoginPage implements OnInit {
     tel: '',
     password: ''
   }
-  constructor(private authProvider: AuthProvider, private firebaseProvider: FirebaseProvider, private loadingController: LoadingController) { }
+  constructor(
+      private authProvider: AuthProvider, 
+      private firebaseProvider: FirebaseProvider, 
+      private loadingController: LoadingController,
+      private router: Router,
+      private storage: Storage,
+    ){ 
+  }
 
   async fazerLogin(){
     const load = await this.loadingController.create({message: 'Checando dados...'});
@@ -44,7 +53,17 @@ export class LoginPage implements OnInit {
     this.authProvider.login(this.loginForm)
       .then((res) => {
         console.log(res);
-        load.dismiss();
+        let uid = res.user.uid;
+        this.firebaseProvider.getUser(uid)
+        .then((res) =>{
+          let data = res.data();
+          this.storage.set('user', data)
+          .then(() => {
+            load.dismiss();
+            this.router.navigateByUrl('home');
+          });
+        });
+        
       })
       .catch((err) => {
         console.log(err);
@@ -66,18 +85,26 @@ export class LoginPage implements OnInit {
         };
         // Salvando usuario no firestore
         this.firebaseProvider.postUser(data)
-          .then(() => {
-            console.log("sucesso");
+          .then(() => { 
+            this.storage.set('user', data)
+            .then(() => {
+              load.dismiss();
+              this.router.navigateByUrl('home');
+            });
           });
-        load.dismiss();
-
       })
       .catch((err) => {
         load.dismiss();
       });
   }
 
-  ngOnInit() {
+  ngOnInit(){
+    this.storage.get('user')
+    .then((user) => {
+      if(user){
+        this.router.navigateByUrl('home');
+      }
+    });
   }
   
   goToLogin(){

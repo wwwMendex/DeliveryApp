@@ -16,4 +16,10 @@ export class FirebaseProvider {
       .collection("Users")
       .doc(data.uid)
       .set(data);
+
+  getUser(uid){
+    return this.afs.firestore.collection('Users').doc(uid)
+    .get();
+
+  }
 }

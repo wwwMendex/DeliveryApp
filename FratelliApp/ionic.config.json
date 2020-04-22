@@ -1,7 +1,8 @@
 {
   "name": "FratelliApp",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }
