@@ -5,6 +5,7 @@ import { FirebaseProvider } from '../../providers/firebase';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 
 @Component({
   selector: 'app-login',
@@ -14,11 +15,11 @@ import { Storage } from '@ionic/storage';
     trigger('slideInOut', [
       transition(':enter', [
         style({transform: 'translateX(100%)', opacity: 0.85}),
-        animate('150ms ease-in', style({transform: 'translateX(0%)', opacity: 1}))
+        animate('300ms ease-in', style({transform: 'translateX(0%)', opacity: 1}))
       ]),
       transition(':leave', [
         style({transform: 'translateX(0%)', opacity: 0.85}),
-        animate('250ms ease-out', style({transform: 'translateX(100%)', opacity: 1}))
+        animate('300ms ease-out', style({transform: 'translateX(100%)', opacity: 1}))
       ])
       
     ])
@@ -44,7 +45,24 @@ export class LoginPage implements OnInit {
       private loadingController: LoadingController,
       private router: Router,
       private storage: Storage,
+      private keyboard: Keyboard,
     ){ 
+      this.keyboard.onKeyboardDidShow()
+      .subscribe(() => {
+        if(this.register){
+          document.getElementById("bg-register").style.height = "165%";
+        }else{
+          document.getElementById("bg-login").style.height = "165%";
+        }
+      });
+      this.keyboard.onKeyboardDidHide()
+      .subscribe(() => {
+        if(this.register){
+          document.getElementById("bg-register").style.height = "100%";
+        }else{
+          document.getElementById("bg-login").style.height = "100%";
+        }
+      });
   }
 
   async fazerLogin(){
@@ -105,6 +123,7 @@ export class LoginPage implements OnInit {
         this.router.navigateByUrl('home');
       }
     });
+    
   }
   
   goToLogin(){
@@ -115,6 +134,7 @@ export class LoginPage implements OnInit {
   goToRegister(){
     this.login = false;
     this.register = true;
+    
   }
 
   

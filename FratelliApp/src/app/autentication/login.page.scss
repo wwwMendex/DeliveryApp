@@ -6,6 +6,7 @@
         background-size: cover;
         background-position: center;
     }
+    
     .bg-register{
         z-index: 999;
         position: absolute;
@@ -20,7 +21,7 @@
     .overlay{
         width: 100%;
         height: 100%;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.952), rgba(0, 0, 0, 0.788), rgba(0, 0, 0, 0.466), rgba(0, 0, 0, 0.952));
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.9));
     }
     .logo-login{
         width: 45%;
