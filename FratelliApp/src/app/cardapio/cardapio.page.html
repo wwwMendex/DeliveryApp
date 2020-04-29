@@ -17,7 +17,7 @@
           Sabores Especiais
         </ion-list-header>
 
-        <ion-item *ngFor="let pizza of cardapio_especiais">
+        <ion-item *ngFor="let pizza of cardapio_especiais" (click)="detalhesItem(pizza.id)">
           <ion-avatar slot="start">
             <img class="border-img" src="./assets/imgs/pizza.jpg">
           </ion-avatar>
@@ -32,7 +32,7 @@
           Sabores Tradicionais
         </ion-list-header>
 
-        <ion-item *ngFor="let pizza of cardapio_tradicionais">
+        <ion-item *ngFor="let pizza of cardapio_tradicionais" (click)="detalhesItem(pizza.id)">
           <ion-avatar slot="start">
             <img class="border-img" src="./assets/imgs/pizza.jpg">
           </ion-avatar>
@@ -49,7 +49,7 @@
           Sabores
         </ion-list-header>
 
-        <ion-item *ngFor="let pizza of cardapio">
+        <ion-item *ngFor="let pizza of cardapio" (click)="detalhesItem(pizza.id)">
           <ion-avatar slot="start">
             <img class="border-img" src="./assets/imgs/pizza.jpg">
           </ion-avatar>
@@ -66,7 +66,7 @@
           Opções
         </ion-list-header>
 
-        <ion-item *ngFor="let bebida of cardapio">
+        <ion-item *ngFor="let bebida of cardapio" (click)="detalhesItem(bebida.id)">
           <ion-avatar slot="start">
             <img class="border-img" src="./assets/imgs/pizza.jpg">
           </ion-avatar>

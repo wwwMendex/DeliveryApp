@@ -26,6 +26,10 @@ const routes: Routes = [
     path: 'sacola',
     loadChildren: () => import('./sacola/sacola.module').then( m => m.SacolaPageModule)
   },
+  {
+    path: 'detalhes-item',
+    loadChildren: () => import('./detalhes-item/detalhes-item.module').then( m => m.DetalhesItemPageModule)
+  },
 
 
   

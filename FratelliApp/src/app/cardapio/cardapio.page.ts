@@ -1,8 +1,9 @@
 import { FirebaseProvider } from './../../providers/firebase';
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { equal } from 'assert';
+import { DetalhesItemPage } from '../detalhes-item/detalhes-item.page';
+import { isNgTemplate } from '@angular/compiler';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class CardapioPage implements OnInit {
   header_title: String;
   loading: any;
   constructor(
+    private modalCtrl: ModalController,
     private firebaseProvider: FirebaseProvider, 
     private route: ActivatedRoute, 
     private router: Router,
@@ -49,6 +51,8 @@ export class CardapioPage implements OnInit {
         this.cardapio_especiais = this.cardapio.filter((obj) => { return obj.sub_type == "Pizzas especiais"});
         this.cardapio_tradicionais = this.cardapio.filter((obj) => { return obj.sub_type == "Pizzas tradicionais"});
         this.loading.dismiss();
+        console.log(this.cardapio_especiais);
+        console.log(this.cardapio_tradicionais);
         break;
       case '2':
         this.tipo_cardapio = 2;
@@ -65,4 +69,15 @@ export class CardapioPage implements OnInit {
   goToHome(){
     this.router.navigateByUrl('home');
   }
+
+  async detalhesItem(id){
+    const item = this.cardapio.filter((obj) => { return obj.id == id});
+    const modal = await this.modalCtrl.create({
+      component: DetalhesItemPage,
+      componentProps: {item}
+    });
+
+    return await modal.present();
+  }
+  
 }

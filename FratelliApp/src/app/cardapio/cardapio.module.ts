@@ -8,8 +8,10 @@ import { CardapioPageRoutingModule } from './cardapio-routing.module';
 
 import { CardapioPage } from './cardapio.page';
 import { ComponentsModule } from '../components/components.module';
+import { DetalhesItemPage } from '../detalhes-item/detalhes-item.page';
 
 @NgModule({
+  entryComponents:[DetalhesItemPage],
   imports: [
     ComponentsModule,
     CommonModule,
@@ -17,6 +19,6 @@ import { ComponentsModule } from '../components/components.module';
     IonicModule,
     CardapioPageRoutingModule
   ],
-  declarations: [CardapioPage]
+  declarations: [CardapioPage, DetalhesItemPage]
 })
 export class CardapioPageModule {}
