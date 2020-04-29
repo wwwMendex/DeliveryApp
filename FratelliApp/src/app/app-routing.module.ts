@@ -18,6 +18,12 @@ const routes: Routes = [
     loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'cardapio/:id',
+    loadChildren: () => import('./cardapio/cardapio.module').then( m => m.CardapioPageModule),
+    canActivate: [AuthGuard]
+  },
+
   
   
 ];

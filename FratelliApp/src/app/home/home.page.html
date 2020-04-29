@@ -1,10 +1,16 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>homes</ion-title>
+    <ion-button fill="clear" slot="start" color="primary">
+      <ion-icon slot="icon-only" name="menu"> </ion-icon>
+    </ion-button>
+    <ion-title>Home</ion-title>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-button (click)="goToMenu()"> menu</ion-button>
+  <ion-button (click)="goToCardapioSalgadas()"> Salgadas</ion-button>
+  <ion-button (click)="goToCardapioDoces()"> Doces</ion-button>
+  <ion-button (click)="goToCardapioBebidas()"> Bebidas</ion-button>
   <ion-button (click)="logout()"> sair</ion-button>
 </ion-content>

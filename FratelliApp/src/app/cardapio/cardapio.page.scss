@@ -1,0 +1,38 @@
+ion-toolbar{
+    --background: #E5690B;
+}
+ion-title{
+    padding-left: 45px;
+}
+.pad-right-10{
+    padding-right: 10px;
+}
+.sub-categoria{
+    font-weight: 700;
+    font-size: 20px;
+    color: #502407;
+}
+.border-img{
+    border: 2px solid #502407;
+}
+.item-title{
+    color: #383825;
+    font-weight: 700;
+    font-size: 19px;
+    text-transform: uppercase;
+    width: 80%;
+}
+.item-description{
+    color: #535353;
+    font-size: 16px;
+    font-style: italic;
+    width: 80%;
+}
+.item-price{
+    color: #252519;
+    position: absolute;
+    font-size: 19px;
+    font-weight: 700;
+    right: 0;
+    bottom: 13px;
+}

@@ -16,18 +16,39 @@ export class HomePage implements OnInit {
   ngOnInit() {
   }
 
-  goToMenu(){
+  goToCardapioSalgadas(){
     let options: NativeTransitionOptions = {
-      direction: 'left',
+      direction: 'right',
       duration: 500,
       iosdelay: 100,
       androiddelay: 100,
       slowdownfactor: -1,
      }
      this.nativePageTransitions.slide(options);
-     this.router.navigateByUrl('menu');
+     this.router.navigateByUrl('cardapio/1');
   }
-
+  goToCardapioDoces(){
+    let options: NativeTransitionOptions = {
+      direction: 'right',
+      duration: 500,
+      iosdelay: 100,
+      androiddelay: 100,
+      slowdownfactor: -1,
+     }
+     this.nativePageTransitions.slide(options);
+     this.router.navigateByUrl('cardapio/2');
+  }
+  goToCardapioBebidas(){
+    let options: NativeTransitionOptions = {
+      direction: 'right',
+      duration: 500,
+      iosdelay: 100,
+      androiddelay: 100,
+      slowdownfactor: -1,
+     }
+     this.nativePageTransitions.slide(options);
+     this.router.navigateByUrl('cardapio/3');
+  }
   logout(){
     this.storage.remove('user');
     this.router.navigateByUrl('auth');
