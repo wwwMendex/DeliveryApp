@@ -2,6 +2,8 @@ import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { SacolaPage } from '../sacola/sacola.page';
 
 
 @Component({
@@ -11,7 +13,14 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit {
 
-  constructor(private nativePageTransitions: NativePageTransitions, private router: Router, private storage: Storage) { }
+  constructor(
+    private nativePageTransitions: NativePageTransitions,
+    private router: Router,
+    private storage: Storage,
+    private modalCtrl: ModalController,
+  ) { 
+
+  }
 
   ngOnInit() {
   }
@@ -53,4 +62,6 @@ export class HomePage implements OnInit {
     this.storage.remove('user');
     this.router.navigateByUrl('auth');
   }
+
+  
 }

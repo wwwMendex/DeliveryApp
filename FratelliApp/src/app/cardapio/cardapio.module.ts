@@ -7,9 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { CardapioPageRoutingModule } from './cardapio-routing.module';
 
 import { CardapioPage } from './cardapio.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
+    ComponentsModule,
     CommonModule,
     FormsModule,
     IonicModule,

@@ -11,11 +11,11 @@ import { equal } from 'assert';
   styleUrls: ['./cardapio.page.scss'],
 })
 export class CardapioPage implements OnInit {
-  tipo_cardapio;
+  tipo_cardapio: any;
   cardapio: any;
   cardapio_especiais: any;
   cardapio_tradicionais: any;
-  header_title = "";
+  header_title: String;
   loading: any;
   constructor(
     private firebaseProvider: FirebaseProvider, 
@@ -28,7 +28,6 @@ export class CardapioPage implements OnInit {
 
    async ngOnInit() {
     this.loading = await this.loadingController.create();
-    console.log("carregamento");
     this.loading.present();
     this.route.params.subscribe( parametros => {
       if (parametros['id']) {

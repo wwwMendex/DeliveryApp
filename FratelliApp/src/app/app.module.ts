@@ -16,16 +16,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 
+// footer module
+import { FooterComponent } from './components/footer/footer.component';
+import { ComponentsModule } from './components/components.module';
 // Import providers
 import { AuthProvider } from '../providers/auth';
 import { FirebaseProvider } from '../providers/firebase';
 
 
+
 @NgModule({
   declarations: [AppComponent, ],
-  entryComponents: [ ],
+  entryComponents: [FooterComponent],
   imports: 
     [
+      ComponentsModule,
       BrowserModule,
       BrowserAnimationsModule,
       IonicModule.forRoot(), 
