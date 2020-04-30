@@ -1,0 +1,45 @@
+.bg-item-details{
+    width: 100%;
+    height: 30%;
+    background-image: url('../../assets/imgs/item_details.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.btnClose{
+    right: 0;
+    position: absolute;
+}
+.item-name{
+    text-transform: uppercase;
+    margin-left: 10px;
+    color: #383825;
+}
+.div-description{
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 20px 15px;
+}
+.item-description{
+    color: #E5690B;
+    font-size: 20px;
+}
+.div-observation{
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 2px 15px;
+}
+.item-observation{
+    --color: #E5690B;
+    --placeholder-opacity: 0.8;
+    font-size: 20px;
+}
+.btnQtd{
+    margin-top: 0 !important;
+}
+.numQtd{
+    font-size: 28px;
+    color: #383825;
+}
+.btnAdd{
+    padding: 0px 10px 5px 10px;
+}

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { SacolaPage } from '../sacola/sacola.page';
 
 
 @Component({

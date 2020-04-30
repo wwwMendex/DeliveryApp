@@ -49,7 +49,6 @@
 .branco{
     color: $branco;
 }
-
 // position classes
 .center{
     text-align: center;
@@ -109,9 +108,14 @@
 .no-pad{
     padding: 0;
 }
+
 .pad-25{
     padding: 25px 25px 0px 25px;
 }
+.pad-10{
+    padding: 10px 10px 0px 10px;
+}
+
 .pad-5{
     padding: 5px 5px 5px 5px;
 }

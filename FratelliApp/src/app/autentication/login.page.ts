@@ -6,6 +6,7 @@ import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -46,6 +47,7 @@ export class LoginPage implements OnInit {
       private router: Router,
       private storage: Storage,
       private keyboard: Keyboard,
+      private toastCtrl: ToastController
     ){ 
       this.keyboard.onKeyboardDidShow()
       .subscribe(() => {
@@ -86,6 +88,7 @@ export class LoginPage implements OnInit {
       .catch((err) => {
         console.log(err);
         load.dismiss();
+        this.toastError('Usuário ou senha incorretos.');
       });
   }
   async fazerCadastro(){
@@ -113,6 +116,7 @@ export class LoginPage implements OnInit {
       })
       .catch((err) => {
         load.dismiss();
+        this.toastError(err);
       });
   }
 
@@ -135,6 +139,15 @@ export class LoginPage implements OnInit {
     this.login = false;
     this.register = true;
     
+  }
+
+  async toastError(text) {
+    const toast = await this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      color: "danger"
+    });
+    toast.present();
   }
 
   
