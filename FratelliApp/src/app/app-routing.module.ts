@@ -22,13 +22,16 @@ const routes: Routes = [
     path: 'cardapio/:id',
     loadChildren: () => import('./cardapio/cardapio.module').then( m => m.CardapioPageModule),
     canActivate: [AuthGuard]
-  },  {
+  },
+  {
     path: 'sacola',
-    loadChildren: () => import('./sacola/sacola.module').then( m => m.SacolaPageModule)
+    loadChildren: () => import('./sacola/sacola.module').then( m => m.SacolaPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'detalhes-item',
-    loadChildren: () => import('./detalhes-item/detalhes-item.module').then( m => m.DetalhesItemPageModule)
+    loadChildren: () => import('./detalhes-item/detalhes-item.module').then( m => m.DetalhesItemPageModule),
+    canActivate: [AuthGuard]
   },
 
 

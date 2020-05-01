@@ -36,3 +36,21 @@ ion-title{
     right: 0;
     bottom: 13px;
 }
+
+@media (max-height: 680px){
+    ion-title{
+        font-size: 15px;
+    }
+    .sub-categoria{
+        font-size: 15px;
+    }
+    .item-title{
+        font-size: 16px;
+    }
+    .item-description{
+        font-size: 13px;
+    }
+    .item-price{
+        font-size: 15px;
+    }
+}

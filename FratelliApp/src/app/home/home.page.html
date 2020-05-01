@@ -1,19 +1,62 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-button fill="clear" slot="start" color="primary">
+<ion-content>
+  <div class="orange-div">
+    <ion-button class="btnMenu" fill="clear" size="large" slot="start" color="light">
       <ion-icon slot="icon-only" name="menu"> </ion-icon>
     </ion-button>
-    <ion-title>Home</ion-title>
 
-  </ion-toolbar>
-</ion-header>
+    <div class="center">
+      <img class="logo-home" src="./assets/imgs/3@Fratelli logo-branco.png" alt="Fratelli logo">
+      <p class="corbel extra-bold marrom explore">Explore nossos sabores!</p>
+    </div>
 
-<ion-content>
-  <ion-button (click)="goToCardapioSalgadas()"> Salgadas</ion-button>
-  <ion-button (click)="goToCardapioDoces()"> Doces</ion-button>
-  <ion-button (click)="goToCardapioBebidas()"> Bebidas</ion-button>
-  <ion-button (click)="logout()"> sair</ion-button>
+    <ion-slides class="slides" pager="true">
+        <ion-slide class="slide" *ngFor="let s of slides; let i = index" [ngStyle]="{'background-image' : 'url(' + s.slide_url + ')'}" [ngClass]="{'left15':i>0}">
+          <div class="overlay">
+            <div class="promo-info">
+              <p class="info">{{s.info}}</p>
+            </div>
+          </div>
+        </ion-slide>
+    </ion-slides>
+  </div>
+  <div class="div-endereco">
+    <p class="century italic no-margin mg-top-30-percent label">Escolha um endereço para entrega</p>
+    <ion-button class="btnEnd mg-top-5" size="large" shape="round" expand="block" fill="outline" color="secondary">
+      <ion-icon name="location-outline" slot="start"> </ion-icon>
+      <p class="endereco">Rua alves</p>
+    </ion-button>
+  </div>
 
+  <div class="div-options mg-top-10-percent">
+    <p class="century italic no-margin label">O que gostaria de pedir?</p>
+    <div class="opcoes center mg-top-5">
+      <div class="bg-opc">
+        <span class="label-opc lbl1 cinza">Salgadas</span>
+        <ion-button class="btnOption" size="large" color="medium" (click)="goToCardapioSalgadas()">
+          <img class="img-opt" src="./assets/icon/icon_salgada.png" alt="Fratelli logo">
+        </ion-button>
+      </div>
+      <div class="bg-opc">
+        <span class="label-opc lbl2 cinza">Doces</span>
+        <ion-button class="btnOption" size="large" color="medium" (click)="goToCardapioDoces()">
+          <img class="img-opt" src="./assets/icon/icon_doce.png" alt="Fratelli logo">
+        </ion-button>
+      </div>
+      <div class="bg-opc">
+        <span class="label-opc lbl3 cinza">Bebidas</span>
+        <ion-button class="btnOption" size="large" color="medium" (click)="goToCardapioBebidas()">
+          <img class="img-opt" src="./assets/icon/icon_bebida.png" alt="Fratelli logo">
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="mg-top-40-percent">
+    
+    <ion-button (click)="logout()"> sair</ion-button>
+  </div>
 
 </ion-content>
 

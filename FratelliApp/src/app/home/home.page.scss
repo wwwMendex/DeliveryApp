@@ -1,0 +1,163 @@
+
+
+.orange-div{
+    width: 100%;
+    height: 40%;
+    background: #E5690B;
+}
+.explore{
+    font-size: 22px;
+    margin-top: 15px;
+}
+.btnMenu{
+    margin: -3px 0px 0px -6px;
+}
+.logo-home{
+    width: 40%;
+    -webkit-filter: drop-shadow(3px 3px 3px rgb(59, 59, 59));
+    filter: drop-shadow(3px 3px 3px rgb(59, 59, 59));
+}
+.slides{
+    position: absolute;
+    top: 25%;
+    width: 100%;
+    height: 30%;
+    --bullet-background: rgb(59, 59, 59);
+    --bullet-background-active: rgb(27, 27, 27);
+    
+}
+.slide{
+    height: 85%;
+    width: 85% !important;
+    margin-left: 7.5%;
+    border-radius: 10px;
+    background-size: cover;
+    background-color: rgb(36, 36, 36);
+}
+.overlay{
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7));
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+.promo-info{
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    text-align: left;
+}
+.info{
+    color: #fff;
+    font-weight: 700;
+    font-size: 19px;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+.left15{
+    margin-left: 15%;
+}
+.label{
+    font-size: 20px;
+    margin-left: 10%;
+}
+.btnEnd{
+    width: 90%;
+    margin-left: 5%;
+}
+.endereco{
+    width: 90%;
+    text-align: left;
+    text-overflow: ellipsis;
+}
+.img-opt{
+    width: 85%;
+    margin-top: -20px;
+    -webkit-filter: drop-shadow(1px 1px 1px rgba(94, 94, 94, 0.685));
+    filter: drop-shadow(1px 1px 1px rgba(94, 94, 94, 0.685));
+}
+.label-opc{
+    position: absolute;
+    margin-top: 80px;
+    font-weight: 700;
+    z-index: 5;
+}
+.lbl1{
+    margin-left: 6%;
+}
+.lbl2{
+    margin-left: 8.5%;
+}
+.lbl3{
+    margin-left: 7%;
+}
+
+.bg-opc{
+    padding: 3px;
+    width: 30%;
+    display: inline-block;
+}
+.btnOption{
+    height: 100px;
+    --border-radius: 10px;
+    --box-shadow: 1px 1px 5px -1px rgba(0,0,0,0.43);
+}
+//dispositivos menores
+@media (max-height: 680px) 
+{
+    .logo-home{
+        width: 30%;
+    }
+
+    .explore{
+        margin-top: 10px;
+        font-size: 18px;
+    }
+    .info{
+        font-size: 14px;
+    }
+    .btnMenu{
+        height: 40px;
+        margin-top: 5px;
+    }
+    .slides{
+        height: 35%;
+    }
+    .slide{
+        height: 83%;
+    }
+    .label{
+        font-size: 15px;
+    }
+
+    // option menu
+    .img-opt{
+        width: 100%;
+        margin-top: -20px;
+    }
+    .label-opc{
+        position: absolute;
+        margin-top: 70px;   
+        font-weight: 700;
+        font-size: 14px;
+        
+    }
+    .lbl1{
+        margin-left: 4.5%;
+    }
+    .lbl2{
+        margin-left: 7.5%;
+    }
+    .lbl3{
+        margin-left: 6%;
+    }
+    
+    .bg-opc{
+        padding: 3px;
+        width: 30%;
+        display: inline-block;
+    }
+    .btnOption{
+        height: 90px;
+        --border-radius: 10px;
+    }
+}

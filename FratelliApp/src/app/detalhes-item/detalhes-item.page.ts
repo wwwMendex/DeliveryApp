@@ -23,14 +23,16 @@ export class DetalhesItemPage implements OnInit {
   ngOnInit() {
   }
 
-  async closeModal(){
+  async closeModal(add){
     await this.modalCtrl.dismiss(); 
-    const toast = await this.toastCtrl.create({
-        message: "Item adicionado ao seu pedido",
-        duration: 2500,
-        color: "secondary"
-      });
-      toast.present();
+    if(add){
+      const toast = await this.toastCtrl.create({
+          message: "Item adicionado ao seu pedido",
+          duration: 2500,
+          color: "secondary"
+        });
+        toast.present();
+    }
   }
   addMore(add){
     return add ? this.numQtd++ : this.numQtd--;
@@ -46,7 +48,7 @@ export class DetalhesItemPage implements OnInit {
       'price' : this.item[0].price
     });
     this.storage.set('pedido', pedido); //armazena no storage novo pedido
-    this.closeModal();
+    this.closeModal(true);
   }
 
 }

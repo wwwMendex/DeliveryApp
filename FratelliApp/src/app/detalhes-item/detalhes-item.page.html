@@ -1,53 +1,39 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>Detalhes</ion-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="closeModal()">
-          <ion-icon slot="icon-only" name="close"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content>
   <div class="center bg-item-details">
     <ion-buttons class="btnClose"  slot="end">
-      <ion-button (click)="closeModal()" color="medium">
+      <ion-button (click)="closeModal(false)" color="medium">
         <ion-icon slot="icon-only" name="chevron-down-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </div>
   <div class="item-data pad-10 mg-top-5">
     <h2 class="item-name century bold no-margin">{{ item[0].name }}</h2>
-    <h4 class="no-margin calibri mg-top-20">Detalhes:</h4>
+    <h4 class="no-margin calibri lblDetalhes">Detalhes:</h4>
     <div class="div-description mg-top-15">
       <h3 class="item-description no-margin century bold">{{item[0].description}}</h3>  
     </div>
     <div *ngIf="item[0].type!='Bebidas'">
       <h4 class="no-margin calibri mg-top-20">Alguma observação?</h4>
       <div class="div-observation mg-top-15">
-        <ion-textarea [(ngModel)]="observation" class="item-observation century bold" rows="3" placeholder="Ex: Sem cebola, retirar azeitonas..."></ion-textarea>
+        <ion-textarea [(ngModel)]="observation" class="item-observation century bold" rows="2" placeholder="Ex: Sem cebola, retirar azeitonas..."></ion-textarea>
       </div>
     </div>
-    
   </div>
-  
-  
 </ion-content>
 
 <ion-footer class="ion-no-border">
   <ion-toolbar>
     <div class="quantidade center mg-top-5">
-      <p>Quantidade</p>
-      <ion-button class="btnQtd" color="danger" (click)="addMore(false)" [disabled]="numQtd<=1">
+      <p class="no-margin lblQtd">Quantidade</p>
+      <ion-button class="btnQtd" size="small" color="danger" (click)="addMore(false)" [disabled]="numQtd<=1">
         <ion-icon slot="icon-only" name="remove-outline" ></ion-icon>
       </ion-button>
       <ion-text class="numQtd bold">&nbsp; {{numQtd}} &nbsp;</ion-text>
-      <ion-button class="btnQtd" color="danger" (click)="addMore(true)" [disabled]="numQtd>=10">
+      <ion-button class="btnQtd" size="small" color="danger" (click)="addMore(true)" [disabled]="numQtd>=10">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </div>
-    <ion-button class="btnAdd mg-top-20" expand="block" size="large" color="danger" (click)="addPedido()">
+    <ion-button class="btnAdd" expand="block" size="large" color="danger" (click)="addPedido()">
       <ion-icon slot="start" name="cart-outline"></ion-icon>Adicionar ao pedido
     </ion-button>
   </ion-toolbar>

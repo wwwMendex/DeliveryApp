@@ -1,6 +1,9 @@
+ion-toolbar{
+    --background: rgb(240, 238, 217);
+}
 .bg-item-details{
     width: 100%;
-    height: 30%;
+    height: 35%;
     background-image: url('../../assets/imgs/item_details.jpg');
     background-size: cover;
     background-position: center;
@@ -42,4 +45,47 @@
 }
 .btnAdd{
     padding: 0px 10px 5px 10px;
+    margin-top: 20px;
+}
+.lblDetalhes{
+    margin-top: 20%;
+}
+
+@media (max-height: 680px){
+    .bg-item-details{
+        height: 30%;
+    }
+    .item-name{
+        font-size: 18px;
+    }
+    .div-description{
+        padding: 10px 10px;
+    }
+    .item-description{
+        font-size: 15px;
+    }
+    .item-observation{
+        font-size: 15px;
+    }
+    h4{
+        font-size: 16px;
+    }
+    .btnQtd{
+        width: 40px;
+    }
+    .numQtd{
+        font-size: 24px;
+    }
+    .lblQtd{
+        font-size: 12px;
+    }
+    .btnAdd{
+        margin-top: 5px;
+        height: 40px;
+        padding: 0px 0px 0px 0px;
+    }
+    .lblDetalhes{
+        margin-top: 10px;
+    }
+
 }

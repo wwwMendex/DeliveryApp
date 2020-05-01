@@ -72,7 +72,6 @@ export class LoginPage implements OnInit {
     load.present();
     this.authProvider.login(this.loginForm)
       .then((res) => {
-        console.log(res);
         let uid = res.user.uid;
         this.firebaseProvider.getUser(uid)
         .then((res) =>{
@@ -86,7 +85,6 @@ export class LoginPage implements OnInit {
         
       })
       .catch((err) => {
-        console.log(err);
         load.dismiss();
         this.toastError('Usuário ou senha incorretos.');
       });

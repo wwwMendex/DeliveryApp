@@ -21,7 +21,20 @@ export class FirebaseProvider {
   getUser(uid){
     return this.afs.firestore.collection('Users').doc(uid)
     .get();
+  }
 
+  getSlides(){
+    return new Promise((resolve, reject) =>{
+      this.afs.firestore.collection('Slides').get()
+      .then((r) => {
+        let array = [];
+        r.forEach((d) => {
+          let item = d.data();
+          array.push(item);
+        });
+        resolve(array);
+      });
+    });
   }
   getCardapio(id){
     switch(id){

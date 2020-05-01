@@ -3,7 +3,7 @@
  * ----------------------------------------------------------------------------
 */
 // import fonts
-@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Noto+Sans:ital,wght@1,700&family=Open+Sans:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:ital,wght@0,300;0,400;0,700;0,800;1,600&display=swap');
 
 .century{
     font-family: 'Didact Gothic', sans-serif;
@@ -16,6 +16,9 @@
 }
 
 // font style
+.extra-bold{
+    font-weight: 800;
+}
 .bold{
     font-weight: 700;
 }
@@ -32,7 +35,7 @@
   $marrom: #502407;
   $cinza: #262618;
   $laranja-avermelhado: #ED4410;
-  $branco: #EDEAC2;
+  $branco: rgb(240, 238, 217);
 
 .laranja-padrao{
     color: $laranja-padrao;
