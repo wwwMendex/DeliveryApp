@@ -63,6 +63,8 @@
 .btnEnd{
     width: 90%;
     margin-left: 5%;
+    font-size: 18px;
+    text-transform: unset;
 }
 .endereco{
     width: 90%;
@@ -101,9 +103,15 @@
     --border-radius: 10px;
     --box-shadow: 1px 1px 5px -1px rgba(0,0,0,0.43);
 }
+.div-options{
+    margin-top: 25px;
+}
 //dispositivos menores
 @media (max-height: 680px) 
 {
+    .div-options{
+        margin-top: 10px;
+    }
     .logo-home{
         width: 30%;
     }
@@ -120,7 +128,7 @@
         margin-top: 5px;
     }
     .slides{
-        height: 35%;
+        height: 33%;
     }
     .slide{
         height: 83%;
@@ -159,5 +167,9 @@
     .btnOption{
         height: 90px;
         --border-radius: 10px;
+    }
+    .btnEnd{
+        height: 45px;
+        font-size: 15px;
     }
 }

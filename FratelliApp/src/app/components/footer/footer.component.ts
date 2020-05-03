@@ -14,7 +14,11 @@ export class FooterComponent implements OnInit {
   ngOnInit() {}
 
   async openSacolaModal(){
-    const modal = await this.modalCtrl.create({component: SacolaPage});
+    const modal = await this.modalCtrl.create({
+      component: SacolaPage,
+      swipeToClose: true,
+      cssClass: "modal",
+    });
     return await modal.present();
   }
 

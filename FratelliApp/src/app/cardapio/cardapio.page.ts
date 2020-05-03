@@ -71,7 +71,9 @@ export class CardapioPage implements OnInit {
     const item = this.cardapio.filter((obj) => { return obj.id == id});
     const modal = await this.modalCtrl.create({
       component: DetalhesItemPage,
-      componentProps: {item}
+      componentProps: {item},
+      swipeToClose: true,
+      cssClass: "modal",
     });
 
     return await modal.present();
