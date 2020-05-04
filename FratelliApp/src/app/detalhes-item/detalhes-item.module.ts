@@ -15,6 +15,6 @@ import { DetalhesItemPage } from './detalhes-item.page';
     IonicModule,
     DetalhesItemPageRoutingModule
   ],
-  declarations: [DetalhesItemPage]
+  declarations: []
 })
 export class DetalhesItemPageModule {}

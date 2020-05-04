@@ -9,62 +9,70 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="conteudo mg-top-5-percent">
-    <p class="calibri italic bold no-margin pad-top-10-percent label">Confirme o endereço para entrega</p>
-    <ion-button class="btnEnd mg-top-5" size="large" shape="round" expand="block" fill="outline" color="secondary">
-      <ion-icon name="location-outline" slot="start"> </ion-icon>
-      <p class="endereco">Rua alves</p>
-    </ion-button>
-  </div>
-  <div class="conteudo mg-top-10">
-    <p class="corbel extra-bold no-margin pad-top-10 label">Verifique seu pedido</p>
-    <p class="linha pad-top-10"></p>
-    <div class="item-pedido mg-top-5">
-      <!-- Quantidade -->
-      <div class="quantidade">
-        <button class="buttonQtd">-</button>
-        <span class="numQtd"> 1 </span>
-        <button class="buttonQtd">+</button>
-      </div>
-      <p class="item-type century bold no-margin">Pizza grande (8 pedaços)</p>
-      <p class="item-name corbel italic no-margin">Baiana arretada</p>
-      <p class="item-price corbel bold no-margin">R$ 49,99</p>
-      <p class="linha pad-top-25"></p>
+<ion-content >
+  <!-- SACOLA -->
+  <div *ngIf="pedido!=false && pedido!=[]">
+    <div class="conteudo mg-top-5-percent">
+      <p class="calibri italic bold no-margin pad-top-10-percent label">Confirme o endereço para entrega</p>
+      <ion-button class="btnEnd mg-top-5" size="large" shape="round" expand="block" fill="outline" color="secondary">
+        <ion-icon name="location-outline" slot="start"> </ion-icon>
+        <p class="endereco">Rua alves</p>
+      </ion-button>
     </div>
-    <ion-button class="addMoreItens corbel" expand="full" fill="clear" (click)="goToHome()" color="danger">Escolher mais itens</ion-button>
-    <p class="linha"></p>
-    <p class="lblTotal corbel italic no-margin mg-top-5">Subtotal<span class="valTotal">R$44,00</span></p>
-    <p class="lblTotal corbel no-margin">Taxa de entrega<span class="valTotal">R$4,00</span></p>
-    <p class="lblTotal total corbel extra-bold no-margin">Total<span class="valTotal">R$48,00</span></p>
+    <div class="conteudo mg-top-10">
+      <p class="corbel extra-bold no-margin pad-top-10 label">Verifique seu pedido</p>
+      <p class="linha pad-top-10"></p>
+      <div class="item-pedido mg-top-5" *ngFor="let i of pedido">
+        <!-- Quantidade -->
+        <div class="quantidade">
+          <button class="buttonQtd" (click)="removerItem(i.id)">-</button>
+          <span class="numQtd"> {{i.qtd}} </span>
+          <button class="buttonQtd" (click)="addItem(i.id)" *ngIf="i.qtd<15">+</button>
+        </div>
+        <p class="item-type century bold no-margin" *ngIf="i.type=='Pizzas Doces' || i.type == 'Pizzas Salgadas'">Pizza grande (8 pedaços)</p>
+        <p class="item-type century bold no-margin" *ngIf="i.type=='Bebidas'">Refrigerante</p>
+        <p class="item-name corbel italic no-margin">{{i.name}}</p>
+        <p class="item-obs calibri italic no-margin" *ngIf="i.obs!=''">Obs: {{i.obs}} </p>
+        <p class="item-price corbel bold no-margin">R$ {{i.price}}</p>
+        <p class="linha pad-top-25"></p>
+      </div>
+      <ion-button class="addMoreItens corbel" expand="full" fill="clear" (click)="goToHome()" color="danger">Escolher mais itens</ion-button>
+      <p class="linha"></p>
+      <p class="lblTotal corbel italic no-margin mg-top-5">Subtotal<span class="valTotal">R$ {{subtotal}}</span></p>
+      <p class="lblTotal corbel no-margin">Taxa de entrega<span class="valTotal">R$ {{taxa_entrega}}</span></p>
+      <p class="lblTotal total corbel extra-bold no-margin">Total<span class="valTotal">R$ {{total}}</span></p>
+    </div>
+    <div class="cupom mg-top-10">
+      <ion-button class="addMoreItens corbel"  size="large" expand="full" fill="clear" color="warning">
+        <ion-icon class="cupom-icon pad-top-10" name="pizza-outline" slot="start"> </ion-icon>
+        <span class="century bold lblCupom">Se tiver um cupom, utilize-o aqui!</span>
+      </ion-button>
+    </div>
+    <div class="div-pagamento mg-top-10">
+      <p class="corbel extra-bold no-margin pad-top-20 label">Como será o pagamento?</p>
+      <ion-list class="no-pad pagamento mg-top-5">
+        <ion-radio-group>
+          <ion-item>
+            <ion-icon class="iconDin" name="cash-outline"></ion-icon>
+            <ion-label class="lblPagamento"> Dinheiro 
+              <span class="valorTroco" *ngIf="troco==0">(sem troco)</span>
+              <span class="valorTroco" *ngIf="troco && troco!=0">(troco p/ {{troco}})</span>
+            </ion-label>
+            <ion-radio slot="start" class="radioDin" value="dinheiro" (click)="pagamentoDin()"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-icon class="iconCard" name="card-outline"></ion-icon>
+            <ion-label class="lblPagamento"> Cartão na entrega</ion-label>
+            <ion-radio slot="start" class="radioCard" value="card" (click)="pagamentoCard()"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+        
+      </ion-list>
+      <ion-button class="btnAdd" expand="block" size="large" color="danger" (click)="confirmarPedido()">
+        <ion-icon slot="start" name="thumbs-up-sharp"></ion-icon> CONFIRMAR PEDIDO
+      </ion-button>
+    </div>
   </div>
-  <div class="cupom mg-top-10">
-    <ion-button class="addMoreItens corbel"  size="large" expand="full" fill="clear" color="warning">
-      <ion-icon class="cupom-icon pad-top-10" name="pizza-outline" slot="start"> </ion-icon>
-      <span class="century bold lblCupom">Se tiver um cupom, utilize-o aqui!</span>
-    </ion-button>
-  </div>
-  <div class="div-pagamento mg-top-10">
-    <p class="corbel extra-bold no-margin pad-top-20 label">Como será o pagamento?</p>
-    <ion-list class="no-pad pagamento mg-top-5">
-      <ion-radio-group>
-        <ion-item>
-          <ion-icon class="iconDin" name="cash-outline"></ion-icon>
-          <ion-label class="lblPagamento"> Dinheiro</ion-label>
-          <ion-radio slot="start" class="radioDin" value="dinheiro" (click)="pagamentoDin()"></ion-radio>
-        </ion-item>
-        <ion-item>
-          <ion-icon class="iconCard" name="card-outline"></ion-icon>
-          <ion-label class="lblPagamento"> Cartão na entrega</ion-label>
-          <ion-radio slot="start" class="radioCard" value="card" (click)="pagamentoCard()"></ion-radio>
-        </ion-item>
-      </ion-radio-group>
-      
-    </ion-list>
-    <ion-button class="btnAdd" expand="block" size="large" color="danger" (click)="confirmarPedido()">
-      <ion-icon slot="start" name="thumbs-up-sharp"></ion-icon> CONFIRMAR PEDIDO
-    </ion-button>
-
-  </div>
-
+  <!-- SEM ITENS -->
+  <div *ngIf="!pedido || pedido?.length==0"><p class="mg-top-20-percent">Não há nada na sacola</p></div>
 </ion-content>

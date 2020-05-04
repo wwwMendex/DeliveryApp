@@ -15,6 +15,6 @@ import { SacolaPage } from './sacola.page';
     IonicModule,
     SacolaPageRoutingModule
   ],
-  declarations: [SacolaPage]
+  declarations: []
 })
 export class SacolaPageModule {}

@@ -2,7 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { isNumber, isNullOrUndefined } from 'util';
+import { Storage } from '@ionic/storage';
+import { summaryFileName } from '@angular/compiler/src/aot/util';
+
 
 @Component({
   selector: 'app-sacola',
@@ -11,26 +13,94 @@ import { isNumber, isNullOrUndefined } from 'util';
 })
 export class SacolaPage implements OnInit {
   pagamento: any;
-  troco: any = 0;
+  troco: any;
+  pedido:any = false;
+  subtotal:number = 0;
+  taxa_entrega:number = 5;
+  total:number = 0;
 
   constructor(
     private modalCtrl: ModalController,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private storage: Storage,
   ) { 
-
+    
   }
   pagamentoDin(){
     this.pagamento = "dinheiro";
-    this.alertTroco();
+    this.alertTroco("");
   }
   pagamentoCard(){
     this.pagamento = "card";
   }
+  atualizarTotal(){
+    this.subtotal = this.pedido.reduce(( prevVal, item:any ) =>
+      prevVal + (item.price * item.qtd), 0 ).toFixed(2); //duas casas decimais
+    this.total = (Number(this.subtotal) + Number(this.taxa_entrega)).toFixed(2);
+  }
 
-  async alertTroco() {
+  async getPedido(){
+    let pedidoAtual = await this.storage.get('pedido');
+    return pedidoAtual ? pedidoAtual:false;
+  }
+  async confirmarRemover(){
+    const alert = await this.alertController.create({
+      header: 'Deseja remover o item?',
+      buttons: [
+        {
+          text: 'Não!',
+          handler: () => {
+            return false;
+          }
+        }, {
+          text: 'Sim!',
+          handler: () => {
+            return true;
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+  async removerItem(id:any){
+    let index = this.pedido.findIndex((item:any) => {return item.id == id});
+    if(this.pedido[index].qtd == 1){
+      const alert = await this.alertController.create({
+        header: 'Deseja remover o item?',
+        buttons: [
+          {
+            text: 'Não!',
+            role: 'cancel',
+          }, {
+            text: 'Sim!',
+            handler: () => {
+              this.pedido.splice(index, 1);
+              this.atualizarTotal();
+              this.storage.set('pedido', this.pedido);
+            }
+          }
+        ]
+      });
+      alert.present();
+    }else{
+      this.pedido[index].qtd--;
+      this.storage.set('pedido', this.pedido);
+      this.atualizarTotal();
+    }
+  }
+  addItem(id:any){
+    let index = this.pedido.findIndex((item:any) => {return item.id == id});
+    this.pedido[index].qtd++;
+    this.atualizarTotal();
+    this.storage.set('pedido', this.pedido);
+  }
+
+  async alertTroco(warn) {
     const alert = await this.alertController.create({
       header: 'Precisa de troco?',
+      subHeader: warn,
       inputs: [
         {
           name: 'troco',
@@ -49,20 +119,35 @@ export class SacolaPage implements OnInit {
           text: 'Ok',
           handler: (data) => {
             parseFloat(data.troco);
-            if(data.troco){
+            if(data.troco > this.total){
               this.troco = parseFloat(data.troco);
             }else{
-              this.alertTroco();
+              this.alertTroco("O valor deve ser maior que o total do pedido.");
             }
           }
         }
       ]
     });
+    await alert.present();
+    this.troco = 0;
+  }
 
+  async confirmarPedido(){
+    const alert = await this.alertController.create({
+      header: 'Pedido efetuado com Sucesso',
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel'
+        }
+      ]
+    });
     await alert.present();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.pedido = await this.getPedido();
+    this.atualizarTotal();
   }
 
   async closeModal(){
