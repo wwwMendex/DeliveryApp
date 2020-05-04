@@ -37,7 +37,8 @@ export class SacolaPage implements OnInit {
   atualizarTotal(){
     this.subtotal = this.pedido.reduce(( prevVal, item:any ) =>
       prevVal + (item.price * item.qtd), 0 ).toFixed(2); //duas casas decimais
-    this.total = (Number(this.subtotal) + Number(this.taxa_entrega)).toFixed(2);
+    this.total = Number(this.subtotal) + Number(this.taxa_entrega);
+    this.total.toFixed(2);
   }
 
   async getPedido(){
