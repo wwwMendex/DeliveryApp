@@ -33,7 +33,6 @@ export class MenuPage implements OnInit {
       pedido.pedido = pedido.pedido.split(', ');
       pedido.data_pedido = new Date(pedido.data_pedido.seconds * 1000).toLocaleDateString('pt-BR');
     });
-    console.log(this.pedidos);
   }
 
   async closeModal(){
