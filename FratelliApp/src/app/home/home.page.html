@@ -1,6 +1,6 @@
 <ion-content>
   <div class="orange-div">
-    <ion-button class="btnMenu" fill="clear" size="large" slot="start" color="light">
+    <ion-button class="btnMenu" fill="clear" size="large" slot="start" color="light" (click)="abrirMenu()">
       <ion-icon slot="icon-only" name="menu"> </ion-icon>
     </ion-button>
 
@@ -19,8 +19,8 @@
         </ion-slide>
     </ion-slides>
   </div>
-  <div class="div-endereco">
-    <p class="century italic no-margin mg-top-25-percent label">Escolha um endereço para entrega</p>
+  <div class="div-endereco mg-top-30-percent">
+    <p class="century italic no-margin label">Escolha um endereço para entrega</p>
     <ion-button class="btnEnd mg-top-5" size="large" shape="round" expand="block" fill="outline" color="secondary">
       <ion-icon name="location-outline" slot="start"> </ion-icon>
       <p class="endereco">Rua Alves</p>
@@ -31,19 +31,19 @@
     <p class="century italic no-margin label">O que gostaria de pedir?</p>
     <div class="opcoes center mg-top-5">
       <div class="bg-opc">
-        <span class="label-opc lbl1 cinza">Salgadas</span>
+          <span class="label-opc center lbl1 cinza">Salgadas</span>
         <ion-button class="btnOption" size="large" color="medium" (click)="goToCardapioSalgadas()">
           <img class="img-opt" src="./assets/icon/icon_salgada.png" alt="Fratelli logo">
         </ion-button>
       </div>
       <div class="bg-opc">
-        <span class="label-opc lbl2 cinza">Doces</span>
+        <span class="label-opc center cinza">Doces</span>
         <ion-button class="btnOption" size="large" color="medium" (click)="goToCardapioDoces()">
           <img class="img-opt" src="./assets/icon/icon_doce.png" alt="Fratelli logo">
         </ion-button>
       </div>
       <div class="bg-opc">
-        <span class="label-opc lbl3 cinza">Bebidas</span>
+        <span class="label-opc center cinza">Bebidas</span>
         <ion-button class="btnOption" size="large" color="medium" (click)="goToCardapioBebidas()">
           <img class="img-opt" src="./assets/icon/icon_bebida.png" alt="Fratelli logo">
         </ion-button>

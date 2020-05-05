@@ -9,6 +9,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
 
 import { ComponentsModule } from '../components/components.module';
+import { MenuPage } from '../menu/menu.page';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { ComponentsModule } from '../components/components.module';
     HomePageRoutingModule,
     
   ],
-  declarations: [HomePage],
-  entryComponents: []
+  declarations: [HomePage, MenuPage],
+  entryComponents: [MenuPage]
 })
 export class HomePageModule {}

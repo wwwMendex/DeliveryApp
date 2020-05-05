@@ -100,7 +100,8 @@ export class LoginPage implements OnInit {
           name: this.registerForm.name,
           email: this.registerForm.email,
           tel: this.registerForm.tel,
-          uid: uid
+          uid: uid,
+          pontos_fidelidade: 0
         };
         // Salvando usuario no firestore
         this.firebaseProvider.postUser(data)

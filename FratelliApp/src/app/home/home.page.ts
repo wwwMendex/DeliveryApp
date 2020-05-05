@@ -1,9 +1,10 @@
-import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
-import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { FirebaseProvider } from './../../providers/firebase';
+import { MenuPage } from '../menu/menu.page';
+import { slideInAnimation, slideOutAnimation } from '../animations/slideAnimation'
+
 
 
 @Component({
@@ -15,11 +16,10 @@ export class HomePage implements OnInit {
 
   slides: any = [];
   constructor(
-    private nativePageTransitions: NativePageTransitions,
     private router: Router,
-    private storage: Storage,
     private modalCtrl: ModalController,
-    private firebaseProvider: FirebaseProvider
+    private firebaseProvider: FirebaseProvider,
+   
   ) { 
     this.getSlides();
   }
@@ -31,43 +31,28 @@ export class HomePage implements OnInit {
     this.slides = res;
   }
 
+  async abrirMenu(){
+    const modalMenu = await this.modalCtrl.create({
+      component: MenuPage,
+      swipeToClose: true,
+      enterAnimation: slideInAnimation,
+      leaveAnimation: slideOutAnimation,
+      cssClass: "modal-menu",
+    });
+    return await modalMenu.present();
+  }
+
   goToCardapioSalgadas(){
-    // let options: NativeTransitionOptions = {
-    //   direction: 'right',
-    //   duration: 500,
-    //   iosdelay: 100,
-    //   androiddelay: 100,
-    //   slowdownfactor: -1,
-    //  }
-    //  this.nativePageTransitions.slide(options);
      this.router.navigateByUrl('cardapio/1');
   }
   goToCardapioDoces(){
-    // let options: NativeTransitionOptions = {
-    //   direction: 'right',
-    //   duration: 500,
-    //   iosdelay: 100,
-    //   androiddelay: 100,
-    //   slowdownfactor: -1,
-    //  }
-    //  this.nativePageTransitions.slide(options);
+    
      this.router.navigateByUrl('cardapio/2');
   }
   goToCardapioBebidas(){
-    // let options: NativeTransitionOptions = {
-    //   direction: 'right',
-    //   duration: 500,
-    //   iosdelay: 100,
-    //   androiddelay: 100,
-    //   slowdownfactor: -1,
-    //  }
-    //  this.nativePageTransitions.slide(options);
      this.router.navigateByUrl('cardapio/3');
   }
-  logout(){
-    this.storage.remove('user');
-    this.router.navigateByUrl('auth');
-  }
+  
 
   
 }

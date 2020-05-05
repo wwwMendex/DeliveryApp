@@ -33,6 +33,12 @@ const routes: Routes = [
     loadChildren: () => import('./detalhes-item/detalhes-item.module').then( m => m.DetalhesItemPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'menu',
+    loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule),
+    canActivate: [AuthGuard]
+  },
+
 
 
   

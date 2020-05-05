@@ -17,7 +17,7 @@ export class SacolaPage implements OnInit {
   pedido:any = false;
   subtotal:number = 0;
   taxa_entrega:number = 5;
-  total:number = 0;
+  total: number = 0;
 
   constructor(
     private modalCtrl: ModalController,
@@ -35,10 +35,10 @@ export class SacolaPage implements OnInit {
     this.pagamento = "card";
   }
   atualizarTotal(){
-    this.subtotal = this.pedido.reduce(( prevVal, item:any ) =>
-      prevVal + (item.price * item.qtd), 0 ).toFixed(2); //duas casas decimais
+    this.subtotal = parseFloat(this.pedido.reduce(( prevVal, item:any ) =>
+      prevVal + (item.price * item.qtd), 0 ).toFixed(2)); //duas casas decimais
     this.total = Number(this.subtotal) + Number(this.taxa_entrega);
-    this.total.toFixed(2);
+    this.total = parseFloat(this.total.toFixed(2));
   }
 
   async getPedido(){
@@ -148,7 +148,9 @@ export class SacolaPage implements OnInit {
 
   async ngOnInit() {
     this.pedido = await this.getPedido();
-    this.atualizarTotal();
+    if(this.pedido){
+      this.atualizarTotal();
+    }
   }
 
   async closeModal(){

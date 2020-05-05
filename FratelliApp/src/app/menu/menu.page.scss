@@ -1,0 +1,93 @@
+
+ion-toolbar, ion-item{
+    --background: #f3f3f3;
+}
+ion-content{
+    --ion-background-color: #ebebeb;
+}
+.conteudo{
+    background-color: #f3f3f3;
+    padding-bottom: 15px;
+    padding: 15px;
+}
+ion-avatar{
+    width: 50px;
+    height: 50px;
+}
+.lblDados{
+    margin-left: 20px;
+    font-size: 18px;
+}
+.perfil-nome{
+    font-size: 20px;
+    color: rgb(24, 24, 24);
+}
+.perfil-tel{
+    font-size: 18px;
+    color: rgb(15, 15, 15);
+}
+.perfil-edit{
+    color: rgb(224, 107, 17);
+}
+.lblUltimosPedidos{
+    margin-left: 20px;
+}
+.icon-pontos{
+    position: absolute;
+    margin-left: 5px;
+}
+.lblPontos{
+    margin-left: 60px;
+    margin-top: 15px;
+    font-size: 18px;
+}
+.subLblPontos{
+    font-size: 15px;
+    margin-left: 60px;
+}
+.item-name{
+    color: #464646;
+    font-size: 22px;
+}
+.item-date{
+    color: #585858;
+    font-size: 18px;
+}
+.pedido{
+    margin-left: 10px;
+}
+.pedido-total{
+    font-size: 18px;
+    position: absolute;
+    right: 25px;
+}
+.total{
+    color: #E5690B;
+    font-style: normal;
+}
+.linha{
+    border-bottom: 2px solid #e2e2e2;
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.btnEnd{
+    padding-bottom: 10px;
+}
+.icon-end{
+    font-size: 40px;
+    color: #464646;
+}
+.lblEnd{
+    position: absolute;
+    margin-left: 50px;
+    font-size: 20px;
+    color: #464646;
+}
+.subLblEnd{
+    position: absolute;
+    margin-left: 50px;
+    font-size: 18px;
+    margin-top: 25px;
+}

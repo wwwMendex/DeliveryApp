@@ -36,8 +36,16 @@ ion-title{
     right: 0;
     bottom: 13px;
 }
+ion-avatar{
+    width: 60px;
+    height: 60px;
+}
 
 @media (max-height: 680px){
+    ion-avatar{
+        width: 45px;
+        height: 45px;
+    }
     ion-title{
         font-size: 15px;
     }

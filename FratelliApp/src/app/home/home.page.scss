@@ -82,15 +82,7 @@
     margin-top: 80px;
     font-weight: 700;
     z-index: 5;
-}
-.lbl1{
-    margin-left: 6%;
-}
-.lbl2{
-    margin-left: 8.5%;
-}
-.lbl3{
-    margin-left: 7%;
+    width: calc(30% - 6px);
 }
 
 .bg-opc{
@@ -148,21 +140,6 @@
         font-weight: 700;
         font-size: 14px;
         
-    }
-    .lbl1{
-        margin-left: 4.5%;
-    }
-    .lbl2{
-        margin-left: 7.5%;
-    }
-    .lbl3{
-        margin-left: 6%;
-    }
-    
-    .bg-opc{
-        padding: 3px;
-        width: 30%;
-        display: inline-block;
     }
     .btnOption{
         height: 90px;

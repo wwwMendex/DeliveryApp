@@ -26,10 +26,10 @@
           <!-- Forms -->
           <div class="mg-top-25 pad-25">
             <ion-item class="bg-transparent ">
-              <ion-input class="branco bold italic placeholder" type="email" placeholder="Seu e-mail" [(ngModel)]="loginForm.email"></ion-input>
+              <ion-input (keyup.enter)="fazerLogin()" class="branco bold italic placeholder" type="email" placeholder="Seu e-mail" [(ngModel)]="loginForm.email"></ion-input>
             </ion-item>
             <ion-item class="bg-transparent mg-top-10">
-              <ion-input class="branco bold italic placeholder" type="password" placeholder="Sua senha" [(ngModel)]="loginForm.password"></ion-input>
+              <ion-input (keyup.enter)="fazerLogin()" class="branco bold italic placeholder" type="password" placeholder="Sua senha" [(ngModel)]="loginForm.password"></ion-input>
             </ion-item>
 
             <ion-button class="bold italic branco mg-top-25" expand="block" shape="round" (click)="fazerLogin()">Quero pedir pizzas!</ion-button>
@@ -67,16 +67,16 @@
           <!-- Forms -->
           <div class="pad-25 mg-top-40">
             <ion-item class="bg-transparent ">
-              <ion-input class="branco bold italic placeholder" type="text" placeholder="Como você se chama?" [(ngModel)]="registerForm.name"></ion-input>
+              <ion-input (keyup.enter)="fazerCadastro()" class="branco bold italic placeholder" type="text" placeholder="Como você se chama?" [(ngModel)]="registerForm.name"></ion-input>
             </ion-item>
             <ion-item class="bg-transparent ">
-              <ion-input class="branco bold italic placeholder" type="email" placeholder="E-mail para login" [(ngModel)]="registerForm.email"></ion-input>
+              <ion-input (keyup.enter)="fazerCadastro()" class="branco bold italic placeholder" type="email" placeholder="E-mail para login" [(ngModel)]="registerForm.email"></ion-input>
             </ion-item>
             <ion-item class="bg-transparent ">
-              <ion-input class="branco bold italic placeholder" type="text" placeholder="Um telefone para contato" [(ngModel)]="registerForm.tel"></ion-input>
+              <ion-input (keyup.enter)="fazerCadastro()" class="branco bold italic placeholder" type="text" placeholder="Um telefone para contato" [(ngModel)]="registerForm.tel"></ion-input>
             </ion-item>
             <ion-item class="bg-transparent">
-              <ion-input class="branco bold italic placeholder" type="password" placeholder="Escolha uma nova senha" [(ngModel)]="registerForm.password"></ion-input>
+              <ion-input (keyup.enter)="fazerCadastro()" class="branco bold italic placeholder" type="password" placeholder="Escolha uma nova senha" [(ngModel)]="registerForm.password"></ion-input>
             </ion-item>
 
             <ion-button class="bold italic branco mg-top-25" expand="block" shape="round" (click)="fazerCadastro()">Tudo pronto! Entrar</ion-button>

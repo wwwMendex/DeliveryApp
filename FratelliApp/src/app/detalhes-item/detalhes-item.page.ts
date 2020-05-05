@@ -28,8 +28,9 @@ export class DetalhesItemPage implements OnInit {
     if(add){
       const toast = await this.toastCtrl.create({
           message: "Item adicionado ao seu pedido",
-          duration: 2500,
-          color: "secondary"
+          duration: 2200,
+          color: "secondary",
+          position: 'top'
         });
         toast.present();
     }
