@@ -23,6 +23,23 @@ export class FirebaseProvider {
     .get();
   }
 
+  getUltimosPedidos(uid){
+    return new Promise((resolve, reject) =>{ 
+      this.afs.firestore.collection('Pedidos')
+      .orderBy('data_pedido')
+      .where("user_id", "==", uid)
+      .limit(3)
+      .get()
+      .then((r) => {
+        let array = [];
+        r.forEach((d) => {
+          let item = d.data();
+          array.push(item);
+        });
+        resolve(array);
+      });
+    });
+  }
   getSlides(){
     return new Promise((resolve, reject) =>{
       this.afs.firestore.collection('Slides').get()

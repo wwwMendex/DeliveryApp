@@ -2,6 +2,7 @@ import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { FirebaseProvider } from 'src/providers/firebase';
 
 @Component({
   selector: 'app-menu',
@@ -9,14 +10,30 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.page.scss'],
 })
 export class MenuPage implements OnInit {
+  user:any = {
+    email : '',
+    name : '',
+    pontos_fidelidade : 0,
+    tel : '',
+    uid : ''
+  };
+  pedidos:any= [];
 
   constructor(
     private modalCtrl: ModalController,
     private storage: Storage,
-    private router: Router
+    private router: Router,
+    private firebaseProvider: FirebaseProvider
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.user = await this.storage.get('user');
+    this.pedidos = await this.firebaseProvider.getUltimosPedidos(this.user.uid);
+    this.pedidos.forEach(pedido => {
+      pedido.pedido = pedido.pedido.split(', ');
+      pedido.data_pedido = new Date(pedido.data_pedido.seconds * 1000).toLocaleDateString('pt-BR');
+    });
+    console.log(this.pedidos);
   }
 
   async closeModal(){
@@ -24,7 +41,9 @@ export class MenuPage implements OnInit {
   }
   logout(){
     this.storage.remove('user');
+    this.storage.remove('pedido');
     this.router.navigateByUrl('auth');
+    this.closeModal();
   }
 
 }

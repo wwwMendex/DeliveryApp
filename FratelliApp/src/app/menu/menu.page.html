@@ -17,8 +17,8 @@
         <img src="./assets/icon/user.jpg">
       </ion-avatar>
       <ion-label>
-        <p class="perfil-nome century bold">Matheus Mendes</p>
-        <p class="perfil-tel century">11 995899544</p>
+        <p class="perfil-nome century bold">{{user.name}}</p>
+        <p class="perfil-tel century">{{user.tel}}</p>
         <p class="perfil-edit calibri">Editar informações</p>
       </ion-label>
     </ion-item>
@@ -26,22 +26,13 @@
   <div class="pedidos conteudo mg-top-10">
     <h3 class="no-margin lblUltimosPedidos calibri bold cinza mg-top-5">Últimos pedidos</h3>
     <img class="icon-pontos mg-top-10" src="./assets/icon/pontos.png">
-    <p class="no-margin lblPontos century bold cinza">Você tem X pontos de fidelidade</p>
+    <p class="no-margin lblPontos century bold cinza">Você tem <span class="pontos">{{user.pontos_fidelidade}}</span> pontos de fidelidade</p>
     <p class="no-margin subLblPontos century">Troque 10 pontos por uma pizza grátis!</p>
     <div class="mg-top-5-percent">
-      <div class="pedido mg-top-20">
-        <p class="item-name century bold no-margin">1x À moda Fratelli</p>
-        <p class="item-name century bold no-margin">1x Coca-Cola 2,5L</p>
-        <p class="pedido-total corbel italic no-margin">Total: <span class="total bold">R$ 68.99</span></p>
-        <p class="item-date corbel italic no-margin">30/03/2020</p>
-        <p class="linha pad-top-15"></p>
-      </div>
-      <div class="pedido mg-top-20">
-        <p class="item-name century bold no-margin">1x À moda Fratelli</p>
-        <p class="item-name century bold no-margin">1x Coca-Cola 2,5L</p>
-        <p class="pedido-total corbel italic no-margin">Total: <span class="total bold">R$ 68.99</span></p>
-        <p class="item-date corbel italic no-margin">30/03/2020</p>
-        
+      <div class="pedido mg-top-20" *ngFor="let pedido of pedidos">
+        <p class="item-name century bold no-margin" *ngFor="let item of pedido.pedido">{{item}}</p>
+        <p class="pedido-total corbel italic no-margin">Total: <span class="total bold">R$ {{pedido.total}}</span></p>
+        <p class="item-date corbel italic no-margin">{{pedido.data_pedido}}</p>
         <p class="linha pad-top-15"></p>
       </div>
     </div>
