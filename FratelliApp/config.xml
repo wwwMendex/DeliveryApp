@@ -3,7 +3,7 @@
     <name>Fratelli</name>
     <description>Fratelli Delivery APP.</description>
     <author email="matheus.iba@icloud.com" href="http://github.com/wwwmendex">wwwMendex DEV</author>
-    <content original-src="index.html" src="http://localhost:8101" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -154,5 +154,4 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <allow-navigation href="http://localhost:8100" sessionid="6e1da282" />
-    <allow-navigation href="http://localhost:8101" sessionid="f5ff6ea2" />
 </widget>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 
 @Injectable({
@@ -11,10 +11,8 @@ export class AuthGuard implements CanActivate{
     constructor(private router: Router, private storage: Storage){
 
     }
-    canActivate(route: ActivatedRouteSnapshot){
-    return this.storage.get('user')
-    .then((user) => {
-        return user ? true: this.router.parseUrl('auth');
-      });
+    async canActivate(route: ActivatedRouteSnapshot){
+        const user = await this.storage.get('user');
+        return user ? true : this.router.parseUrl('auth');
     }
 }

@@ -22,11 +22,12 @@ import { ComponentsModule } from './components/components.module';
 // Import providers
 import { AuthProvider } from '../providers/auth';
 import { FirebaseProvider } from '../providers/firebase';
+import { FormsModule } from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [AppComponent, ],
+  declarations: [AppComponent,],
   entryComponents: [FooterComponent],
   imports: 
     [

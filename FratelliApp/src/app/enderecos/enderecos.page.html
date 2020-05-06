@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-title class="bold">Endereços</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">
+          <ion-icon slot="icon-only" name="chevron-down-outline" color="dark"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="cadastrarEnd pad-25">
+    <h3 class="lblCadastro century bold laranja-padrao">Cadastre um novo endereço</h3>
+    <form [formGroup]="formEndereco" (ngSubmit)="cadastrarEndereco()">
+      <ion-item class="mg-top-10">
+        <ion-label position="floating">Nome. Ex: Casa, Trabalho, Facul ...</ion-label>
+        <ion-input formControlName="nome"></ion-input>
+      </ion-item>
+      <p class="error no-margin" *ngIf="isSubmitted && errorControl.nome.errors?.required">
+        Nome obrigatório!
+      </p>
+      <p class="error no-margin" *ngIf="isSubmitted && errorControl.nome.errors?.minlength">
+        Nome muito curto.
+      </p>
+      <ion-item>
+        <ion-label position="floating">Rua</ion-label>
+        <ion-input formControlName="rua"></ion-input>
+      </ion-item>
+      <p class="error no-margin" *ngIf="isSubmitted && errorControl.rua.errors?.required">
+        Você precisa inserir sua Rua!
+      </p>
+      <p class="error no-margin" *ngIf="isSubmitted && errorControl.rua.errors?.minlength">
+        No mínimo 5 caracteres.
+      </p>
+      <ion-item>
+        <ion-label position="floating">Número</ion-label>
+        <ion-input formControlName="numero"></ion-input>
+      </ion-item>
+      <p class="error no-margin" *ngIf="isSubmitted && errorControl.numero.errors?.required">
+        Precisamos do número da residência!
+      </p>
+      <ion-item>
+        <ion-label position="floating">Complemento (opicional)</ion-label>
+        <ion-input formControlName="complemento"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Ponto de referência (opicional)</ion-label>
+        <ion-input formControlName="referencia"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label>Selecione o bairro</ion-label>
+        <ion-select formControlName="bairro">
+          <ion-select-option *ngFor="let bairro of bairros">{{bairro.nome}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <p class="error no-margin" *ngIf="isSubmitted && errorControl.bairro.errors?.required">
+        Selecione seu bairro!
+      </p>
+
+      <ion-button class="mg-top-10" type="submit" color="danger" expand="block" >Cadastrar</ion-button>
+    </form>
+  </div>
+  <div class="pad-25">
+    <p class="no-margin center">OU SELECIONE ALGUM DO SEUS</p>
+    <ion-card class="card-selected" button="true">
+      <ion-item>
+        <ion-icon name="location" slot="start"></ion-icon>
+        <ion-label>Trabalho</ion-label>
+        <ion-icon name="checkmark-circle" color="danger"></ion-icon>
+        <ion-button fill="clear">
+          <ion-icon name="ellipsis-vertical-outline" slot="end" color="dark"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-card-content>
+        Rua Voluntário Augusto Vasconcellos, 448. Jardim São Lourenço
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>

@@ -1,0 +1,14 @@
+ion-toolbar, ion-content{
+    --ion-background-color: #f3f3f3;
+}
+.error{
+    color: rgb(199, 37, 37);
+    margin-top: 5px;
+    margin-left: 16px;
+}
+ion-card, ion-card ion-item{
+    --background: #f7f7f7;
+}
+.card-selected{
+    border: 1.5px solid rgb(214, 60, 60);
+}

@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { FirebaseProvider } from './../../providers/firebase';
 import { MenuPage } from '../menu/menu.page';
 import { slideInAnimation, slideOutAnimation } from '../animations/slideAnimation'
+import { EnderecosPage } from '../enderecos/enderecos.page';
 
 
 
@@ -41,18 +42,13 @@ export class HomePage implements OnInit {
     });
     return await modalMenu.present();
   }
-
-  goToCardapioSalgadas(){
-     this.router.navigateByUrl('cardapio/1');
+  async abrirEndereco(){
+    const modal = await this.modalCtrl.create({
+      component: EnderecosPage,
+      swipeToClose: true,
+    });
+    return await modal.present();
   }
-  goToCardapioDoces(){
-    
-     this.router.navigateByUrl('cardapio/2');
-  }
-  goToCardapioBebidas(){
-     this.router.navigateByUrl('cardapio/3');
-  }
-  
 
   
 }

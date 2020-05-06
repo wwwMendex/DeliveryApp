@@ -9,6 +9,7 @@ import { CardapioPageRoutingModule } from './cardapio-routing.module';
 import { CardapioPage } from './cardapio.page';
 import { ComponentsModule } from '../components/components.module';
 import { DetalhesItemPage } from '../detalhes-item/detalhes-item.page';
+import { EnderecosPage } from '../enderecos/enderecos.page';
 
 @NgModule({
   entryComponents:[DetalhesItemPage],

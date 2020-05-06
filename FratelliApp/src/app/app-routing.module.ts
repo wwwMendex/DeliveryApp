@@ -38,6 +38,12 @@ const routes: Routes = [
     loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'enderecos',
+    loadChildren: () => import('./enderecos/enderecos.module').then( m => m.EnderecosPageModule),
+    canActivate: [AuthGuard]
+  },
+
 
 
 

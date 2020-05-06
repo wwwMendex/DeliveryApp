@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FirebaseProvider } from 'src/providers/firebase';
+import { EnderecosPage } from '../enderecos/enderecos.page';
 
 @Component({
   selector: 'app-menu',
@@ -37,6 +38,13 @@ export class MenuPage implements OnInit {
 
   async closeModal(){
     await this.modalCtrl.dismiss();
+  }
+  async abrirEndereco(){
+    const modal = await this.modalCtrl.create({
+      component: EnderecosPage,
+      swipeToClose: true,
+    });
+    return await modal.present();
   }
   logout(){
     this.storage.remove('user');

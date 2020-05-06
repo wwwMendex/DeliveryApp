@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { summaryFileName } from '@angular/compiler/src/aot/util';
+import { EnderecosPage } from '../enderecos/enderecos.page';
 
 
 @Component({
@@ -155,6 +156,13 @@ export class SacolaPage implements OnInit {
 
   async closeModal(){
     await this.modalCtrl.dismiss();
+  }
+  async abrirEndereco(){
+    const modal = await this.modalCtrl.create({
+      component: EnderecosPage,
+      swipeToClose: true,
+    });
+    return await modal.present();
   }
 
   goToHome(){
