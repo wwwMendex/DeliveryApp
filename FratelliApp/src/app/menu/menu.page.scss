@@ -85,6 +85,7 @@ ion-avatar{
 }
 .btnEnd{
     padding-bottom: 10px;
+    margin-top: 5px;
 }
 .icon-end{
     font-size: 40px;
@@ -101,4 +102,50 @@ ion-avatar{
     margin-left: 50px;
     font-size: 18px;
     margin-top: 25px;
+}
+@media (max-height: 680px){
+    .lblDados, .perfil-tel{
+        font-size: 14px;
+    }
+    ion-avatar{
+        width: 40px;
+        height: 40px;
+    }
+    .perfil-nome, .lblUltimosPedidos, .item-name{
+        font-size: 16px;
+    }
+    .perfil-edit, .item-date, .pedido-total{
+        font-size: 12px;
+    }
+    .icon-pontos{
+        width: 35px;
+        height: 35px;
+    }
+    .lblPontos{
+        margin-left: 45px;
+        font-size: 14px;
+    }
+    .subLblPontos{
+        font-size: 12px;
+        margin-left: 45px;
+    }
+    .sem-pedidos{
+        font-size: 15px;
+        margin-top: 5px;
+    }
+    .icon-end{
+        font-size: 25px;
+    }
+    .lblEnd{
+        font-size: 15px;
+        margin-left: 35px;
+    }
+    .subLblEnd{
+        font-size: 12px;
+        margin-left: 35px;
+    }
+    .btnEnd{
+        margin-top: 0px;
+    }
+
 }

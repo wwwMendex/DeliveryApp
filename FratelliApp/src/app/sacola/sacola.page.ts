@@ -19,6 +19,7 @@ export class SacolaPage implements OnInit {
   subtotal:number = 0;
   taxa_entrega:number = 5;
   total: number = 0;
+  endereco: any = [];
 
   constructor(
     private modalCtrl: ModalController,
@@ -40,6 +41,16 @@ export class SacolaPage implements OnInit {
       prevVal + (item.price * item.qtd), 0 ).toFixed(2)); //duas casas decimais
     this.total = Number(this.subtotal) + Number(this.taxa_entrega);
     this.total = parseFloat(this.total.toFixed(2));
+  }
+  
+  async getEndereco(){
+    let enderecos = await this.storage.get('endereco');
+    if(enderecos && enderecos.cadastrados.length > 0){
+      let selecionado = enderecos.cadastrados.findIndex((end:any) => {return end.id == enderecos.selecionado});
+      return enderecos.cadastrados[selecionado];
+    } else {
+      return null;
+    }
   }
 
   async getPedido(){
@@ -152,6 +163,7 @@ export class SacolaPage implements OnInit {
     if(this.pedido){
       this.atualizarTotal();
     }
+    this.endereco = await this.getEndereco();
   }
 
   async closeModal(){
@@ -162,6 +174,8 @@ export class SacolaPage implements OnInit {
       component: EnderecosPage,
       swipeToClose: true,
     });
+    modal.onDidDismiss().then(async () => this.endereco = await this.getEndereco());
+    return await modal.present();
     return await modal.present();
   }
 

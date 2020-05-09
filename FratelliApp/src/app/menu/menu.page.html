@@ -29,7 +29,7 @@
     <p class="no-margin lblPontos century bold cinza">Você tem <span class="pontos">{{user.pontos_fidelidade}}</span> pontos de fidelidade</p>
     <p class="no-margin subLblPontos century">Troque 10 pontos por uma pizza grátis!</p>
     <div class="mg-top-5-percent">
-      <p class="sem-pedidos century bold no-margin" *ngIf="!pedidos.lenght">Você ainda não fez pedidos</p>
+      <p class="sem-pedidos century bold no-margin" *ngIf="pedidos.lenght == 0">Você ainda não fez pedidos</p>
       <div class="pedido mg-top-20" *ngFor="let pedido of pedidos">
         <p class="item-name century bold no-margin" *ngFor="let item of pedido.pedido">{{item}}</p>
         <p class="pedido-total corbel italic no-margin">Total: <span class="total bold">R$ {{pedido.total}}</span></p>
@@ -39,7 +39,7 @@
     </div>
   </div>
   <div class="conteudo enderecos mg-top-10">
-    <div class="btnEnd mg-top-5" (click)="abrirEndereco()">
+    <div class="btnEnd" (click)="abrirEndereco()">
       <p class="lblEnd century bold no-margin">Endereços</p>
       <p class="subLblEnd century no-margin">Modificar locais para entrega</p>
       <ion-icon class="icon-end" name="location-outline" slot="start"> </ion-icon>
@@ -54,11 +54,13 @@
         </ion-button>
       </ion-label>
     </ion-item>
+    <ion-item>
     <ion-label>
       <ion-button class="century" (click)="logout()" fill="clear" expand="full" color="danger">
         <ion-icon slot="start" name="exit-outline"></ion-icon> Sair (deslogar)
       </ion-button>
     </ion-label>
+  </ion-item>
   </div>
   
 </ion-content>

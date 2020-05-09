@@ -16,7 +16,8 @@
       <p class="calibri italic bold no-margin pad-top-10-percent label">Confirme o endereço para entrega</p>
       <ion-button class="btnEnd mg-top-5" size="large" shape="round" expand="block" fill="outline" color="secondary" (click)="abrirEndereco()">
         <ion-icon name="location-outline" slot="start"> </ion-icon>
-        <p class="endereco">Rua alves</p>
+        <p class="endereco" *ngIf="endereco">{{endereco.rua}}, {{endereco.numero}}</p>
+        <p class="endereco" *ngIf="!endereco">Cadastre um endereço</p>
       </ion-button>
     </div>
     <div class="conteudo mg-top-10">

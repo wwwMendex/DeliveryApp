@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="cadastrarEnd pad-25">
+  <div class="cadastrarEnd pad-20">
     <h3 class="lblCadastro century bold laranja-padrao">Cadastre um novo endereço</h3>
     <form [formGroup]="formEndereco" (ngSubmit)="cadastrarEndereco()">
       <ion-item class="mg-top-10">
@@ -59,22 +59,23 @@
         Selecione seu bairro!
       </p>
 
-      <ion-button class="mg-top-10" type="submit" color="danger" expand="block" >Cadastrar</ion-button>
+      <ion-button class="mg-top-10" type="submit" color="danger" expand="block" *ngIf="cadastrar">Cadastrar</ion-button>
+      <ion-button class="mg-top-10" type="submit" color="primary" expand="block" *ngIf="editar">Salvar alterações</ion-button>
     </form>
   </div>
-  <div class="pad-25">
+  <div class="pad-20" *ngIf="enderecos.cadastrados?.length > 0">
     <p class="no-margin center">OU SELECIONE ALGUM DO SEUS</p>
-    <ion-card class="card-selected" button="true">
+    <ion-card button="true" *ngFor="let end of enderecos.cadastrados; let i = index" [ngClass]="{'card-selected':i==0}">
       <ion-item>
         <ion-icon name="location" slot="start"></ion-icon>
-        <ion-label>Trabalho</ion-label>
-        <ion-icon name="checkmark-circle" color="danger"></ion-icon>
-        <ion-button fill="clear">
+        <ion-label (click)="selecionarEndereco(end.id)">{{end.nome}}</ion-label>
+        <ion-icon name="checkmark-circle" color="danger" *ngIf="i == 0"></ion-icon>
+        <ion-button fill="clear" (click)="presentActionSheet(i)">
           <ion-icon name="ellipsis-vertical-outline" slot="end" color="dark"></ion-icon>
         </ion-button>
       </ion-item>
-      <ion-card-content>
-        Rua Voluntário Augusto Vasconcellos, 448. Jardim São Lourenço
+      <ion-card-content (click)="selecionarEndereco(end.id)">
+        {{end.rua}}, {{end.numero}}. {{end.bairro}}
       </ion-card-content>
     </ion-card>
   </div>

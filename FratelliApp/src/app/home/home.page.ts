@@ -5,6 +5,7 @@ import { FirebaseProvider } from './../../providers/firebase';
 import { MenuPage } from '../menu/menu.page';
 import { slideInAnimation, slideOutAnimation } from '../animations/slideAnimation'
 import { EnderecosPage } from '../enderecos/enderecos.page';
+import { Storage } from '@ionic/storage';
 
 
 
@@ -16,20 +17,33 @@ import { EnderecosPage } from '../enderecos/enderecos.page';
 export class HomePage implements OnInit {
 
   slides: any = [];
+  endereco: any = null;
   constructor(
     private router: Router,
     private modalCtrl: ModalController,
     private firebaseProvider: FirebaseProvider,
+    private storage: Storage
    
   ) { 
-    this.getSlides();
+    
   }
   
-  ngOnInit() {
+  async ngOnInit() {
+    this.endereco = await this.getEndereco();
+    this.slides = await this.getSlides();
   }
   async getSlides(){
-    const res = await this.firebaseProvider.getSlides();
-    this.slides = res;
+    return await this.firebaseProvider.getSlides();
+  }
+
+  async getEndereco(){
+    let enderecos = await this.storage.get('endereco');
+    if(enderecos && enderecos.cadastrados.length > 0){
+      let selecionado = enderecos.cadastrados.findIndex((end:any) => {return end.id == enderecos.selecionado});
+      return enderecos.cadastrados[selecionado];
+    } else {
+      return null;
+    }
   }
 
   async abrirMenu(){
@@ -47,6 +61,7 @@ export class HomePage implements OnInit {
       component: EnderecosPage,
       swipeToClose: true,
     });
+    modal.onDidDismiss().then(async () => this.endereco = await this.getEndereco());
     return await modal.present();
   }
 
