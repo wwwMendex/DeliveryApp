@@ -3,9 +3,9 @@ import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { summaryFileName } from '@angular/compiler/src/aot/util';
 import { EnderecosPage } from '../enderecos/enderecos.page';
-
+import { FirebaseProvider } from '../../providers/firebase';
+import { StatusPage } from '../status/status.page';
 
 @Component({
   selector: 'app-sacola',
@@ -14,7 +14,7 @@ import { EnderecosPage } from '../enderecos/enderecos.page';
 })
 export class SacolaPage implements OnInit {
   pagamento: any;
-  troco: any;
+  troco: any = null;
   pedido:any = false;
   subtotal:number = 0;
   taxa_entrega:number = 5;
@@ -26,15 +26,16 @@ export class SacolaPage implements OnInit {
     private router: Router,
     private alertController: AlertController,
     private storage: Storage,
+    private firebaseProvider: FirebaseProvider
   ) { 
     
   }
   pagamentoDin(){
-    this.pagamento = "dinheiro";
+    this.pagamento = "Dinheiro";
     this.alertTroco("");
   }
   pagamentoCard(){
-    this.pagamento = "card";
+    this.pagamento = "Cartão";
   }
   atualizarTotal(){
     this.subtotal = parseFloat(this.pedido.reduce(( prevVal, item:any ) =>
@@ -146,16 +147,56 @@ export class SacolaPage implements OnInit {
   }
 
   async confirmarPedido(){
-    const alert = await this.alertController.create({
-      header: 'Pedido efetuado com Sucesso',
-      buttons: [
-        {
-          text: 'Ok',
-          role: 'cancel'
-        }
-      ]
+    // const alert = await this.alertController.create({
+    //   header: 'Pedido efetuado com Sucesso',
+    //   buttons: [
+    //     {
+    //       text: 'Ok',
+    //       role: 'cancel'
+    //     }
+    //   ]
+    // });
+    // await alert.present();
+
+    let usuario = await this.storage.get('user');
+    let itens = "";
+    this.pedido.forEach(item => {
+      let retorno = item.qtd + "x " + item.name;
+      if(item.obs){
+        retorno += "(obs): " + item.obs;
+      }
+      itens += retorno + ", ";
     });
-    await alert.present();
+    let data = new Date();
+    // Organizando dados
+    let pedido = {
+      contato: usuario.tel,
+      endereco: this.endereco.rua + ", " + this.endereco.numero + ", " + this.endereco.bairro,
+      entregador: null,
+      horario_pedido: (data.valueOf() - (data.getTimezoneOffset() * 60000)) / 1000 ,
+      horario_entrega: null,
+      id: (Date.now() + Math.random()).toString().replace('.', '').substr(2,9),
+      nome_usuario: usuario.name,
+      pagamento: this.pagamento,
+      pedido: itens.substr(0, (itens.length - 2)),
+      status: 1,
+      subtotal: this.subtotal,
+      taxa_entrega: this.taxa_entrega,
+      total: this.total,
+      troco: this.troco,
+      user_id: usuario.uid,
+    };
+    // Subindo pedido no firestore
+    this.firebaseProvider.postPedido(pedido)
+      .then(() => { 
+        this.storage.set('pedidoEfetuado', pedido.id)
+        .then(() => {
+          this.storage.remove('pedido');
+          this.router.navigateByUrl('home');
+          this.closeModal();
+          this.abrirStatus();
+        });
+      });
   }
 
   async ngOnInit() {
@@ -177,6 +218,14 @@ export class SacolaPage implements OnInit {
     modal.onDidDismiss().then(async () => this.endereco = await this.getEndereco());
     return await modal.present();
     return await modal.present();
+  }
+
+  async abrirStatus(){
+    const modalStatus = await this.modalCtrl.create({
+      component: StatusPage,
+      swipeToClose: true,
+    });
+    return await modalStatus.present();
   }
 
   goToHome(){

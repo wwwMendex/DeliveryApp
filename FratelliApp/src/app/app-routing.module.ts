@@ -43,6 +43,12 @@ const routes: Routes = [
     loadChildren: () => import('./enderecos/enderecos.module').then( m => m.EnderecosPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'status',
+    loadChildren: () => import('./status/status.module').then( m => m.StatusPageModule),
+    canActivate: [AuthGuard]
+  },
+
 
 
 

@@ -1,0 +1,25 @@
+ion-toolbar, ion-content{
+    --ion-background-color: #f3f3f3;
+}
+ion-refresher{
+    background: #f3f3f3;
+}
+.item-name{
+    font-size: 20px;
+}
+.lblTotal{
+    color: #777777;
+    font-size: 18px;
+}
+.total{
+    font-size: 20px;
+    font-weight: 700;
+    color: #E5690B;
+}
+.valTotal{
+    float: right;
+}
+.item-date{
+    color: #585858;
+    font-size: 18px;
+}

@@ -22,12 +22,26 @@ export class FirebaseProvider {
     return this.afs.firestore.collection('Users').doc(uid)
     .get();
   }
+  getPedido(id){
+    return new Promise((resolve, reject) =>{
+      this.afs.firestore.collection('Pedidos').doc(id).get()
+      .then((r) => {
+        resolve(r.data());
+      });
+    });
+  }
+
+  postPedido = data =>
+    this.afs
+      .collection("Pedidos")
+      .doc(data.id)
+      .set(data);
 
   getUltimosPedidos(uid){
     return new Promise((resolve, reject) =>{ 
       this.afs.firestore.collection('Pedidos')
-      .orderBy('data_pedido')
-      .where("user_id", "==", uid)
+      .orderBy('horario_pedido', 'desc')
+      .where("user_id", "==", uid).where("status", "==",4)
       .limit(3)
       .get()
       .then((r) => {

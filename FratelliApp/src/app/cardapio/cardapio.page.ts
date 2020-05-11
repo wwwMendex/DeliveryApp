@@ -1,14 +1,17 @@
 import { FirebaseProvider } from './../../providers/firebase';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DetalhesItemPage } from '../detalhes-item/detalhes-item.page';
+import { Storage } from '@ionic/storage';
+import { HomePage } from '../home/home.page';
 
 
 @Component({
   selector: 'app-cardapio',
   templateUrl: './cardapio.page.html',
   styleUrls: ['./cardapio.page.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class CardapioPage implements OnInit {
   tipo_cardapio: any;
@@ -17,14 +20,17 @@ export class CardapioPage implements OnInit {
   cardapio_tradicionais: any;
   header_title: String;
   loading: any;
+  footer: number = 1;
   constructor(
     private modalCtrl: ModalController,
     private firebaseProvider: FirebaseProvider, 
     private route: ActivatedRoute, 
     private router: Router,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private storage: Storage,
+    private cdr: ChangeDetectorRef
     ) { 
-  
+      setInterval(() => this.atualizarFooter(), 2000);
   }
 
    async ngOnInit() {
@@ -35,6 +41,7 @@ export class CardapioPage implements OnInit {
         this.getCardapio(parametros['id']);
       }
     });
+    this.atualizarFooter();
   }
 
   async getCardapio(id){
@@ -75,8 +82,23 @@ export class CardapioPage implements OnInit {
       swipeToClose: true,
       cssClass: "modal",
     });
-
+    modal.onDidDismiss()
+    .then(() => {
+      this.storage.get('pedido')
+      .then((res) => this.footer = (res && res.length > 0 ? 1 : 2));
+      
+    });
     return await modal.present();
   }
+  async atualizarFooter(){
+    const pedidoEfetuado = await this.storage.get('pedidoEfetuado');
+    const pedidoAberto = await this.storage.get('pedido');
+    if(pedidoEfetuado && pedidoEfetuado != "" && (!pedidoAberto || pedidoAberto.length == 0)){
+      this.footer = 2;
+    }else{
+      this.footer = 1;
+    }
+  }
+
   
 }

@@ -18,7 +18,7 @@ export class MenuPage implements OnInit {
     tel : '',
     uid : ''
   };
-  pedidos:any= [];
+  pedidos:any;
 
   constructor(
     private modalCtrl: ModalController,
@@ -32,7 +32,7 @@ export class MenuPage implements OnInit {
     this.pedidos = await this.firebaseProvider.getUltimosPedidos(this.user.uid);
     this.pedidos.forEach(pedido => {
       pedido.pedido = pedido.pedido.split(', ');
-      pedido.data_pedido = new Date(pedido.data_pedido.seconds * 1000).toLocaleDateString('pt-BR');
+      pedido.data_pedido = new Date(pedido.horario_pedido * 1000).toLocaleString(['pt-BR'], {day:'2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute:'2-digit'});
     });
   }
 

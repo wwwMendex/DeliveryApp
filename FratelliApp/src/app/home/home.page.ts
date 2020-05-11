@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { FirebaseProvider } from './../../providers/firebase';
@@ -6,7 +6,8 @@ import { MenuPage } from '../menu/menu.page';
 import { slideInAnimation, slideOutAnimation } from '../animations/slideAnimation'
 import { EnderecosPage } from '../enderecos/enderecos.page';
 import { Storage } from '@ionic/storage';
-
+import { StatusPage } from '../status/status.page';
+import { interval } from 'rxjs';
 
 
 @Component({
@@ -18,19 +19,22 @@ export class HomePage implements OnInit {
 
   slides: any = [];
   endereco: any = null;
+  pedidoEfetuado:any = false;
+  footer: number=1;
   constructor(
-    private router: Router,
     private modalCtrl: ModalController,
     private firebaseProvider: FirebaseProvider,
-    private storage: Storage
+    private storage: Storage,
+    private cdr: ChangeDetectorRef
    
   ) { 
-    
+    setInterval(() => this.atualizarFooter(), 2000);
   }
   
   async ngOnInit() {
     this.endereco = await this.getEndereco();
     this.slides = await this.getSlides();
+    this.atualizarFooter();
   }
   async getSlides(){
     return await this.firebaseProvider.getSlides();
@@ -57,12 +61,35 @@ export class HomePage implements OnInit {
     return await modalMenu.present();
   }
   async abrirEndereco(){
-    const modal = await this.modalCtrl.create({
+    const modalEnd = await this.modalCtrl.create({
       component: EnderecosPage,
       swipeToClose: true,
     });
-    modal.onDidDismiss().then(async () => this.endereco = await this.getEndereco());
-    return await modal.present();
+    modalEnd.onDidDismiss().then(async () => this.endereco = await this.getEndereco());
+    return await modalEnd.present();
+  }
+
+  async abrirStatus(){
+    const modalStatus = await this.modalCtrl.create({
+      component: StatusPage,
+      swipeToClose: true,
+    });
+    return await modalStatus.present();
+  }
+  async atualizarFooter(){
+    const pedidoEfetuado = await this.storage.get('pedidoEfetuado');
+    if(pedidoEfetuado && pedidoEfetuado != ""){
+      this.pedidoEfetuado = true;
+    }else{
+      this.pedidoEfetuado = false;
+    }
+
+    const pedidoAberto = await this.storage.get('pedido');
+    if(this.pedidoEfetuado && (!pedidoAberto || pedidoAberto.length == 0)){
+      this.footer = 2;
+    }else{
+      this.footer = 1;
+    }
   }
 
   

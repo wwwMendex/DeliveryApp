@@ -1,7 +1,10 @@
 <ion-content>
   <div class="orange-div">
-    <ion-button class="btnMenu" fill="clear" size="large" slot="start" color="light" (click)="abrirMenu()">
+    <ion-button class="btnMenu" fill="clear" size="large" slot="icon-only" color="light" (click)="abrirMenu()">
       <ion-icon slot="icon-only" name="menu"> </ion-icon>
+    </ion-button>
+    <ion-button class="btnPedido" fill="clear" size="large" slot="icon-only" color="light" (click)="abrirStatus()" *ngIf="pedidoEfetuado">
+      <ion-icon slot="icon-only" name="receipt"> </ion-icon>
     </ion-button>
 
     <div class="center">
@@ -53,4 +56,5 @@
   </div>
 </ion-content>
 
-<app-footer></app-footer>
+<app-footer-sacola *ngIf="footer==1"></app-footer-sacola>
+<app-footer-status *ngIf="footer==2"></app-footer-status>

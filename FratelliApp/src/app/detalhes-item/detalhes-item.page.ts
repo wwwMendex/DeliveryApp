@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { FirebaseProvider } from 'src/providers/firebase';
 
 @Component({
   selector: 'app-detalhes-item',
@@ -14,7 +15,7 @@ export class DetalhesItemPage implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private storage: Storage,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
   ) { 
 
   }
@@ -24,11 +25,11 @@ export class DetalhesItemPage implements OnInit {
   }
 
   async closeModal(add){
-    await this.modalCtrl.dismiss(); 
+    await this.modalCtrl.dismiss();
     if(add){
       const toast = await this.toastCtrl.create({
           message: "Item adicionado ao seu pedido",
-          duration: 2200,
+          duration: 1200,
           color: "secondary",
           position: 'top'
         });

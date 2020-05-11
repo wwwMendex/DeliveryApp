@@ -17,7 +17,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 
 // footer module
-import { FooterComponent } from './components/footer/footer.component';
+import { FooterSacolaComponent } from './components/footer/footer-sacola/footer-sacola.component';
+import { FooterStatusComponent } from './components/footer/footer-status/footer-status.component';
 import { ComponentsModule } from './components/components.module';
 // Import providers
 import { AuthProvider } from '../providers/auth';
@@ -26,7 +27,7 @@ import { FirebaseProvider } from '../providers/firebase';
 
 @NgModule({
   declarations: [AppComponent,],
-  entryComponents: [FooterComponent],
+  entryComponents: [FooterSacolaComponent, FooterStatusComponent],
   imports: 
     [
       ComponentsModule,
