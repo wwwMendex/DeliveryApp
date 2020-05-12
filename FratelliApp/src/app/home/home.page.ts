@@ -1,13 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { FirebaseProvider } from './../../providers/firebase';
 import { MenuPage } from '../menu/menu.page';
 import { slideInAnimation, slideOutAnimation } from '../animations/slideAnimation'
 import { EnderecosPage } from '../enderecos/enderecos.page';
 import { Storage } from '@ionic/storage';
 import { StatusPage } from '../status/status.page';
-import { interval } from 'rxjs';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 
 @Component({
@@ -25,7 +25,10 @@ export class HomePage implements OnInit {
     private modalCtrl: ModalController,
     private firebaseProvider: FirebaseProvider,
     private storage: Storage,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private fcm: FCM,
+    private toastCtrl: ToastController,
+    private router: Router,
    
   ) { 
     setInterval(() => this.atualizarFooter(), 2000);
@@ -35,6 +38,14 @@ export class HomePage implements OnInit {
     this.endereco = await this.getEndereco();
     this.slides = await this.getSlides();
     this.atualizarFooter();
+    this.fcm.onNotification().subscribe(data =>{  
+      this.toastCtrl.create({
+        message: 'O status do seu pedido foi atualizado!',
+        duration: 2000,
+        position: "bottom",
+        color: "danger"
+      }).then((toast) => toast.present());
+    });
   }
   async getSlides(){
     return await this.firebaseProvider.getSlides();

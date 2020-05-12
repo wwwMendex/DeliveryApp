@@ -75,5 +75,18 @@
     </div>
   </div>
   <!-- SEM ITENS -->
-  <div *ngIf="!pedido || pedido?.length==0"><p class="mg-top-20-percent">Não há nada na sacola</p></div>
+  <div *ngIf="!pedido || pedido?.length==0">
+    <div class="pad-10">
+      <h2 class="mg-top-20-percent century bold cinza center">Não há nada na sacola!</h2>
+      <p class="corbel cinza center">Vá até a Home e adicione alguns itens</p>
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="12" class="ion-text-center">
+            <ion-button fill='clear' color="danger" (click)="goToHome()">Ir para Home</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+    </div>
+  </div>
 </ion-content>

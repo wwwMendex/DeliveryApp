@@ -23,6 +23,7 @@ import { ComponentsModule } from './components/components.module';
 // Import providers
 import { AuthProvider } from '../providers/auth';
 import { FirebaseProvider } from '../providers/firebase';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 
 @NgModule({
@@ -39,7 +40,6 @@ import { FirebaseProvider } from '../providers/firebase';
       AngularFirestoreModule,
       AngularFireAuthModule,
       IonicStorageModule.forRoot(),
-      
     ],
   providers: 
    [
@@ -48,6 +48,7 @@ import { FirebaseProvider } from '../providers/firebase';
       AuthProvider,
       FirebaseProvider,
       NativePageTransitions,
+      FCM,
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
       
   ],

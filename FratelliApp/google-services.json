@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "433705375558",
+    "firebase_url": "https://fratelli-delivery-9bb82.firebaseio.com",
+    "project_id": "fratelli-delivery-9bb82",
+    "storage_bucket": "fratelli-delivery-9bb82.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433705375558:android:84513c77fefa6a5fceb747",
+        "android_client_info": {
+          "package_name": "com.wwwmendex.fratelli"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "433705375558-ostledk3soo527hio7geibdgttr9lihi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyTa-e-dYEyk_t_rGOAmxFtlSdsk0faOw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "433705375558-ostledk3soo527hio7geibdgttr9lihi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

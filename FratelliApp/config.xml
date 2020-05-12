@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="br.wwwmendex.fratelli" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.wwwmendex.fratelli" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Fratelli</name>
     <description>Fratelli Delivery APP.</description>
     <author email="matheus.iba@icloud.com" href="http://github.com/wwwmendex">wwwMendex DEV</author>
@@ -12,7 +12,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <preference name="ScrollEnabled" value="false" />
-    <preference name="android-minSdkVersion" value="14" />
+    <preference name="android-minSdkVersion" value="16" />
     <preference name="deployment-target" value="7.0" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
@@ -25,6 +25,7 @@
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
             <application android:networkSecurityConfig="@xml/network_security_config" />
         </edit-config>
+        <resource-file src="google-services.json" target="app/google-services.json" />
         <resource-file src="resources/android/xml/network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -51,6 +52,17 @@
         <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+        <resource-file src="resources/android/fcm_push_icon/drawable-xhdpi/fcm_push_icon.png" target="app/src/main/res/drawable-xhdpi/fcm_push_icon.png" />
+        <resource-file src="resources/android/fcm_push_icon/drawable-hdpi/fcm_push_icon.png" target="app/src/main/res/drawable-hdpi/fcm_push_icon.png" />
+        <resource-file src="resources/android/fcm_push_icon/drawable-mdpi/fcm_push_icon.png" target="app/src/main/res/drawable-mdpi/fcm_push_icon.png" />
+        <resource-file src="resources/android/fcm_push_icon/drawable-xhdpi/fcm_push_icon.png" target="app/src/main/res/drawable-xhdpi/fcm_push_icon.png" />
+        <resource-file src="resources/android/fcm_push_icon/drawable-xxhdpi/fcm_push_icon.png" target="app/src/main/res/drawable-xxhdpi/fcm_push_icon.png" />
+        <resource-file src="resources/android/fcm_push_icon/drawable-xxxhdpi/fcm_push_icon.png" target="app/src/main/res/drawable-xxxhdpi/fcm_push_icon.png" />
+        <resource-file src="resources/android/fcm_push_icon/values/colors.xml" target="app/src/main/res/values/colors.xml" />
+        <config-file parent="/manifest/application/" target="app/src/main/AndroidManifest.xml">
+            <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/fcm_push_icon" />
+            <meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/colorPrimary" />
+        </config-file>
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -155,4 +167,5 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <allow-navigation href="http://localhost:8100" sessionid="6e1da282" />
+    <allow-navigation href="http://localhost:8101" sessionid="de786b45" />
 </widget>

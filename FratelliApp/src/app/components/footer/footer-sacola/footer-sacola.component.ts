@@ -15,11 +15,16 @@ export class FooterSacolaComponent implements OnInit {
     private storage: Storage,
     private changeDetectorRef: ChangeDetectorRef
   ) { 
-
+    setInterval(async ()=> this.pedido = await this.getPedido(), 2000);
+  }
+  pedido:any = false;
+  async ngOnInit() {
+    this.getPedido().then((res)=>this.pedido=res);
   }
 
-  async ngOnInit() {
-    
+  async getPedido(){
+    let pedidoAtual = await this.storage.get('pedido');
+    return pedidoAtual && pedidoAtual.length > 0 ? pedidoAtual:false;
   }
 
   async openSacolaModal(){

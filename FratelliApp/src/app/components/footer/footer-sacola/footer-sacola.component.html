@@ -1,4 +1,4 @@
-<ion-footer class="ion-no-border">
+<ion-footer class="ion-no-border" [ngClass]="{'vazio':!pedido}">
   <ion-toolbar>
     <ion-button size="large" expand="full" (click)="openSacolaModal()">Sacola</ion-button>
   </ion-toolbar>

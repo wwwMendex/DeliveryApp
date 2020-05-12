@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { EnderecosPage } from '../enderecos/enderecos.page';
 import { FirebaseProvider } from '../../providers/firebase';
 import { StatusPage } from '../status/status.page';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 @Component({
   selector: 'app-sacola',
@@ -26,7 +27,8 @@ export class SacolaPage implements OnInit {
     private router: Router,
     private alertController: AlertController,
     private storage: Storage,
-    private firebaseProvider: FirebaseProvider
+    private firebaseProvider: FirebaseProvider,
+    private fcm: FCM
   ) { 
     
   }
@@ -56,7 +58,7 @@ export class SacolaPage implements OnInit {
 
   async getPedido(){
     let pedidoAtual = await this.storage.get('pedido');
-    return pedidoAtual ? pedidoAtual:false;
+    return pedidoAtual && pedidoAtual.length > 0 ? pedidoAtual:false;
   }
   async confirmarRemover(){
     const alert = await this.alertController.create({
@@ -126,7 +128,6 @@ export class SacolaPage implements OnInit {
         {
           text: 'Não preciso',
           handler: () => {
-            console.log('não precisa');
             this.troco = 0;
           }
         }, {
@@ -147,16 +148,6 @@ export class SacolaPage implements OnInit {
   }
 
   async confirmarPedido(){
-    // const alert = await this.alertController.create({
-    //   header: 'Pedido efetuado com Sucesso',
-    //   buttons: [
-    //     {
-    //       text: 'Ok',
-    //       role: 'cancel'
-    //     }
-    //   ]
-    // });
-    // await alert.present();
 
     let usuario = await this.storage.get('user');
     let itens = "";
@@ -168,12 +159,13 @@ export class SacolaPage implements OnInit {
       itens += retorno + ", ";
     });
     let data = new Date();
+    // let token = await this.fcm.getToken();
     // Organizando dados
     let pedido = {
       contato: usuario.tel,
       endereco: this.endereco.rua + ", " + this.endereco.numero + ", " + this.endereco.bairro,
       entregador: null,
-      horario_pedido: (data.valueOf() - (data.getTimezoneOffset() * 60000)) / 1000 ,
+      horario_pedido: (data.valueOf()) / 1000 ,
       horario_entrega: null,
       id: (Date.now() + Math.random()).toString().replace('.', '').substr(2,9),
       nome_usuario: usuario.name,
@@ -185,11 +177,24 @@ export class SacolaPage implements OnInit {
       total: this.total,
       troco: this.troco,
       user_id: usuario.uid,
+      token: 1
     };
     // Subindo pedido no firestore
     this.firebaseProvider.postPedido(pedido)
       .then(() => { 
-        this.storage.set('pedidoEfetuado', pedido.id)
+        let pedidos = [];
+        this.storage.get('pedidoEfetuado')
+        .then((res)=>{
+          if(res){
+            res.forEach(ped => {
+              pedidos.push(ped);
+            });
+          }
+        })
+        .then(() => {
+          pedidos.push(pedido.id);
+          this.storage.set('pedidoEfetuado', pedidos);
+        })
         .then(() => {
           this.storage.remove('pedido');
           this.router.navigateByUrl('home');

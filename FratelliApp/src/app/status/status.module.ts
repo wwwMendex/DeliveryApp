@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { StatusPageRoutingModule } from './status-routing.module';
 
 import { StatusPage } from './status.page';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    StatusPageRoutingModule
+    StatusPageRoutingModule,
+    ComponentsModule
   ],
-  declarations: [StatusPage]
+  declarations: []
 })
 export class StatusPageModule {}

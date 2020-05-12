@@ -1,10 +1,10 @@
 import { FirebaseProvider } from './../../providers/firebase';
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DetalhesItemPage } from '../detalhes-item/detalhes-item.page';
 import { Storage } from '@ionic/storage';
-import { HomePage } from '../home/home.page';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 
 @Component({
@@ -28,7 +28,8 @@ export class CardapioPage implements OnInit {
     private router: Router,
     private loadingController: LoadingController,
     private storage: Storage,
-    private cdr: ChangeDetectorRef
+    private fcm: FCM,
+    private toastCtrl: ToastController
     ) { 
       setInterval(() => this.atualizarFooter(), 2000);
   }
@@ -42,6 +43,14 @@ export class CardapioPage implements OnInit {
       }
     });
     this.atualizarFooter();
+    this.fcm.onNotification().subscribe(data =>{  
+      this.toastCtrl.create({
+        message: 'O status do seu pedido foi atualizado!',
+        duration: 2000,
+        position: "bottom",
+        color: "danger"
+      }).then((toast) => toast.present());
+    });
   }
 
   async getCardapio(id){
