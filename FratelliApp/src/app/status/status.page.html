@@ -26,15 +26,18 @@
         <ion-card>
           <div *ngIf="pedido">
             <ion-item>
-              <ion-icon name="checkmark-circle-outline" slot="start" *ngIf="pedido.status==1"></ion-icon> 
-              <ion-icon name="hourglass" slot="start" *ngIf="pedido.status==2"></ion-icon> 
-              <ion-icon name="paper-plane" slot="start" *ngIf="pedido.status==3"></ion-icon>
-              <ion-icon name="checkmark-circle" slot="start" *ngIf="pedido.status==4"></ion-icon>
-              <ion-label class="bold cinza century">STATUS: </ion-label>
+              <ion-icon name="checkmark-circle-outline" class="status-icon" slot="start" *ngIf="pedido.status==1"></ion-icon> 
+              <ion-icon name="hourglass" slot="start" class="status-icon" *ngIf="pedido.status==2"></ion-icon> 
+              <ion-icon name="paper-plane" slot="start" class="status-icon" *ngIf="pedido.status==3"></ion-icon>
+              <ion-icon name="checkmark-circle" slot="start" class="status-icon" *ngIf="pedido.status==4"></ion-icon>
+              <ion-label class="bold cinza century lblStatus">STATUS: </ion-label>
               <ion-button color="warning" fill="outline" *ngIf="pedido.status==1">Pedido enviado</ion-button> 
               <ion-button color="primary" fill="outline" *ngIf="pedido.status==2">Em preparo</ion-button>
               <ion-button color="danger" fill="outline" *ngIf="pedido.status==3">Saiu para entrega</ion-button>
               <ion-button color="success" fill="outline" *ngIf="pedido.status==4">Pedido entregue</ion-button>
+              <ion-button fill="clear" (click)="presentHelpAlert()">
+                <ion-icon name="help" slot="end" color="dark"></ion-icon>
+              </ion-button>
             </ion-item>
             <ion-card-content>
               <p class="no-margin item-name" *ngFor="let item of pedido.pedido">{{item}}</p>
@@ -66,7 +69,7 @@
                   <ion-icon name="checkmark-circle" size="large" color="success"></ion-icon>
                 </div>
               </div>
-              <div class="pad-10">
+              <div class="mg-top-10">
                 <p class="lblTotal corbel italic no-margin mg-top-5">Subtotal<span class="valTotal">R$ {{pedido.subtotal}}</span></p>
                 <p class="lblTotal corbel no-margin">Taxa de entrega<span class="valTotal">R$ {{pedido.taxa_entrega}}</span></p>
                 <p class="lblTotal total corbel no-margin">Total<span class="valTotal">R$ {{pedido.total}}</span></p>

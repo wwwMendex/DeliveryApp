@@ -116,11 +116,19 @@ ion-title{
 ion-item{
     --background: #f3f3f3;
 }
+.radioPontos{
+    --color-checked: rgb(173, 81, 10);
+}
 .radioDin{
     --color-checked: #279623;
 }
 .radioCard{
     --color-checked: #275aa7;
+}
+.iconPontos{
+    font-size: 22px;
+    color: rgb(173, 81, 10);
+    position: absolute;
 }
 .iconDin{
     font-size: 22px;
@@ -180,7 +188,7 @@ ion-item{
     .lblCupom, .lblPagamento{
         font-size: 15px;
     }
-    .iconDin, .iconCard, .numQtd{
+    .iconDin, .iconCard, .iconPontos, .numQtd{
         font-size: 20px;
     }
 }

@@ -12,21 +12,26 @@
 <ion-content>
   <div class="perfil conteudo">
     <p class="no-margin lblDados calibri italic bold cinza">Seus dados</p>
-    <ion-item>
+    <ion-item *ngIf="user">
       <ion-avatar slot="start">
         <img src="./assets/icon/user.jpg">
       </ion-avatar>
       <ion-label>
         <p class="perfil-nome century bold">{{user.name}}</p>
         <p class="perfil-tel century">{{user.tel}}</p>
-        <p class="perfil-edit calibri">Editar informações</p>
       </ion-label>
     </ion-item>
+    <div class="ion-padding custom-skeleton" *ngIf="!user">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+    </div>
   </div>
   <div class="pedidos conteudo mg-top-10">
     <h3 class="no-margin lblUltimosPedidos calibri bold cinza mg-top-5">Últimos pedidos</h3>
     <img class="icon-pontos mg-top-10" src="./assets/icon/pontos.png">
-    <p class="no-margin lblPontos century bold cinza">Você tem <span class="pontos">{{user.pontos_fidelidade}}</span> pontos de fidelidade</p>
+    <p class="no-margin lblPontos century bold cinza">Você tem <span class="pontos">{{user?.pontos_fidelidade}}</span> pontos de fidelidade</p>
     <p class="no-margin subLblPontos century">Troque 10 pontos por uma pizza grátis!</p>
     <div class="mg-top-5-percent">
       <p class="sem-pedidos century bold no-margin" *ngIf="!pedidos || pedidos?.length == 0">Você ainda não fez pedidos</p>

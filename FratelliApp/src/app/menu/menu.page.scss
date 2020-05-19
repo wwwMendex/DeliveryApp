@@ -26,9 +26,6 @@ ion-avatar{
     font-size: 18px;
     color: rgb(15, 15, 15);
 }
-.perfil-edit{
-    color: rgb(224, 107, 17);
-}
 .lblUltimosPedidos{
     margin-left: 20px;
 }
@@ -114,7 +111,7 @@ ion-avatar{
     .perfil-nome, .lblUltimosPedidos, .item-name{
         font-size: 16px;
     }
-    .perfil-edit, .item-date, .pedido-total{
+    .item-date, .pedido-total{
         font-size: 12px;
     }
     .icon-pontos{

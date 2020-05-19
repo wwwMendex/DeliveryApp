@@ -44,15 +44,23 @@
       <p class="lblTotal total corbel extra-bold no-margin">Total<span class="valTotal">R$ {{total}}</span></p>
     </div>
     <div class="cupom mg-top-10">
-      <ion-button class="addMoreItens corbel"  size="large" expand="full" fill="clear" color="warning">
+      <ion-button class="addMoreItens corbel" size="large" expand="full" (click)="inputCupom(cupom)" fill="clear" color="warning">
         <ion-icon class="cupom-icon pad-top-10" name="pizza-outline" slot="start"> </ion-icon>
-        <span class="century bold lblCupom">Se tiver um cupom, utilize-o aqui!</span>
+        <span class="century bold lblCupom" *ngIf="cupom?.length > 0">
+          Cupom aplicado: {{cupom[0].cupom}} - <span *ngIf="cupom[0].type == 'valor'">R$ </span>{{cupom[0].value}}<span *ngIf="cupom[0].type == 'porcentagem'">%</span>
+        </span>
+        <span class="century bold lblCupom" *ngIf="cupom?.length == 0">Se tiver um cupom, utilize-o aqui!</span>
       </ion-button>
     </div>
     <div class="div-pagamento mg-top-10">
       <p class="corbel extra-bold no-margin pad-top-20 label">Como será o pagamento?</p>
       <ion-list class="no-pad pagamento mg-top-5">
         <ion-radio-group>
+          <ion-item *ngIf="user?.pontos_fidelidade ==10">
+            <ion-icon class="iconPontos" name="ribbon-outline"></ion-icon>
+            <ion-label class="lblPagamento"> Utilizar meus pontos</ion-label>
+            <ion-radio slot="start" class="radioPontos" value="pontos" (click)="pagamentoPontos()"></ion-radio>
+          </ion-item>
           <ion-item>
             <ion-icon class="iconDin" name="cash-outline"></ion-icon>
             <ion-label class="lblPagamento"> Dinheiro 
@@ -70,7 +78,10 @@
         
       </ion-list>
       <ion-button class="btnAdd" expand="block" size="large" color="danger" (click)="confirmarPedido()">
-        <ion-icon slot="start" name="thumbs-up-sharp"></ion-icon> CONFIRMAR PEDIDO
+        <ion-icon slot="start" name="thumbs-up-sharp" *ngIf="endereco"></ion-icon>
+        <span *ngIf="endereco"> CONFIRMAR PEDIDO</span>
+        <ion-icon slot="start" name="home-outline" *ngIf="!endereco"></ion-icon>
+        <span *ngIf="!endereco"> ALTERAR ENDEREÇO</span>
       </ion-button>
     </div>
   </div>

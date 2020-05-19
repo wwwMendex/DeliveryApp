@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { FirebaseProvider } from 'src/providers/firebase';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
@@ -18,7 +18,8 @@ export class StatusPage implements OnInit {
     private fb: FirebaseProvider,
     private storage: Storage,
     private router: Router,
-    private fcm : FCM
+    private fcm : FCM,
+    private alertCtrl: AlertController
   ) { 
     
   }
@@ -46,7 +47,7 @@ export class StatusPage implements OnInit {
       }
       pedido['pedido'] = pedido['pedido'].split(', ');
       this.pedidos[index] = pedido;
-      if(pedido['status']==4){
+      if(pedido['status']>=4){
         pedidoAberto--;
         if(pedidoAberto == 0){
           this.storage.remove('pedidoEfetuado');
@@ -55,12 +56,21 @@ export class StatusPage implements OnInit {
       }
       index --;
     });
-    
-    
-    
-    
-    
-    
+  }
+
+  async presentHelpAlert(){
+    const alert = await this.alertCtrl.create({
+      header: 'Ajuda',
+      subHeader: "Alterações ou cancelamentos devem ser feitos com o restaurante. (11) 4033-2332",
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel'
+        }
+      ]
+    });
+    await alert.present();
+
   }
   async closeModal(){
     try{

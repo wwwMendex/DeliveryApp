@@ -67,14 +67,12 @@ export class EnderecosPage implements OnInit {
         enderecoCadastrado.cadastrados[selecionado] = temp;
       }
     }
-    console.log(enderecoCadastrado);
     return enderecoCadastrado ? enderecoCadastrado : [];
   }
 
   async cadastrarEndereco() {
     this.isSubmitted = true;
     if (!this.formEndereco.valid) {
-      console.log('Informe todos os campos')
       return false;
     } else if(this.cadastrar){
       let enderecosSalvos = await this.storage.get('endereco'); //resgata endereços já cadastrados
@@ -145,7 +143,6 @@ export class EnderecosPage implements OnInit {
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancel clicked');
         }
       }]
     });

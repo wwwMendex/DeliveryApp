@@ -30,6 +30,23 @@ export class FirebaseProvider {
       });
     });
   }
+  getCupom(cupom){
+    return new Promise((resolve, reject) =>{
+      this.afs.firestore.collection('Cupom').where('cupom', '==', cupom).get()
+      .then((r) => {
+        if(r.size > 0){
+          let array = [];
+          r.forEach((d) => {
+            let item = d.data();
+            array.push(item);
+          });
+          resolve(array);
+        }else{
+          resolve(null);
+        }
+      });
+    });
+  }
 
   postPedido = data =>
     this.afs
