@@ -1,6 +1,122 @@
 // colors
 $laranja-padrao: #E5690B;
-$marrom: #502407;
+$marrom: #6e340d;
 $cinza: #262618;
-$laranja-avermelhado: #ED4410;
+$cinza-claro: #31312c;
+$prata: #929292;
+$laranja-avermelhado: rgb(233, 79, 33);
 $branco: rgb(240, 238, 217);
+
+// GRIDS
+.painel-container{
+    margin: 0px 5%;
+    display: grid;
+    grid-template-rows: 45vh 55vh;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 10px;
+    grid-template-areas: "panel-1 panel-2 panel-3" "panel-4 panel-5 panel-6";
+    box-sizing: border-box;
+}
+
+.linha{
+    border-bottom: 2px solid #c9c9c9cc;
+    width: 85%;
+    margin-left: 7.5%;
+}
+.panel-1{
+    grid-area: panel-1;
+    background-color: #f5f5f5;
+    img{
+        width: 160px;
+        margin-left: calc(50% - 80px);
+        margin-top: 20px;
+        -webkit-filter: drop-shadow(2px 2px 2px rgba(59, 59, 59, 0.5));
+        filter: drop-shadow(2px 2px 2px rgba(59, 59, 59, 0.5));
+    }
+    .sub-title{
+        letter-spacing: 3px;
+        font-weight: 700;
+        text-align: center;
+        color: $marrom;
+    }
+    .welcome{
+        color: $marrom;
+        text-align: center;
+        padding: 0px 20px;
+    }
+    .description{
+        color: $prata;
+        font-weight: 700;
+        text-align: center;
+        padding: 0px 20px;
+    }
+}
+.panel-2{
+    grid-area: panel-2;
+    background-color: $cinza-claro;
+    img{
+        margin-left: calc(50% - 25px);
+        width: 50px;
+        height: 50px;
+    }
+    .status-open{
+        color: rgb(90, 207, 79);
+        letter-spacing: 3px;
+        text-shadow: 2px 2px 6px rgba(30, 185, 100, 0.5);
+    }
+    .status-close{
+        color: rgb(231, 72, 44);
+        letter-spacing: 3px;
+        text-shadow: 2px 2px 6px rgba(211, 31, 91, 0.5);
+    }
+    .toggle{
+        margin-left: calc(50% - 18px);
+    }
+    .status-description{
+        text-align: center;
+        padding: 15px;
+        color: $prata;
+    }
+}
+.panel-3{
+    grid-area: panel-3;
+    background-color: $cinza-claro;
+    img{
+        margin-left: calc(50% - 25px);
+        width: 50px;
+        height: 50px;
+    }
+    .label-fundo, .label-total{
+        margin-left: 45px;
+    }
+    .fundo, .total{
+        margin-left: 70px;
+    }
+    .btn-container{
+        padding: 15px;
+    }
+    button{
+        outline: none;
+        font-size: 18px;
+    }
+    .btn-fechar{
+        float: right;
+    }
+}
+.panel-4{
+    grid-area: panel-4;
+    background-color: $cinza-claro;
+}
+.panel-5{
+    grid-area: panel-5;
+    background-color: $laranja-avermelhado;
+}
+.panel-6{
+    grid-area: panel-6;
+    background-color: $cinza-claro;
+}
+.panel{
+    margin: 15px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px 2px rgba(68, 68, 68, 0.4);
+}

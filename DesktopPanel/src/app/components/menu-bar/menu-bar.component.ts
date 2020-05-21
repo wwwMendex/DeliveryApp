@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +10,6 @@ export class MenuBarComponent implements OnInit {
 
   active = "painel";
   constructor(
-    private toolbar: MatToolbarModule,
     private router: Router
     ) { 
 

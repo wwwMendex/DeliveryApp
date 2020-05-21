@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./painel.component.scss']
 })
 export class PainelComponent implements OnInit {
-
+  isOpen = true;
   constructor(
     
   ) { }

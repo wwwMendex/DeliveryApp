@@ -31,11 +31,19 @@
 
 // Color classes
   // App colors
-  $laranja-padrao: #E5690B;
-  $marrom: #502407;
-  $cinza: #262618;
-  $laranja-avermelhado: #ED4410;
-  $branco: rgb(240, 238, 217);
+    $laranja-padrao: #E5690B;
+    $marrom: #502407;
+    $cinza: #262618;
+    $laranja-avermelhado: #ED4410;
+    $branco: rgb(240, 238, 217);
+    
+    @import '~@angular/material/theming';
+    @include mat-core();
+    $my-app-primary: mat-palette($mat-orange);
+    $my-app-accent:  mat-palette($mat-light-green);
+    $my-app-warn:    mat-palette($mat-deep-orange);
+    $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+    @include angular-material-theme($my-app-theme);
 
 .laranja-padrao{
     color: $laranja-padrao;
@@ -66,6 +74,7 @@
 .page{
     width: 95%;
     margin-left: 5%;
+    background-color: $branco;
 }
 .mg-top-5-percent{
     margin-top: 5%;

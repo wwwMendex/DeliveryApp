@@ -1,1 +1,40 @@
-<p>painel works!</p>
+<div class="painel-container">
+
+    <div class="panel panel-1">
+        <img src="../../assets/icons/2@Fratelli logo-preto.png" alt="logo fratelli">
+        <p class="no-margin century sub-title">pizza delivery</p>
+        <p class="linha no-margin mg-top-10"></p>
+        <p class="no-margin mg-top-10 calibri bold welcome">Bem-vindo ao gestor de pedidos do seu estabelecimento</p>
+        <p class="no-margin mg-top-10 century description">Este painel facilitará as operações mais comuns,
+             você também pode navegar pelo menu lateral esquerdo.
+        </p>
+    </div>
+
+    <div class="panel panel-2">
+        <h5 class="century bold branco center no-margin mg-top-10">STATUS</h5>
+        <img src="../../assets/icons/open-sign.png" class="mg-top-5" alt="placa aberto" *ngIf="isOpen" />
+        <img src="../../assets/icons/close-sign.png" class="mg-top-5" alt="placa fechado" *ngIf="!isOpen" />
+        <h1 class="status-open no-margin center century" *ngIf="isOpen">ABERTO</h1>
+        <h1 class="status-close no-margin center century" *ngIf="!isOpen">FECHADO</h1>
+        <mat-slide-toggle class="mg-top-10 toggle" [(ngModel)]="isOpen"></mat-slide-toggle>
+        <p class="linha no-margin mg-top-10"></p>
+        <p class="status-description no-margin century bold" *ngIf="isOpen">Seu estabelecimento encontra-se aberto. O APP está ativado para receber novos pedidos!</p>
+        <p class="status-description no-margin century bold" *ngIf="!isOpen">Seu estabelecimento encontra-se fechado. O APP não pode receber novos pedidos!</p>
+    </div>
+
+    <div class="panel panel-3">
+        <h5 class="century bold branco center no-margin mg-top-15">CAIXA</h5>
+        <img src="../../assets/icons/caixa-icon.png" class="mg-top-5" alt="caixa" />
+        <p class="label-fundo branco century no-margin mg-top-15">Fundo inicial:</p>
+        <p class="fundo branco bold century no-margin">R$ 150,00</p>
+        <p class="label-total branco century no-margin mg-top-10">Total de pedidos:</p>
+        <h2 class="total laranja-padrao century bold no-margin">R$ 780,00</h2>
+        <div class="btn-container">
+            <button mat-button color="accent" class="btn-abrir">Abrir</button>
+            <button mat-button color="warn" class="btn-fechar">Fechar</button>
+        </div>
+    </div>
+    <div class="panel panel-4"></div>
+    <div class="panel panel-5"></div>
+    <div class="panel panel-6"></div>
+</div>

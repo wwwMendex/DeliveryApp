@@ -9,6 +9,8 @@ import { PainelComponent } from './painel/painel.component';
 
 //components
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatButtonModule} from '@angular/material/button';
 
 //firebase
 import { environment } from '../environments/environment';
@@ -19,6 +21,7 @@ import { MenuBarComponent } from './components/menu-bar/menu-bar.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { EntregasComponent } from './entregas/entregas.component';
 import { CardapioComponent } from './cardapio/cardapio.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,16 +30,20 @@ import { CardapioComponent } from './cardapio/cardapio.component';
     MenuBarComponent,
     PedidosComponent,
     EntregasComponent,
-    CardapioComponent
+    CardapioComponent,
+
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSlideToggleModule,
+    MatButtonModule
   ],
   providers: [
     FirebaseProvider,
