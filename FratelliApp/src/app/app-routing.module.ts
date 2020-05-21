@@ -48,12 +48,6 @@ const routes: Routes = [
     loadChildren: () => import('./status/status.module').then( m => m.StatusPageModule),
     canActivate: [AuthGuard]
   },
-
-
-
-
-
-  
   
 ];
 

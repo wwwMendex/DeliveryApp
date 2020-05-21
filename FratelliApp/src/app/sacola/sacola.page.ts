@@ -257,7 +257,7 @@ export class SacolaPage implements OnInit {
         valorSemCupom = this.subtotal / ((100 - cupomUtilizado)/100);
         cupomUtilizado += "%";
       }
-      // let token = await this.fcm.getToken();
+      let token = await this.fcm.getToken();
       // Organizando dados
       let pedido = {
         contato: this.user.tel,
@@ -277,7 +277,7 @@ export class SacolaPage implements OnInit {
         total: this.total,
         troco: this.troco,
         user_id: this.user.uid,
-        token: 1
+        token: token
       };
       // Subindo pedido no firestore
       this.firebaseProvider.postPedido(pedido)
