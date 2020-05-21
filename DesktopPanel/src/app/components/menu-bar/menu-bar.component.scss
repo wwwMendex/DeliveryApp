@@ -1,0 +1,46 @@
+// colors
+$laranja-padrao: #E5690B;
+$marrom: #502407;
+$cinza: #262618;
+$laranja-avermelhado: #ED4410;
+$branco: rgb(240, 238, 217);
+
+.icon-1{
+    top: 5%;
+}
+.icon-2{
+    top: 17%;
+}
+.icon-3{
+    top: 29%;
+}
+.icon-4{
+    top: 41%;
+}
+
+mat-toolbar{
+    position: absolute;
+    width: 5%;
+    height: 100%;
+    background-color: $cinza;
+    padding: 0;
+}
+.icon-container{
+    position: absolute;
+    width: 100%;
+    padding: 5px 0px;
+    border-radius: 5px;
+}
+.icon-container img{
+    margin-left: calc(50% - 16px);
+    width: 32px;
+    height: 32px;
+}
+.icon-label{
+    color: $branco;
+    text-align: center;
+    font-size: 15px;
+}
+.active{
+    background-color: #4d4d4d;
+}

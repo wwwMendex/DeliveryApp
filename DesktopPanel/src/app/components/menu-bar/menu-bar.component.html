@@ -1,0 +1,21 @@
+<mat-toolbar>
+    <div class="icon-container icon-1" (click)="goToPage('painel')" [ngClass]="{'active':active=='painel'}">
+        <img src="../../assets/icons/pizza-icon.png" alt="icone principal" />
+        <p class="icon-label no-margin century">Painel</p>
+    </div>
+
+    <div class="icon-container icon-2" (click)="goToPage('pedidos')" [ngClass]="{'active':active=='pedidos'}">
+        <img src="../../assets/icons/pedidos-icon.png" alt="icone principal" />
+        <p class="icon-label no-margin century">Pedidos</p>
+    </div>
+
+    <div class="icon-container icon-3" (click)="goToPage('entregas')" [ngClass]="{'active':active=='entregas'}">
+        <img src="../../assets/icons/moto-icon.png" alt="icone principal" />
+        <p class="icon-label no-margin century">Entregas</p>
+    </div>
+
+    <div class="icon-container icon-4" (click)="goToPage('cardapio')" [ngClass]="{'active':active=='cardapio'}">
+        <img src="../../assets/icons/cardapio-icon.png" alt="icone principal" />
+        <p class="icon-label no-margin century">Cardápio</p>
+    </div>
+</mat-toolbar>
