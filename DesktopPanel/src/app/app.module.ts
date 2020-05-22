@@ -11,6 +11,9 @@ import { PainelComponent } from './painel/painel.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatCardModule} from '@angular/material/card';
 
 //firebase
 import { environment } from '../environments/environment';
@@ -43,7 +46,10 @@ import { FormsModule } from '@angular/forms';
     AngularFirestoreModule,
     MatToolbarModule,
     MatSlideToggleModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule
   ],
   providers: [
     FirebaseProvider,

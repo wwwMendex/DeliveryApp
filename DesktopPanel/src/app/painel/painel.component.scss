@@ -81,39 +81,174 @@ $branco: rgb(240, 238, 217);
 .panel-3{
     grid-area: panel-3;
     background-color: $cinza-claro;
-    img{
-        margin-left: calc(50% - 25px);
-        width: 50px;
-        height: 50px;
+    display: grid;
+    grid-template-rows: calc(25*(45vh - 30px)/100) calc(55*(45vh - 30px)/100) calc(20*(45vh - 30px)/100); // porcentagem da 55vh subtraindo as margens de 15 +15 px
+    grid-template-areas: "p-header" "p-main" "p-footer";
+    .header-panel{
+        grid-area: p-header;
+        img{
+            margin-left: calc(50% - 25px);
+            width: 50px;
+            height: 50px;
+        }
     }
-    .label-fundo, .label-total{
-        margin-left: 45px;
+    .main-panel{
+        grid-area: p-main;
+        .label-fundo, .label-total{
+            margin-left: 45px;
+        }
+        .fundo, .total{
+            margin-left: 70px;
+        }
     }
-    .fundo, .total{
-        margin-left: 70px;
-    }
-    .btn-container{
+    .footer-panel{
+        grid-area: p-footer;
         padding: 15px;
+        button{
+            outline: none;
+            font-size: 18px;
+        }
+        .btn-fechar{
+            float: right;
+        }
     }
-    button{
-        outline: none;
-        font-size: 18px;
-    }
-    .btn-fechar{
-        float: right;
-    }
+    
 }
 .panel-4{
     grid-area: panel-4;
     background-color: $cinza-claro;
+    display: grid;
+    grid-template-rows: calc(15*(55vh - 30px)/100) calc(70*(55vh - 30px)/100) calc(15*(55vh - 30px)/100); // porcentagem da 55vh subtraindo as margens de 15 +15 px
+    grid-template-areas: "p-header" "p-main" "p-footer";
+    .header-panel{
+        grid-area: p-header;
+        img{
+            width: 35px;
+            height: 35px;
+            margin-left: calc(50% - 88px);
+        }
+        .title-panel{
+            font-size: 18px;
+        }
+    }
+    .main-panel{
+        grid-area: p-main;
+        mat-label, input, ::placeholder{
+            color: $branco;
+        }
+        mat-form-field{
+            width: 100%;
+            padding: 0px 30px;
+        }
+        .btn-add{
+            color: $cinza;
+        }
+        .label-pedido{
+            margin-left: 10%;
+        }
+        .pedido{
+            margin-left: 10%;
+        }
+    }
+    .footer-panel{
+        grid-area: p-footer;
+        .btn-confirma{
+            color: $branco;
+        }
+    }
+    .btn{
+        font-weight: 700;
+        font-size: 18px;
+        width: 80%;
+        margin-left: 10%;
+        border-radius: 25px;
+    }
 }
 .panel-5{
     grid-area: panel-5;
     background-color: $laranja-avermelhado;
+    display: grid;
+    grid-template-rows: calc(15*(55vh - 30px)/100) calc(85*(55vh - 30px)/100); // porcentagem da 55vh subtraindo as margens de 15 +15 px
+    grid-template-areas: "p-header" "p-main" ;
+    .header-panel{
+        grid-area: p-header;
+        img{
+            width: 35px;
+            height: 35px;
+            margin-left: calc(50% - 88px);
+        }
+        .title-panel{
+            font-size: 18px;
+        }
+    }
+    .main-panel{
+        .card-pedido{
+            width: 80%;
+            margin-left: 10%;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.815);
+            border-radius: 8px;
+            .nome{
+                font-size: 16px;
+                color: $cinza;
+                font-weight: 700;
+            }
+            .contato{
+                font-size: 14px;
+                color: $cinza-claro;
+                display: inline;
+            }
+            button{
+                outline: none;
+                position: absolute;
+                right: 0;
+                bottom: 0px;
+                font-weight: 700;
+            }
+        }
+
+    }
 }
 .panel-6{
     grid-area: panel-6;
     background-color: $cinza-claro;
+    display: grid;
+    grid-template-rows: calc(15*(55vh - 30px)/100) calc(85*(55vh - 30px)/100); // porcentagem da 55vh subtraindo as margens de 15 +15 px
+    grid-template-areas: "p-header" "p-main" ;
+    .header-panel{
+        grid-area: p-header;
+        img{
+            width: 35px;
+            height: 35px;
+            margin-left: calc(50% - 97px);
+        }
+        .title-panel{
+            font-size: 18px;
+            position: absolute;
+            margin-top: 12px;
+            margin-left: 5px;
+        }
+    }
+    .main-panel{
+        grid-area: p-main;
+        .btn{
+            font-weight: 700;
+            font-size: 18px;
+            width: 80%;
+            margin-left: 10%;
+            margin-top: 15px;
+            border-radius: 25px;
+            color: $branco;
+        }
+        .cupons-label{
+            margin-left: 10%;
+            font-size: 20px;
+        }
+        .cupom{
+            margin-left: 15%;
+            font-size: 16px;
+        }
+    }
 }
 .panel{
     margin: 15px;
