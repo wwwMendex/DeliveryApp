@@ -1,0 +1,117 @@
+// colors
+$laranja-padrao: #E5690B;
+$marrom: #6e340d;
+$cinza: #262618;
+$cinza-claro: #31312c;
+$prata: #929292;
+$prata-claro: #f6f6f6;
+$laranja-avermelhado: rgb(233, 79, 33);
+$branco: rgb(240, 238, 217);
+
+.linha{
+    border-bottom: 2px solid #c9c9c9cc;
+    width: 85%;
+    margin-left: 7.5%;
+}
+
+// GRIDS
+.pedidos-container{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 100vh;
+    grid-template-areas: "lateral main";
+    box-sizing: border-box;
+    .lateral{
+        grid-area: lateral;
+        background-color: $prata-claro;
+        overflow: auto;
+        .card-pedido{
+            width: 80%;
+            margin-left: 10%;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.815);
+            border-radius: 8px;
+            .nome{
+                font-size: 16px;
+                color: $cinza;
+                font-weight: 700;
+            }
+            .contato{
+                font-size: 14px;
+                color: $cinza-claro;
+                display: inline;
+            }
+            button{
+                outline: none;
+                position: absolute;
+                right: 0;
+                bottom: 0px;
+                font-weight: 700;
+            }
+        }
+    }
+    .main{
+        grid-area: main;
+        background-color: $branco;
+        overflow: auto;
+        .preparo{
+            padding: 10px;
+            margin-left: 15px;
+            color: rgb(95, 95, 95);
+        }
+        .pedido-container{
+            width: 30%;
+            min-height: 300px;
+            background-color: $prata-claro;
+            margin: 5px 0 5px 2.5%;
+            display: inline-grid;
+            grid-template-rows: 10% 45% 25% 10% 10%;
+            grid-template-areas: "p-header" "itens" "endereco" "total" "p-footer";
+            border-radius: 8px;
+            box-shadow: 1px 1px 8px 1px rgba(112, 112, 112, 0.212);
+            padding: 10px;
+            .p-header{
+                grid-area: p-header;
+                .nome{
+                    margin-left: 10px;
+                    font-size: 18px;
+                    display: inline;
+                    max-width: 70%;
+                }
+                .horario{
+                    margin-left: 35%;
+                    display: inline;
+                }
+            }
+            .itens{
+                margin-left: 20px;
+                grid-area: itens;
+                font-size: 18px;
+                overflow: auto;
+            }
+            .endereco{
+                margin-left: 20px;
+                grid-area: endereco;
+                font-size: 14px;
+            }
+            .total{
+                grid-area: total;
+                margin-left: 10px;
+            }
+            .p-footer{
+                grid-area: p-footer;
+                .contato{
+                    font-size: 14px;
+                    display: inline;
+                }
+                button{
+                    margin-left: 25px;
+                    padding: 0;
+                    outline: none;
+                }
+            }
+            
+            
+        }
+    }
+}
