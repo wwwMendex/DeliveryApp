@@ -46,4 +46,4 @@ testem.log
 Thumbs.db
 
 # Credentials
-/src/environments/*
+./src/environments
