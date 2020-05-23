@@ -36,6 +36,7 @@
     $cinza: #262618;
     $laranja-avermelhado: #ED4410;
     $branco: rgb(240, 238, 217);
+    $success: rgb(42, 153, 42);
     
     @import '~@angular/material/theming';
     @include mat-core();
@@ -59,6 +60,9 @@
 }
 .branco{
     color: $branco;
+}
+.success{
+    color: $success;
 }
 // position classes
 .center{

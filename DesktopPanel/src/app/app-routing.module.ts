@@ -8,7 +8,7 @@ import { CardapioComponent } from './cardapio/cardapio.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'painel', pathMatch: 'full' },
+  { path: '', redirectTo: sessionStorage.getItem('path') || 'painel', pathMatch: 'full' },
   { path: 'painel', component: PainelComponent },
   { path: 'pedidos', component: PedidosComponent },
   { path: 'entregas', component: EntregasComponent },

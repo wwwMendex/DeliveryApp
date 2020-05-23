@@ -8,17 +8,20 @@ import { Router } from '@angular/router';
 })
 export class MenuBarComponent implements OnInit {
 
-  active = "painel";
+  active: string;
   constructor(
-    private router: Router
+    private router: Router,
     ) { 
-
+      this.active = sessionStorage.getItem('path') ? sessionStorage.getItem('path') : 'painel';
   }
 
   ngOnInit(): void {
+
+
   }
   goToPage(index:string){
     this.active = index;
+    sessionStorage.setItem('path', index);
     this.router.navigateByUrl(index);
   }
 
