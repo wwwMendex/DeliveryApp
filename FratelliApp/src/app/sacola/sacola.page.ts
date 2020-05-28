@@ -294,6 +294,11 @@ export class SacolaPage implements OnInit {
           .then(() => {
             pedidos.push(pedido.id);
             this.storage.set('pedidoEfetuado', pedidos);
+            if(this.pagamento == "Pontos"){
+              this.user.pontos_fidelidade -=10;
+              this.firebaseProvider.postUser(this.user);
+              this.storage.set('user', this.user);
+            }
           })
           .then(() => {
             this.storage.remove('pedido');
@@ -303,11 +308,7 @@ export class SacolaPage implements OnInit {
           });
         });
       }
-      if(this.pagamento == "Pontos"){
-        this.user.pontos_fidelidade -=10;
-        this.firebaseProvider.postUser(this.user);
-        this.storage.set('user', this.user);
-      }
+      
   }
 
   async ngOnInit() {

@@ -15,8 +15,15 @@ ion-card, ion-card ion-item{
 .card-selected{
     border: 1.5px solid rgb(214, 60, 60);
 }
-
-@media (max-height: 680px){
+@media (min-height: 710px){
+    .lblCadastro{
+        font-size: 18px;
+    }
+    .pad-20{
+        padding: 15px 15px 0 15px;
+    }
+}
+@media (max-height: 650px){
     .lblCadastro{
         font-size: 18px;
     }

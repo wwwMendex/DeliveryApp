@@ -48,7 +48,7 @@ export class FirebaseProvider {
     });
   }
 
-  postPedido = data =>
+  postPedido = data => 
     this.afs
       .collection("Pedidos")
       .doc(data.id)

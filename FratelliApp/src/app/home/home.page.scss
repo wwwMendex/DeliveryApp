@@ -104,7 +104,26 @@
     margin-top: 25px;
 }
 //dispositivos menores
-@media (max-height: 680px) 
+@media (min-height: 710px){
+    .explore{
+        font-size: 18px;
+    }
+    .info{
+        font-size: 14px;
+    }
+    .label{
+        font-size: 15px;
+    }
+
+    // option menu
+    .label-opc{
+        font-size: 14px;
+    }
+    .btnEnd{
+        font-size: 15px;
+    }
+}
+@media (max-height: 650px) 
 {
     .div-options{
         margin-top: 10px;

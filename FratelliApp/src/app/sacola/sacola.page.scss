@@ -155,8 +155,36 @@ ion-item{
     width: 90%;
     margin-left: 5%;
 }
-
-@media (max-height: 680px) 
+@media (min-height: 710px){
+    .label, .item-obs{
+        font-size: 15px;
+    }
+    .btnEnd{
+        font-size: 15px;
+    }
+    .item-type, .item-price, .btnAdd{
+        font-size: 18px;
+    }
+    .item-name, .lblTotal{
+        font-size: 16px;
+    }
+    .buttonQtd{
+        font-size: 18px;
+    }
+    .addMoreItens{
+        font-size: 16px;
+    }
+    .cupom-icon, .btnAdd ion-icon{
+        font-size: 25px;
+    }
+    .lblCupom, .lblPagamento{
+        font-size: 16px;
+    }
+    .iconDin, .iconCard, .iconPontos, .numQtd{
+        font-size: 20px;
+    }
+}
+@media (max-height: 650px) 
 {
     .label, .item-obs{
         font-size: 14px;

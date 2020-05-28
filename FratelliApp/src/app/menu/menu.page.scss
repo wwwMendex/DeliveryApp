@@ -100,7 +100,44 @@ ion-avatar{
     font-size: 18px;
     margin-top: 25px;
 }
-@media (max-height: 680px){
+@media (min-height: 710px){
+    .lblDados, .perfil-tel{
+        font-size: 17px;
+    }
+    ion-avatar{
+        width: 35px;
+        height: 35px;
+    }
+    .perfil-nome, .lblUltimosPedidos, .item-name{
+        font-size: 16px;
+    }
+    .item-date, .pedido-total{
+        font-size: 14px;
+    }
+    .icon-pontos{
+        width: 35px;
+        height: 35px;
+    }
+    .lblPontos{
+        font-size: 15px;
+    }
+    .subLblPontos{
+        font-size: 13px;
+    }
+    .sem-pedidos{
+        font-size: 13px;
+    }
+    .icon-end{
+        font-size: 25px;
+    }
+    .lblEnd{
+        font-size: 15px;
+    }
+    .subLblEnd{
+        font-size: 13px;
+    }
+}
+@media (max-height: 650px){
     .lblDados, .perfil-tel{
         font-size: 14px;
     }
