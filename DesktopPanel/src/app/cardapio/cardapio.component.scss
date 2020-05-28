@@ -1,0 +1,96 @@
+// colors
+$laranja-padrao: #E5690B;
+$marrom: #6e340d;
+$cinza: #262618;
+$cinza-claro: #31312c;
+$prata: #929292;
+$prata-claro: #f6f6f6;
+$laranja-avermelhado: rgb(233, 79, 33);
+$branco: rgb(240, 238, 217);
+
+.linha{
+    border-bottom: 2px solid $prata;
+    width: 100%;
+}
+
+// GRIDS
+.cardapio-container{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 10vh 90vh;
+    grid-template-areas: "cardapio-header" "main";
+    box-sizing: border-box;
+
+    .cardapio-header{
+        grid-area: cardapio-header;
+        box-shadow: 2px 2px 8px 2px rgba(68, 68, 68, 0.4);
+        background: $cinza-claro;
+        z-index: 5;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 100%;
+        grid-template-areas: "btn1 btn2 btn3";
+        .btn{
+            height: 40px;
+            width: 60%;
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: calc(5vh - 20px);
+            border-radius: 25px;
+            color: $cinza-claro;
+        }
+        .btn1{
+            grid-area: btn1;
+            margin-left: 40%;
+            background: $laranja-avermelhado;
+        }
+        .btn2{
+            grid-area: btn2;
+            margin-left: 20%;
+            background: $laranja-padrao;
+        }
+        .btn3{
+            grid-area: btn3;
+            background: $prata-claro;
+        }
+    }
+    .cardapio{
+        grid-area: main;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 100%;
+        grid-template-areas: "cardapio1 cardapio2 cardapio3";
+        column-gap: 10px;
+        .cardapio-itens{
+            padding: 25px;
+            .item-name{
+                font-size: 18px;
+                width: 80%;
+            }
+            .item-preco{
+                float: right;
+            }
+            .item-desc{
+                width: 80%;
+                font-style: italic;
+                color: $cinza-claro;
+                font-size: 1em;
+                margin-left: 5px;
+            }
+        }
+        .cardapio1{
+            grid-area: cardapio1;
+        }
+        .cardapio2{
+            grid-area: cardapio2;
+        }
+        .cardapio3{
+            grid-area: cardapio3;
+        }
+        .panel{
+            overflow: auto;
+            background: $prata-claro;
+            box-shadow: 1px 2px 8px 1px rgba(68, 68, 68, 0.25);
+        }
+    }
+}

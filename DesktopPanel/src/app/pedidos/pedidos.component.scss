@@ -25,6 +25,8 @@ $branco: rgb(240, 238, 217);
         grid-area: lateral;
         background-color: $prata-claro;
         overflow: auto;
+        box-shadow: 1px 2px 8px 1px rgba(68, 68, 68, 0.25);
+        z-index: 5;
         .card-pedido{
             width: 90%;
             margin-left: 5%;
