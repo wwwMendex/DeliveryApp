@@ -11,103 +11,43 @@
         <h4 class="corbel bold center success mg-top-20">ENTREGUES</h4>
         <p class="linha no-margin mg-top-5"></p>
         <br/>
-        <mat-card class="card-pedido">
-            <div class="pad-5">
-                <p class="nome no-margin"><span class="cinza">Cliente:</span> Carlos Eduardo</p>
-                <p class="contato no-margin bold">19:45</p>
-                <button mat-button>Vizualisar</button>
-            </div>
-        </mat-card>
-        
+        <div *ngIf="pedidosEntregues">
+            <mat-card class="card-pedido mg-top-10" *ngFor="let p of pedidosEntregues">
+                <div class="pad-5">
+                    <p class="nome no-margin"><span class="cinza">Cliente:</span> {{p.nome_usuario}}</p>
+                    <p class="contato no-margin bold">{{p.horario_entrega}}</p>
+                    <button mat-button>Vizualisar</button>
+                </div>
+            </mat-card>
+        </div>
     </div>
     <main class="main">
         <div class="container-pedidos">
             <h4 class="corbel bold preparo"> Entregas</h4>
-            <div class="pedido-container">
-                <div class="p-header">
-                    <p class="no-margin nome bold laranja-padrao">Carlos Silva</p>
-                    <p class="no-margin horario bold laranja-avermelhado">19:50</p>
-                </div>
-                <div class="itens">
-                    <div class="branco century no-margin">
-                        <p class="no-margin">1x Calabresa</p>
+            <div *ngIf="pedidosSaiuEntrega">
+                <div class="pedido-container" *ngFor="let p of pedidosSaiuEntrega; let i = index">
+                    <div class="p-header">
+                        <p class="no-margin nome bold laranja-padrao">{{p.nome_usuario}}</p>
+                        <p class="no-margin horario bold laranja-avermelhado">{{p.horario_pedido}}</p>
+                    </div>
+                    <div class="itens">
+                        <div class="branco century no-margin">
+                            <p class="no-margin" *ngFor="let item of p.pedido">{{item}}</p>
+                        </div>
+                    </div>
+                    <div class="endereco">
+                        <p class="no-margin laranja-padrao">{{p.endereco}}</p>
+                    </div>
+                    <div class="total">
+                        <p class="no-margin branco"><span class="bold">Total:</span> {{p.total}} - {{p.pagamento}}</p>
+                        <p class="no-margin branco"><span class="bold">Entregador:</span> {{p.entregador}}</p>
+                    </div>
+                    <div class="p-footer">
+                        <p class="contato no-margin laranja-padrao">{{p.contato}}</p>
+                        <button mat-button color="accent" (click)="confirmarEntrega(i)">Confirmar entrega</button>
                     </div>
                 </div>
-                <div class="endereco">
-                    <p class="no-margin laranja-padrao">Rua voluntario augusto vasconcellos 41, jardim são lourenço.</p>
-                </div>
-                <div class="total">
-                    <p class="no-margin branco"><span class="bold">Total:</span> 99,97 - Dinheiro</p>
-                </div>
-                <div class="p-footer">
-                    <p class="contato no-margin laranja-padrao">11 99999-9999</p>
-                    <button mat-button color="accent">Confirmar entrega</button>
-                </div>
             </div>
-            <div class="pedido-container">
-                <div class="p-header">
-                    <p class="no-margin nome bold laranja-padrao">Carlos Silva</p>
-                    <p class="no-margin horario bold laranja-avermelhado">19:50</p>
-                </div>
-                <div class="itens">
-                    <div class="branco century no-margin">
-                        <p class="no-margin">1x Calabresa</p>
-                    </div>
-                </div>
-                <div class="endereco">
-                    <p class="no-margin laranja-padrao">Rua voluntario augusto vasconcellos 41, jardim são lourenço.</p>
-                </div>
-                <div class="total">
-                    <p class="no-margin branco"><span class="bold">Total:</span> 99,97 - Dinheiro</p>
-                </div>
-                <div class="p-footer">
-                    <p class="contato no-margin laranja-padrao">11 99999-9999</p>
-                    <button mat-button color="accent">Confirmar entrega</button>
-                </div>
-            </div>
-            <div class="pedido-container">
-                <div class="p-header">
-                    <p class="no-margin nome bold laranja-padrao">Carlos Silva</p>
-                    <p class="no-margin horario bold laranja-avermelhado">19:50</p>
-                </div>
-                <div class="itens">
-                    <div class="branco century no-margin">
-                        <p class="no-margin">1x Calabresa</p>
-                    </div>
-                </div>
-                <div class="endereco">
-                    <p class="no-margin laranja-padrao">Rua voluntario augusto vasconcellos 41, jardim são lourenço.</p>
-                </div>
-                <div class="total">
-                    <p class="no-margin branco"><span class="bold">Total:</span> 99,97 - Dinheiro</p>
-                </div>
-                <div class="p-footer">
-                    <p class="contato no-margin laranja-padrao">11 99999-9999</p>
-                    <button mat-button color="accent">Confirmar entrega</button>
-                </div>
-            </div>
-            <div class="pedido-container">
-                <div class="p-header">
-                    <p class="no-margin nome bold laranja-padrao">Carlos Silva</p>
-                    <p class="no-margin horario bold laranja-avermelhado">19:50</p>
-                </div>
-                <div class="itens">
-                    <div class="branco century no-margin">
-                        <p class="no-margin">1x Calabresa</p>
-                    </div>
-                </div>
-                <div class="endereco">
-                    <p class="no-margin laranja-padrao">Rua voluntario augusto vasconcellos 41, jardim são lourenço.</p>
-                </div>
-                <div class="total">
-                    <p class="no-margin branco"><span class="bold">Total:</span> 99,97 - Dinheiro</p>
-                </div>
-                <div class="p-footer">
-                    <p class="contato no-margin laranja-padrao">11 99999-9999</p>
-                    <button mat-button color="accent">Confirmar entrega</button>
-                </div>
-            </div>
-            
             
             
         </div>

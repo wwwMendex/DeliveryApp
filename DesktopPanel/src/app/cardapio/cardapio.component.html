@@ -10,16 +10,10 @@
                 Pizzas Salgadas
             </h4>
             <div class="cardapio-itens">
-                <div class="item mg-top-10">
-                    <p class="item-preco no-margin bold corbel">R$ 49,99</p>
-                    <p class="item-name bold century no-margin">À MODA FRATELLI</p>
-                    <p class="item-desc no-margin">Lorem ipsum is placeholder text commonly used in the graphic for previewing layouts.</p>
-                    <p class="linha no-margin mg-top-10"></p>
-                </div>
-                <div class="item mg-top-10">
-                    <p class="item-preco no-margin bold corbel">R$ 49,99</p>
-                    <p class="item-name bold century no-margin">À MODA FRATELLI</p>
-                    <p class="item-desc no-margin">Lorem ipsum is placeholder text commonly used in the graphic for previewing layouts.</p>
+                <div class="item mg-top-10" *ngFor="let item of cardapio[0]">
+                    <p class="item-preco no-margin bold corbel">R$ {{item.price}}</p>
+                    <p class="item-name bold century no-margin">{{item.name}}</p>
+                    <p class="item-desc no-margin">{{item.description}}</p>
                     <p class="linha no-margin mg-top-10"></p>
                 </div>
             </div>
@@ -29,16 +23,10 @@
                 Pizzas Doces
             </h4>
             <div class="cardapio-itens">
-                <div class="item mg-top-10">
-                    <p class="item-preco no-margin bold corbel">R$ 49,99</p>
-                    <p class="item-name bold century no-margin">À MODA FRATELLI</p>
-                    <p class="item-desc no-margin">Lorem ipsum is placeholder text commonly used in the graphic for previewing layouts.</p>
-                    <p class="linha no-margin mg-top-10"></p>
-                </div>
-                <div class="item mg-top-10">
-                    <p class="item-preco no-margin bold corbel">R$ 49,99</p>
-                    <p class="item-name bold century no-margin">À MODA FRATELLI</p>
-                    <p class="item-desc no-margin">Lorem ipsum is placeholder text commonly used in the graphic for previewing layouts.</p>
+                <div class="item mg-top-10" *ngFor="let item of cardapio[1]">
+                    <p class="item-preco no-margin bold corbel">R$ {{item.price}}</p>
+                    <p class="item-name bold century no-margin">{{item.name}}</p>
+                    <p class="item-desc no-margin">{{item.description}}</p>
                     <p class="linha no-margin mg-top-10"></p>
                 </div>
             </div>
@@ -48,16 +36,10 @@
                 Bebidas
             </h4>
             <div class="cardapio-itens">
-                <div class="item mg-top-10">
-                    <p class="item-preco no-margin bold corbel">R$ 49,99</p>
-                    <p class="item-name bold century no-margin">À MODA FRATELLI</p>
-                    <p class="item-desc no-margin">Lorem ipsum is placeholder text commonly used in the graphic for previewing layouts.</p>
-                    <p class="linha no-margin mg-top-10"></p>
-                </div>
-                <div class="item mg-top-10">
-                    <p class="item-preco no-margin bold corbel">R$ 49,99</p>
-                    <p class="item-name bold century no-margin">À MODA FRATELLI</p>
-                    <p class="item-desc no-margin">Lorem ipsum is placeholder text commonly used in the graphic for previewing layouts.</p>
+                <div class="item mg-top-10" *ngFor="let item of cardapio[2]">
+                    <p class="item-preco no-margin bold corbel">R$ {{item.price}}</p>
+                    <p class="item-name bold century no-margin">{{item.name}}</p>
+                    <p class="item-desc no-margin">{{item.description}}</p>
                     <p class="linha no-margin mg-top-10"></p>
                 </div>
             </div>

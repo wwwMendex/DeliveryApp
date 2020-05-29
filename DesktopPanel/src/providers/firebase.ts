@@ -3,10 +3,65 @@ import {
   AngularFirestore,
   AngularFirestoreCollection
 } from "@angular/fire/firestore";
+import { resolve } from 'dns';
 
 
 
 @Injectable()
 export class FirebaseProvider {
   constructor(private afs: AngularFirestore) {}
+
+  atualizarPedido = data =>
+    this.afs
+      .collection("Pedidos")
+      .doc(data.id)
+      .set(data);
+
+  getAllPedidoByStatus(status){
+    return new Promise((resolve, reject) => {
+      this.afs.firestore.collection('Pedidos')
+      .orderBy('horario_pedido', 'asc')
+      .where("status", "==",status)
+      .get()
+      .then((r) => {
+        let array = [];
+        r.forEach((d) => {
+          let item = d.data();
+          array.push(item);
+        });
+        resolve(array);
+      });
+    });
+  }
+
+  getCardapio(){
+    return new Promise((resolve, reject) => {
+      let arraySalgadas = [];
+      let arrayDoces = [];
+      let arrayBebidas = [];
+      this.afs.firestore.collection('Cardapio').doc('pizzas').collection('salgadas').get()
+        .then((r) => {
+          r.forEach((d) => {
+            let item = d.data();
+            arraySalgadas.push(item);
+          });
+        });  
+      
+      this.afs.firestore.collection('Cardapio').doc('pizzas').collection('doces').get()
+        .then((r) => {
+          r.forEach((d) => {
+            let item = d.data();
+            arrayDoces.push(item);
+          });
+        });
+      this.afs.firestore.collection('Cardapio').doc('bebidas').collection('options').get()
+        .then((r) => {
+          r.forEach((d) => {
+            let item = d.data();
+            arrayBebidas.push(item);
+          });
+        });
+        resolve([arraySalgadas, arrayDoces, arrayBebidas]);
+    });
+  }
 }

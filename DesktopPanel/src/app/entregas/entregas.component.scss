@@ -89,7 +89,7 @@ $branco: rgb(240, 238, 217);
             background-color: $cinza-claro;
             margin: 5px 0 5px 2.5%;
             display: inline-grid;
-            grid-template-rows: 10% 45% 25% 10% 10%;
+            grid-template-rows: 10% 40% 20% 20% 10%;
             grid-template-areas: "p-header" "itens" "endereco" "total" "p-footer";
             border-radius: 8px;
             box-shadow: 1px 1px 8px 1px rgba(112, 112, 112, 0.212);
@@ -100,11 +100,10 @@ $branco: rgb(240, 238, 217);
                     margin-left: 10px;
                     font-size: 18px;
                     display: inline;
-                    max-width: 70%;
+                    max-width: 80%;
                 }
                 .horario{
-                    margin-left: 35%;
-                    display: inline;
+                    float: right;
                 }
             }
             .itens{

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseProvider } from 'src/providers/firebase';
 
 @Component({
   selector: 'app-cardapio',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cardapio.component.scss']
 })
 export class CardapioComponent implements OnInit {
+  cardapio:any = [];
+  constructor(
+    private fb: FirebaseProvider
+  ) { }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.cardapio = await this.fb.getCardapio();
   }
 
 }
