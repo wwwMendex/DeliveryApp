@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
@@ -239,48 +239,55 @@ export class SacolaPage implements OnInit {
   async confirmarPedido(){
     if(await this.validaPedido()){
       this.atualizarTotal();
-      let itens = "";
+      let itens = [];
       this.pedido.forEach(item => {
         let retorno = item.qtd + "x " + item.name;
         if(item.obs){
-          retorno += "(obs): " + item.obs;
+          retorno += " (obs): " + item.obs;
         }
-        itens += retorno + ", ";
+        itens.push(retorno);
       });
-      let data = new Date();
-      let valorSemCupom = null;
-      let cupomUtilizado = this.cupom.length > 0 ? this.cupom[0].value : null;
+      let data = new Date().toLocaleString(['pt-BR'], {day:'2-digit', month: '2-digit', year: '2-digit'});
+      let horario = new Date().toLocaleString(['pt-BR'], {hour: '2-digit', minute:'2-digit'});
+      let valorSemCupom:any = null;
+      let cupomUtilizado = this.cupom.length > 0 ? this.cupom[0].value : "";
       if(cupomUtilizado && this.cupom[0].type == "valor"){
-        valorSemCupom = this.subtotal + cupomUtilizado;
+        valorSemCupom = parseFloat((this.subtotal + cupomUtilizado).toFixed(2));
         cupomUtilizado = "R$ " + cupomUtilizado;
       }else if(cupomUtilizado && this.cupom[0].type == "porcentagem"){
-        valorSemCupom = this.subtotal / ((100 - cupomUtilizado)/100);
+        valorSemCupom = parseFloat((this.subtotal / ((100 - cupomUtilizado)/100)).toFixed(2));
         cupomUtilizado += "%";
       }
-      let token = await this.fcm.getToken();
+      let token;
+      try{
+        token = await this.fcm.getToken();
+      }catch(e){
+        console.log(e);
+      }
       // Organizando dados
       let pedido = {
         contato: this.user.tel,
         endereco: this.endereco.rua + ", " + this.endereco.numero + ", " + this.endereco.bairro,
         entregador: null,
-        horario_pedido: (data.valueOf()) / 1000 ,
+        data_pedido: data,
+        horario_pedido: horario ,
         horario_entrega: null,
         id: (Date.now() + Math.random()).toString().replace('.', '').substr(2,9),
         nome_usuario: this.user.name,
         pagamento: this.pagamento,
-        pedido: itens.substr(0, (itens.length - 2)),
+        pedido: itens,
         status: 1,
         subtotal: this.subtotal,
         cupom: cupomUtilizado,
-        subtotal_sem_cupom: parseFloat(valorSemCupom).toFixed(2),
+        subtotal_sem_cupom: valorSemCupom,
         taxa_entrega: this.taxa_entrega,
         total: this.total,
         troco: this.troco,
         user_id: this.user.uid,
-        token: token
+        token: token || null
       };
       // Subindo pedido no firestore
-      this.firebaseProvider.postPedido(pedido)
+      this.firebaseProvider.postPedido(pedido)  
         .then(() => { 
           let pedidos = [];
           this.storage.get('pedidoEfetuado')
