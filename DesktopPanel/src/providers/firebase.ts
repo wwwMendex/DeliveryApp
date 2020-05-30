@@ -16,6 +16,35 @@ export class FirebaseProvider {
       .collection("Pedidos")
       .doc(data.id)
       .set(data);
+  
+  criarItem = data => {
+    switch(data.type){
+      case 'salgada':
+        this.afs
+          .collection("Cardapio")
+          .doc('pizzas')
+          .collection('salgadas')
+          .doc(data.id)
+          .set(data);
+        return;
+      case 'doce':
+        this.afs
+          .collection("Cardapio")
+          .doc('pizzas')
+          .collection('doces')
+          .doc(data.id)
+          .set(data);
+        return;
+      case 'bebida':
+        this.afs
+          .collection("Cardapio")
+          .doc('bebidas')
+          .collection('options')
+          .doc(data.id)
+          .set(data);
+        return;
+    }
+  }
 
   getAllPedidoByStatus(status){
     return new Promise((resolve, reject) => {

@@ -1,7 +1,7 @@
 <div class="cardapio-container">
     <header class="cardapio-header">
-        <button mat-raised-button color="accent" class="btn btn1">Editar item</button>
-        <button mat-raised-button color="accent" class="btn btn2">Adicionar item</button>
+        <button mat-raised-button color="accent" class="btn btn1" (click)="edit=!edit">Editar item</button>
+        <button mat-raised-button color="accent" class="btn btn2" (click)="abrirForm(null)">Adicionar item</button>
         <button mat-raised-button color="accent" class="btn btn3">Editas Slides do APP</button>
     </header>
     <main class="cardapio">
@@ -13,6 +13,7 @@
                 <div class="item mg-top-10" *ngFor="let item of cardapio[0]">
                     <p class="item-preco no-margin bold corbel">R$ {{item.price}}</p>
                     <p class="item-name bold century no-margin">{{item.name}}</p>
+                    <mat-icon class="icon-edit" aria-hidden="false" (click)="abrirForm(item)" *ngIf="edit">edit</mat-icon>
                     <p class="item-desc no-margin">{{item.description}}</p>
                     <p class="linha no-margin mg-top-10"></p>
                 </div>

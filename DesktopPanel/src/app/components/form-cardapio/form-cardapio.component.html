@@ -1,0 +1,40 @@
+<div class="pad-10">
+  <mat-icon aria-hidden="false" (click)="closeDialog()">close</mat-icon>
+  <h5 class="century center bold cinza">ADICIONAR ITEM AO CARDÁPIO</h5>
+  <div class="mg-top-20">
+    <form [formGroup]="formulario" (ngSubmit)="submitForm()">
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Categoria</mat-label>
+        <mat-select formControlName="type">
+          <mat-option value="salgada">Pizza Salgada</mat-option>
+          <mat-option value="doce">Pizza Doce</mat-option>
+          <mat-option value="bebida">Bebida</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" color="accent" *ngIf="formulario.get('type').value=='salgada'">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="sub_type">
+          <mat-option value="Pizzas especiais">Pizza Especial</mat-option>
+          <mat-option value="Pizzas tradicionais">Pizza Tradicional</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Titulo do item</mat-label>
+        <input matInput formControlName="name"/>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Descrição</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Preço: R$</mat-label>
+        <input matInput formControlName="price"/>
+      </mat-form-field>
+      <button mat-flat-button color="warn" type="submit">Cadastrar item ao cardápio</button>
+    </form>
+  </div>
+</div>

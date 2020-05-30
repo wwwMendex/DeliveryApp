@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseProvider } from 'src/providers/firebase';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { FormCardapioComponent } from '../components/form-cardapio/form-cardapio.component';
 
 @Component({
   selector: 'app-cardapio',
@@ -8,12 +10,25 @@ import { FirebaseProvider } from 'src/providers/firebase';
 })
 export class CardapioComponent implements OnInit {
   cardapio:any = [];
+  edit=false;
   constructor(
-    private fb: FirebaseProvider
+    private fb: FirebaseProvider,
+    private dialog: MatDialog
   ) { }
 
   async ngOnInit() {
     this.cardapio = await this.fb.getCardapio();
+  }
+  abrirForm(item){
+    let dialogRef = this.dialog.open(FormCardapioComponent, {
+      height: '80vh',
+      width: '40vw',
+      data: item
+    });
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result) this.cardapio = await this.fb.getCardapio();
+      this.edit = false;
+    });
   }
 
 }

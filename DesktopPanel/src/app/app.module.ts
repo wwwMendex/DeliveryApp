@@ -14,6 +14,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 
 //firebase
 import { environment } from '../environments/environment';
@@ -24,9 +27,13 @@ import { MenuBarComponent } from './components/menu-bar/menu-bar.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { EntregasComponent } from './entregas/entregas.component';
 import { CardapioComponent } from './cardapio/cardapio.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormCardapioComponent } from './components/form-cardapio/form-cardapio.component';
 
 @NgModule({
+  entryComponents: [
+    FormCardapioComponent,
+  ],
   declarations: [
     AppComponent,
     PainelComponent,
@@ -34,6 +41,7 @@ import { FormsModule } from '@angular/forms';
     PedidosComponent,
     EntregasComponent,
     CardapioComponent,
+    FormCardapioComponent,
 
   ],
   imports: [
@@ -42,6 +50,7 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     MatToolbarModule,
@@ -49,10 +58,14 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatIconModule,
   ],
   providers: [
     FirebaseProvider,
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}},
   ],
   bootstrap: [AppComponent]
 })

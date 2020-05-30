@@ -77,6 +77,12 @@ $branco: rgb(240, 238, 217);
                 font-size: 1em;
                 margin-left: 5px;
             }
+            .icon-edit{
+                float: right;
+                margin-right: 5px;
+                margin-top: 5px;
+                color: $laranja-avermelhado;
+            }
         }
         .cardapio1{
             grid-area: cardapio1;
