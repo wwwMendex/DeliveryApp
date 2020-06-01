@@ -26,7 +26,7 @@
             <img src="../../assets/icons/caixa-icon.png" class="mg-top-5" alt="caixa" />
         </div>
         <div class="main-panel">
-            <p class="label-fundo branco century no-margin mg-top-5">Fundo inicial:</p>
+            <p class="label-fundo branco century no-margin mg-top-20">Fundo inicial:</p>
             <p class="fundo branco bold century no-margin">R$ 150,00</p>
             <p class="label-total branco century no-margin mg-top-10">Total de pedidos:</p>
             <h3 class="total laranja-padrao century bold no-margin">R$ 780,00</h3>
@@ -65,10 +65,10 @@
         </div>
         <div class="main-panel">
             <h5 class="branco center no-margin light mg-top-5">Recebidos pelo APP</h5>
-            <mat-card class="card-pedido mg-top-5">
+            <mat-card class="card-pedido mg-top-10" *ngFor="let p of pedidosNovos">
                 <div class="pad-5">
-                    <p class="nome no-margin">Carlos Eduardo</p>
-                    <p class="contato no-margin">(11) 99999-9999</p>
+                    <p class="nome no-margin"><span class="laranja-padrao">Pedido: </span>{{p.nome_usuario}}</p>
+                    <p class="contato no-margin">{{p.contato}}</p>
                     <button mat-button color="warn" [routerLink]="['/pedidos']">Visualizar</button>
                 </div>
             </mat-card>

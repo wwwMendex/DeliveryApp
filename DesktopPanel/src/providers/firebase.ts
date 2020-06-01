@@ -16,7 +16,19 @@ export class FirebaseProvider {
       .collection("Pedidos")
       .doc(data.id)
       .set(data);
+
+  criarSlide = data =>
+  this.afs
+    .collection("Slides")
+    .doc(data.id)
+    .set(data);
   
+  deleteSlide = id =>
+  this.afs
+    .collection("Slides")
+    .doc(id)
+    .delete();
+
   criarItem = data => {
     switch(data.type){
       case 'salgada':
@@ -42,6 +54,34 @@ export class FirebaseProvider {
           .collection('options')
           .doc(data.id)
           .set(data);
+        return;
+    }
+  }
+  deleteItem = data => {
+    switch(data.type){
+      case 'salgada':
+        this.afs
+          .collection("Cardapio")
+          .doc('pizzas')
+          .collection('salgadas')
+          .doc(data.id)
+          .delete();
+        return;
+      case 'doce':
+        this.afs
+          .collection("Cardapio")
+          .doc('pizzas')
+          .collection('doces')
+          .doc(data.id)
+          .delete();
+        return;
+      case 'bebida':
+        this.afs
+          .collection("Cardapio")
+          .doc('bebidas')
+          .collection('options')
+          .doc(data.id)
+          .delete();
         return;
     }
   }
@@ -91,6 +131,20 @@ export class FirebaseProvider {
           });
         });
         resolve([arraySalgadas, arrayDoces, arrayBebidas]);
+    });
+  }
+
+  getSlides(){
+    return new Promise((resolve, reject) =>{
+      this.afs.firestore.collection('Slides').get()
+      .then((r) => {
+        let array = [];
+        r.forEach((d) => {
+          let item = d.data();
+          array.push(item);
+        });
+        resolve(array);
+      });
     });
   }
 }

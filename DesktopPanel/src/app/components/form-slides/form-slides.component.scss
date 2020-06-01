@@ -1,0 +1,55 @@
+mat-form-field{
+    width: 100%;
+}
+.slide{
+    width: 90%;
+    margin-left: 5%;
+    height: 25vh;
+    background-size: cover;
+    border-radius: 10px;
+}
+button{
+    color: #fff;
+    width: 100%;
+    font-weight: 700;
+    font-size: 18px;
+    height: 45px;
+    border-radius: 10px;
+}
+mat-icon{
+    float: right;
+}
+.deleteBtn{
+    background-color: #dd2316;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+}
+[type="file"] {
+    height: 0;
+    overflow: hidden;
+    width: 0;
+  }
+  
+[type='file'] + label {
+    background: #dd2316;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: inherit;
+    font-weight: 700;
+    font-size: 18px;
+    outline: none;
+    width: 100%;
+    padding: 10px 0 10px 0;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+    vertical-align: middle;
+
+    &:hover {
+      background-color: darken(#f15d22, 10%);
+    }
+}

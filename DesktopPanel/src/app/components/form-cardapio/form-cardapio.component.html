@@ -34,7 +34,11 @@
         <mat-label>Preço: R$</mat-label>
         <input matInput formControlName="price"/>
       </mat-form-field>
-      <button mat-flat-button color="warn" type="submit">Cadastrar item ao cardápio</button>
+      <button mat-flat-button color="warn" type="submit" *ngIf="!data">Cadastrar item ao cardápio</button>
+      <button mat-flat-button color="warn" type="submit" *ngIf="data">Salvar mudanças</button>
     </form>
+    <div class="mg-top-15">
+      <button mat-flat-button class="deleteBtn" (click)="deleteItem()" *ngIf="data">Remover item do cardápio</button>
+    </div>
   </div>
 </div>

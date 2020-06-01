@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FirebaseProvider } from 'src/providers/firebase';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormCardapioComponent } from '../components/form-cardapio/form-cardapio.component';
+import { FormSlidesComponent } from '../components/form-slides/form-slides.component';
 
 @Component({
   selector: 'app-cardapio',
@@ -30,5 +31,17 @@ export class CardapioComponent implements OnInit {
       this.edit = false;
     });
   }
+  abrirSlides(){
+    // let dialogRef = 
+    this.dialog.open(FormSlidesComponent, {
+      height: '80vh',
+      width: '40vw',
+    });
+    // dialogRef.afterClosed().subscribe(async result => {
+    //   if (result) this.cardapio = await this.fb.getCardapio();
+    //   this.edit = false;
+    // });
+  }
+
 
 }

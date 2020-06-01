@@ -1,0 +1,72 @@
+<div class="pad-10">
+    <mat-icon aria-hidden="false" (click)="closeDialog()">close</mat-icon>
+    <h5 class="century center bold cinza">EDITAR SLIDES DO APP</h5>
+    <div class="mg-top-20">
+        <div>
+            <div class="slides-container" *ngIf="edit && slides?.length > 0">
+                <img class="slide" src={{slides[selected]?.slide_url}} *ngIf="slides?.length >0">
+                <mat-form-field class="mg-top-5" appearance="outline" color="accent">
+                    <mat-label>Slide selecionado</mat-label>
+                    <mat-select [(ngModel)]="selected" [(value)]="selected">
+                        <mat-option *ngFor="let s of slides; let index=index;" value={{index}}>Slide {{index + 1}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <form [formGroup]="formulario" (ngSubmit)="editSlide()">
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>Texto</mat-label>
+                        <input matInput formControlName="info" value={{slides[selected]?.info}} />
+                    
+                    </mat-form-field>
+                    <button mat-flat-button color="warn" type="submit">Salvar mudanças</button>
+                </form>
+            </div>
+            <div>
+                <p class="center no-margin pad-5 bold" *ngIf="slides?.length > 0">OU</p>
+                <button mat-flat-button color="accent" *ngIf="edit" (click)="criar()">
+                    Criar novo Slide
+                </button>
+                <div class="mg-top-10">
+                    <button mat-flat-button class="deleteBtn" *ngIf="edit && slides?.length > 0" (click)="deleteSlide(slides[selected].id)">
+                        Deletar Slide
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="slides-container" *ngIf="!edit">
+            <img class="slide" src={{url}}>
+            <div class="mg-top-10">
+                <input type="file" id="selecionar" class="inputfile" (change)="uploadSlide($event)" class="mg-top-10" />
+                <label for="selecionar">Selecionar imagem</label>
+            </div>
+            <form [formGroup]="formulario" (ngSubmit)="createSlide()">
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>Texto</mat-label>
+                    <input matInput formControlName="info"/>
+                </mat-form-field>
+                <button mat-flat-button color="accent" type="submit">Criar Slide</button>
+            </form>
+            <div>
+                <p class="center no-margin pad-5 bold">OU</p>
+                <button mat-flat-button color="warn" *ngIf="!edit" (click)="editar()">
+                    <span class="cinza">VOLTAR</span>
+                </button>
+            </div>
+        </div>
+        <!-- <form (ngSubmit)="submitForm()">
+            
+
+            
+
+            <mat-form-field appearance="outline" color="accent">
+            <mat-label>Titulo do item</mat-label>
+            <input matInput />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" color="accent">
+            <mat-label>Preço: R$</mat-label>
+            <input matInput />
+            </mat-form-field>
+            <button mat-flat-button color="warn" type="submit">Cadastrar item ao cardápio</button>
+        </form> -->
+    </div>
+</div>

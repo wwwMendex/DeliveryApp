@@ -48,6 +48,12 @@ export class FormCardapioComponent implements OnInit {
       this.closeDialog(true);
     }
   }
+  deleteItem(){
+    if(confirm("Você deseja remover o item?")){
+      this.fb.deleteItem(this.formulario.value);
+      this.closeDialog(true);
+    }
+  }
 
   closeDialog(action=false) {
     this.dialogRef.close(action);

@@ -29,10 +29,20 @@ import { EntregasComponent } from './entregas/entregas.component';
 import { CardapioComponent } from './cardapio/cardapio.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormCardapioComponent } from './components/form-cardapio/form-cardapio.component';
+import { FormSlidesComponent } from './components/form-slides/form-slides.component';
+import { FormEntregadoresComponent } from './components/form-entregadores/form-entregadores.component';
+import { FormTaxaComponent } from './components/form-taxa/form-taxa.component';
+import { FormPedidoComponent } from './components/form-pedido/form-pedido.component';
+import { FormCupomComponent } from './components/form-cupom/form-cupom.component';
 
 @NgModule({
   entryComponents: [
     FormCardapioComponent,
+    FormSlidesComponent,
+    FormEntregadoresComponent,
+    FormTaxaComponent,
+    FormPedidoComponent,
+    FormCupomComponent,
   ],
   declarations: [
     AppComponent,
@@ -42,6 +52,11 @@ import { FormCardapioComponent } from './components/form-cardapio/form-cardapio.
     EntregasComponent,
     CardapioComponent,
     FormCardapioComponent,
+    FormSlidesComponent,
+    FormEntregadoresComponent,
+    FormTaxaComponent,
+    FormPedidoComponent,
+    FormCupomComponent,
 
   ],
   imports: [
