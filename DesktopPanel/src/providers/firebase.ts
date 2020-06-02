@@ -29,6 +29,18 @@ export class FirebaseProvider {
     .doc(id)
     .delete();
 
+  criarCupom = data =>
+  this.afs
+    .collection("Cupom")
+    .doc(data.id)
+    .set(data);
+
+  deleteCupom = id =>
+  this.afs
+    .collection("Cupom")
+    .doc(id)
+    .delete();
+
   criarItem = data => {
     switch(data.type){
       case 'salgada':
@@ -137,6 +149,19 @@ export class FirebaseProvider {
   getSlides(){
     return new Promise((resolve, reject) =>{
       this.afs.firestore.collection('Slides').get()
+      .then((r) => {
+        let array = [];
+        r.forEach((d) => {
+          let item = d.data();
+          array.push(item);
+        });
+        resolve(array);
+      });
+    });
+  }
+  getCupons(){
+    return new Promise((resolve, reject) =>{
+      this.afs.firestore.collection('Cupom').get()
       .then((r) => {
         let array = [];
         r.forEach((d) => {

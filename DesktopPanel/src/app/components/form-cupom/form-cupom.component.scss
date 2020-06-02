@@ -1,0 +1,25 @@
+mat-form-field{
+    width: 100%;
+}
+.button{
+    color: #fff;
+    width: 100%;
+    font-weight: 700;
+    font-size: 18px;
+    height: 45px;
+    border-radius: 10px;
+}
+.deleteBtn{
+    background-color: #dd2316;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+}
+mat-icon{
+    float: right;
+}
+.btnRemover{
+    position: absolute;
+    margin-left: 25vw;
+    outline: none;
+}

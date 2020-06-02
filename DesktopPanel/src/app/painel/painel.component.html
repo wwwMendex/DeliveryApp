@@ -81,11 +81,9 @@
             <p class="linha no-margin mg-top-5"></p>
         </div>
         <div class="main-panel">
-            <button mat-raised-button color="accent" class="btn">CRIAR CUPOM</button>
+            <button mat-raised-button color="primary" class="btn" (click)="abrirCupom()"><span class="cinza bold corbel">EDITAR CUPONS</span></button>
             <p class="mg-top-10 branco no-margin light cupons-label">Cupons ativos:</p>
-            <p class="branco no-margin cupom">PEDENOAPP - 5% OFF</p>
-            <p class="branco no-margin cupom">DIADASMAES - 10% OFF</p>
-            <p class="branco no-margin cupom">CUPOM5 - R$ 5 OFF</p>
+            <p class="branco no-margin cupom" *ngFor="let c of cupons">{{c.cupom}} - <span *ngIf="c.type=='valor'">R$</span> {{c.value}}<span *ngIf="c.type=='porcentagem'">%</span> OFF</p>
         </div>
     </div>
 </main>

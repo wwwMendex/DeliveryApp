@@ -1,1 +1,36 @@
-<p>form-cupom works!</p>
+<div class="pad-10">
+    <mat-icon aria-hidden="false" (click)="closeDialog()">close</mat-icon>
+    <h5 class="century center bold cinza">EDITAR CUPONS DO APP</h5>
+    <div class="mg-top-20">
+        <h6 class="center century bold cinza">Criar novo cupom</h6>
+        <form [formGroup]="formulario" (ngSubmit)="submitForm()">
+            <mat-form-field appearance="outline" color="accent">
+            <mat-label>Tipo</mat-label>
+            <mat-select formControlName="type">
+                <mat-option value="valor">Valor: R$</mat-option>
+                <mat-option value="porcentagem">Porcentagem: %</mat-option>
+            </mat-select>
+            </mat-form-field>
+    
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Desconto: (somente números)</mat-label>
+                <input matInput formControlName="value">
+            </mat-form-field>
+    
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Cupom: Ex: desconto15, diadospais</mat-label>
+                <input matInput formControlName="cupom">
+            </mat-form-field>
+    
+            <button mat-flat-button color="accent" type="submit" class="button"><span class="branco">CRIAR CUPOM</span></button>
+        </form>
+    </div>
+    <div class="mg-top-20" *ngIf="data?.length > 0">
+        <h6 class="center century bold cinza">Remover cupons ativos</h6>
+        <div class="pad-10">
+            <p class="cinza no-margin cupom bold" *ngFor="let c of data; let i = index"><button mat-button color="warn" class="btnRemover" (click)="deleteCupom(i)">Remover</button>
+                {{c.cupom}} - <span *ngIf="c.type=='valor'">R$</span> {{c.value}}<span *ngIf="c.type=='porcentagem'">%</span> OFF
+            </p>
+        </div>
+    </div>
+  </div>
