@@ -1,0 +1,30 @@
+<div class="pad-10">
+    <mat-icon aria-hidden="false" (click)="closeDialog()">close</mat-icon>
+    <h5 class="century center bold cinza">HISTÓRICO DE VENDAS</h5>
+    <div class="mg-top-20">
+        <div *ngIf="historico?.length > 0">
+            <h5 class="center century bold cinza">Selecione uma data</h5>
+            <mat-form-field appearance="outline" color="accent">
+            <mat-label>Data</mat-label>
+            <mat-select (selectionChange)="selecionaData($event)">
+                <mat-option *ngFor="let p of historico; let i = index" value={{i}}>{{p.data}}</mat-option>
+            </mat-select>
+            </mat-form-field>
+            <div class="mg-top-20" *ngIf="selecionado">
+                <h5 class="center">Fundo: R${{historico[index].fundoCaixa}} &nbsp; Total: R${{historico[index].totalCaixa}}</h5>
+                <mat-chip-list>
+                    <mat-chip color="accent" selected (click)="detalhesPedido(p)" *ngFor="let p of historico[index].pedidos"><span class="chip bold">{{p.id}}</span></mat-chip>
+                </mat-chip-list>
+                <div *ngIf="pedidoSelecionado" class="pad-10 mg-top-10">
+                    <p>{{pedidoSelecionado.nome_usuario}}, tel: {{pedidoSelecionado.contato}}</p>
+                    <p>Pagamento: {{pedidoSelecionado.pagamento}}<span *ngIf="pedidoSelecionado.troco">, troco: {{pedidoSelecionado.troco}}</span></p>
+                    <p>Pedido: <span *ngFor="let item of pedidoSelecionado.pedido">{{item}}; </span></p>
+                    <p>Subtotal: R${{pedidoSelecionado.subtotal}}, taxa: R${{pedidoSelecionado.taxa_entrega}}</p>
+                    <p *ngIf="pedidoSelecionado.cupom">Cupom: {{pedidoSelecionado.cupom}}, subtotal sem cupom: R${{pedidoSelecionado.subtotal_sem_cupom}}</p>
+                    <p>Total: R${{pedidoSelecionado.total}}</p>
+                </div>
+                <h5 *ngIf="!historico[index]?.pedidos || historico[index]?.length == 0" class="center mg-top-10">Não há pedidos no histórico</h5>
+            </div>
+        </div>
+    </div>
+</div>

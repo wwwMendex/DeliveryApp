@@ -17,7 +17,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
-
+import {MatChipsModule} from '@angular/material/chips';
 //firebase
 import { environment } from '../environments/environment';
 import { AngularFireModule } from "@angular/fire";
@@ -34,6 +34,7 @@ import { FormEntregadoresComponent } from './components/form-entregadores/form-e
 import { FormTaxaComponent } from './components/form-taxa/form-taxa.component';
 import { FormPedidoComponent } from './components/form-pedido/form-pedido.component';
 import { FormCupomComponent } from './components/form-cupom/form-cupom.component';
+import { HistoricoCaixaComponent } from './components/historico-caixa/historico-caixa.component';
 
 @NgModule({
   entryComponents: [
@@ -57,6 +58,7 @@ import { FormCupomComponent } from './components/form-cupom/form-cupom.component
     FormTaxaComponent,
     FormPedidoComponent,
     FormCupomComponent,
+    HistoricoCaixaComponent,
 
   ],
   imports: [
@@ -77,6 +79,7 @@ import { FormCupomComponent } from './components/form-cupom/form-cupom.component
     MatSelectModule,
     MatDialogModule,
     MatIconModule,
+    MatChipsModule
   ],
   providers: [
     FirebaseProvider,

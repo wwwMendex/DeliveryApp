@@ -45,7 +45,6 @@ export class FormCupomComponent implements OnInit {
   deleteCupom(index){
     if(confirm("Você deseja remover o cupom?")){
       this.fb.deleteCupom(this.data[index].id).then(r=>console.log(r));
-      
       this.data.splice(index, 1);
     }
   }

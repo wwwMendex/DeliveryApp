@@ -22,18 +22,19 @@
 
     <div class="panel panel-3">
         <div class="header-panel">
+            <mat-icon class="icon-history branco" aria-hidden="false" (click)="abrirHistorico()">history</mat-icon>
             <h5 class="century bold branco center no-margin mg-top-10">CAIXA</h5>
             <img src="../../assets/icons/caixa-icon.png" class="mg-top-5" alt="caixa" />
         </div>
         <div class="main-panel">
             <p class="label-fundo branco century no-margin mg-top-20">Fundo inicial:</p>
-            <p class="fundo branco bold century no-margin">R$ 150,00</p>
+            <p class="fundo branco bold century no-margin">R$ {{caixaAberto?.fundoCaixa || 0}}</p>
             <p class="label-total branco century no-margin mg-top-10">Total de pedidos:</p>
-            <h3 class="total laranja-padrao century bold no-margin">R$ 780,00</h3>
+            <h3 class="total laranja-padrao century bold no-margin">R$ {{caixaAberto?.totalCaixa || 0}}</h3>
         </div>
         <div class="footer-panel">
-            <button mat-button color="accent" class="btn-abrir">Abrir</button>
-            <button mat-button color="warn" class="btn-fechar">Fechar</button>
+            <button mat-button color="accent" class="btn-abrir" (click)="abrirCaixa()" *ngIf="!caixaAberto?.fundoCaixa">Abrir</button>
+            <button mat-button color="warn" class="btn-fechar" (click)="fecharCaixa()" *ngIf="caixaAberto?.fundoCaixa">Fechar</button>
         </div>
     </div>
 

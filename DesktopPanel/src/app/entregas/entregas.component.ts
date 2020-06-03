@@ -31,10 +31,15 @@ export class EntregasComponent implements OnInit {
     this.pedidosSaiuEntrega[index].status = 4;
     this.pedidosSaiuEntrega[index].horario_entrega = new Date().toLocaleString(['pt-BR'], {hour: '2-digit', minute:'2-digit'});
     this.pedidosEntregues.push(this.pedidosSaiuEntrega[index]);
-    this.fb.atualizarPedido(this.pedidosSaiuEntrega[index]);
-    this.pedidosSaiuEntrega.splice(index, 1);
-    sessionStorage.setItem('pedidosEntregues', JSON.stringify(this.pedidosEntregues));
-    sessionStorage.setItem('pedidosSaiuEntrega', JSON.stringify(this.pedidosSaiuEntrega));
+    let caixaAberto = JSON.parse(localStorage.getItem('caixaAberto')) || [];
+    caixaAberto['pedidos'] = caixaAberto['pedidos'] ? caixaAberto['pedidos'] : [];
+    caixaAberto['pedidos'].push(this.pedidosSaiuEntrega[index]);
+    caixaAberto['totalCaixa']+=this.pedidosSaiuEntrega[index].total;
+    localStorage.setItem('caixaAberto', JSON.stringify(caixaAberto));
+    // this.fb.atualizarPedido(this.pedidosSaiuEntrega[index]);
+    // this.pedidosSaiuEntrega.splice(index, 1);
+    // sessionStorage.setItem('pedidosEntregues', JSON.stringify(this.pedidosEntregues));
+    // sessionStorage.setItem('pedidosSaiuEntrega', JSON.stringify(this.pedidosSaiuEntrega));
   }
 
 }
