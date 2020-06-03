@@ -24,7 +24,7 @@ export class SacolaPage implements OnInit {
   taxa_entrega:number = 5;
   total: number = 0;
   endereco: any = [];
-
+  disabled = false;
   constructor(
     private modalCtrl: ModalController,
     private router: Router,
@@ -238,6 +238,7 @@ export class SacolaPage implements OnInit {
 
   async confirmarPedido(){
     if(await this.validaPedido()){
+      this.disabled = true;
       this.atualizarTotal();
       let itens = [];
       this.pedido.forEach(item => {

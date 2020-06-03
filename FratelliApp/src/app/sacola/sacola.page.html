@@ -77,7 +77,7 @@
         </ion-radio-group>
         
       </ion-list>
-      <ion-button class="btnAdd" expand="block" size="large" color="danger" *ngIf="endereco" (click)="confirmarPedido()">
+      <ion-button class="btnAdd" expand="block" [disabled]="disabled" size="large" color="danger" *ngIf="endereco" (click)="confirmarPedido()">
         <ion-icon slot="start" name="thumbs-up-sharp"></ion-icon>
         <span> CONFIRMAR PEDIDO</span>
       </ion-button>
