@@ -11,7 +11,7 @@ import { HistoricoCaixaComponent } from '../components/historico-caixa/historico
 export class PainelComponent implements OnInit {
   isOpen = true;
   pedidosNovos:any = [];
-  caixaAberto:any = JSON.parse(localStorage.getItem('caixaAberto')) || [];
+  caixaAberto:any = JSON.parse(localStorage.getItem('caixaAberto')) || null;
   cupons: any = JSON.parse(sessionStorage.getItem('cupons')) || [];
   constructor(
     private fb: FirebaseProvider,
@@ -26,6 +26,7 @@ export class PainelComponent implements OnInit {
     // this.getCaixaAberto();
   }
   async abrirCaixa(){
+    this.caixaAberto = [];
     let fundo = parseFloat(prompt("Insira o valor do fundo do caixa").replace(/,/g, '.')); 
     this.caixaAberto['fundoCaixa'] = fundo;
     this.caixaAberto['totalCaixa'] = fundo;
@@ -38,7 +39,7 @@ export class PainelComponent implements OnInit {
       let caixaAberto = JSON.parse(localStorage.getItem('caixaAberto'));
       historicoCaixa.push(caixaAberto);
       localStorage.setItem('historicoCaixa', JSON.stringify(historicoCaixa));
-      this.caixaAberto = [];
+      this.caixaAberto = null;
       localStorage.removeItem('caixaAberto');
     }
   }

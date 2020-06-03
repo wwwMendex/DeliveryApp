@@ -34,12 +34,12 @@ export class EntregasComponent implements OnInit {
     let caixaAberto = JSON.parse(localStorage.getItem('caixaAberto')) || [];
     caixaAberto['pedidos'] = caixaAberto['pedidos'] ? caixaAberto['pedidos'] : [];
     caixaAberto['pedidos'].push(this.pedidosSaiuEntrega[index]);
-    caixaAberto['totalCaixa']+=this.pedidosSaiuEntrega[index].total;
+    caixaAberto['totalCaixa']+=parseFloat((this.pedidosSaiuEntrega[index].total).toFixed(2));
     localStorage.setItem('caixaAberto', JSON.stringify(caixaAberto));
-    // this.fb.atualizarPedido(this.pedidosSaiuEntrega[index]);
-    // this.pedidosSaiuEntrega.splice(index, 1);
-    // sessionStorage.setItem('pedidosEntregues', JSON.stringify(this.pedidosEntregues));
-    // sessionStorage.setItem('pedidosSaiuEntrega', JSON.stringify(this.pedidosSaiuEntrega));
+    this.fb.atualizarPedido(this.pedidosSaiuEntrega[index]);
+    this.pedidosSaiuEntrega.splice(index, 1);
+    sessionStorage.setItem('pedidosEntregues', JSON.stringify(this.pedidosEntregues));
+    sessionStorage.setItem('pedidosSaiuEntrega', JSON.stringify(this.pedidosSaiuEntrega));
   }
 
 }
