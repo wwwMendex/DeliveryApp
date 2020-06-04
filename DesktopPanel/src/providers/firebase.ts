@@ -172,4 +172,18 @@ export class FirebaseProvider {
       });
     });
   }
-}
+  getStatus(){
+    return new Promise((resolve, reject) =>{
+      this.afs.firestore.collection('Status').doc('status').get()
+      .then((r) => {
+        resolve(r.data());
+      });
+    });
+  }
+
+  setStatus = status =>
+  this.afs
+    .collection("Status")
+    .doc('status')
+    .set(status);
+  }

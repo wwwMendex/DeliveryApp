@@ -1,3 +1,24 @@
+<div class="selecionarEntregador" [ngStyle]="{'display': modalEntregador ? 'block' : 'none'}">
+    <div class="backdrop"></div>
+    <div class="modal-entregadores">
+        <div class="pad-25">
+            <mat-icon aria-hidden="false" (click)="closeModal()">close</mat-icon>
+            <h5 class="center century bold cinza">Selecione um entregador</h5>
+            <form [formGroup]="entregadoresForm" (ngSubmit)="sairParaEntrega()">
+                <mat-form-field appearance="outline" color="primary" class="mg-top-20">
+                    <mat-label>Entregador</mat-label>
+                    <mat-select formControlName="nome">
+                        <mat-option *ngFor="let e of entregadores" value={{e.nome}}>{{e.nome}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <p class="century bold center cinza mg-top-10">Você pode adicionar ou remover os entregadores cadastrados no sistema na tela de Entregas.</p>
+                <button mat-flat-button type="submit" color="accent">
+                    SAIR PEDIDO PARA ENTREGA
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="pedidos-container">
     <div class="lateral">
         <h4 class="corbel bold center laranja-padrao mg-top-20">NOVOS PEDIDOS</h4>
@@ -35,7 +56,7 @@
                     </div>
                     <div class="p-footer">
                         <p class="contato no-margin laranja-padrao">{{p.contato}}</p>
-                        <button mat-button color="accent" (click)="sairParaEntrega(i)">Sair para entrega</button>
+                        <button mat-button color="accent" (click)="confirmarEntregador(i)">Sair para entrega</button>
                     </div>
                 </div>
             </div>

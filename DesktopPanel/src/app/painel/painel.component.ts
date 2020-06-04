@@ -9,7 +9,7 @@ import { HistoricoCaixaComponent } from '../components/historico-caixa/historico
   styleUrls: ['./painel.component.scss']
 })
 export class PainelComponent implements OnInit {
-  isOpen = true;
+  isOpen = JSON.parse(sessionStorage.getItem('status')) || false;
   pedidosNovos:any = [];
   caixaAberto:any = JSON.parse(localStorage.getItem('caixaAberto')) || null;
   cupons: any = JSON.parse(sessionStorage.getItem('cupons')) || [];
@@ -20,18 +20,32 @@ export class PainelComponent implements OnInit {
     //setInterval(()=> this.getPedidosNovos,90000) // atualiza a cada 1 minuto e meio
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.getPedidosNovos();
     this.getCupons();
     // this.getCaixaAberto();
+    this.isOpen = await this.fb.getStatus().then(r => r['status']);
+    sessionStorage.setItem('status', JSON.stringify(this.isOpen));
+  }
+  changeStatus(){
+    if(this.isOpen){
+      this.fb.setStatus({status: true});
+      sessionStorage.setItem('status', JSON.stringify(this.isOpen));
+    }else{
+      this.fb.setStatus({status: false});
+      sessionStorage.setItem('status', JSON.stringify(this.isOpen));
+    }
   }
   async abrirCaixa(){
-    this.caixaAberto = [];
-    let fundo = parseFloat(prompt("Insira o valor do fundo do caixa").replace(/,/g, '.')); 
-    this.caixaAberto['fundoCaixa'] = fundo;
-    this.caixaAberto['totalCaixa'] = fundo;
-    this.caixaAberto['data'] = new Date().toLocaleString(['pt-BR'], {day:'2-digit', month: '2-digit', year: '2-digit'});
-    localStorage.setItem('caixaAberto', JSON.stringify(Object.assign({},this.caixaAberto)));
+    let input = prompt("Insira o valor do fundo do caixa").match(/[\d\.\,]+/g);
+    if(input){
+      this.caixaAberto = [];
+      let fundo = parseFloat(input.toString().replace(/,/g, '.'));
+      this.caixaAberto['fundoCaixa'] = fundo;
+      this.caixaAberto['totalCaixa'] = fundo;
+      this.caixaAberto['data'] = new Date().toLocaleString(['pt-BR'], {day:'2-digit', month: '2-digit', year: '2-digit'});
+      localStorage.setItem('caixaAberto', JSON.stringify(Object.assign({},this.caixaAberto)));
+    }
   }
   fecharCaixa(){
     if(confirm("Deseja fechar o caixa?")){
@@ -68,5 +82,4 @@ export class PainelComponent implements OnInit {
       sessionStorage.setItem('cupons', JSON.stringify(this.cupons));
     });
   }
-
 }
