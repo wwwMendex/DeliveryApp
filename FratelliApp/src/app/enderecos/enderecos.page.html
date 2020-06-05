@@ -52,7 +52,7 @@
       <ion-item>
         <ion-label>Selecione o bairro</ion-label>
         <ion-select formControlName="bairro">
-          <ion-select-option *ngFor="let bairro of bairros">{{bairro.nome}}</ion-select-option>
+          <ion-select-option *ngFor="let bairro of bairros">{{bairro.bairro}}</ion-select-option>
         </ion-select>
       </ion-item>
       <p class="error no-margin" *ngIf="isSubmitted && errorControl.bairro.errors?.required">

@@ -52,6 +52,9 @@
 .branco{
     color: $branco;
 }
+ion-button{
+    outline: none !important;
+}
 // position classes
 .center{
     text-align: center;

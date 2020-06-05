@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ModalController, ActionSheetController, AlertController, ToastController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Storage } from '@ionic/storage';
+import { FirebaseProvider } from 'src/providers/firebase';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class EnderecosPage implements OnInit {
     private cdr: ChangeDetectorRef,
     private actionSheetCtrl: ActionSheetController,
     private alertCtrl: AlertController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private fb: FirebaseProvider
     ) { 
 
     }
@@ -36,14 +38,8 @@ export class EnderecosPage implements OnInit {
   editar = false;
   cadastrar = true;
   indexEdit:any;
-  bairros = [
-    {nome : "Santa Helena", valor : 5},
-    {nome : "São Lourenço", valor : 3},
-    {nome : "Centro", valor : 2},
-    {nome : "Planejada I/II/III", valor : 5},
-    {nome : "Lago do Taboão", valor : 2},
-    
-  ];
+  bairros:any = [];
+
   async ngOnInit() {
     this.formEndereco = this.formBuilder.group({
       nome: ['', [Validators.required, Validators.minLength(2)]],
@@ -55,6 +51,7 @@ export class EnderecosPage implements OnInit {
       id: null
     });
     this.enderecos = await this.getEnderecos();
+    this.bairros = await this.fb.getBairros();
   }
 
   async getEnderecos(){
@@ -112,7 +109,6 @@ export class EnderecosPage implements OnInit {
     enderecos.selecionado = idEnd;
     await this.storage.set('endereco', enderecos);
     this.enderecos = await this.getEnderecos();
-    setTimeout(() => this.closeModal(), 1000);
   }
  
   editarEndereco(index: any){

@@ -21,7 +21,7 @@ export class SacolaPage implements OnInit {
   pedido:any = false;
   user:any = [];
   subtotal:number = 0;
-  taxa_entrega:number = 5;
+  taxa_entrega:number = 0;
   total: number = 0;
   endereco: any = [];
   disabled = false;
@@ -33,12 +33,30 @@ export class SacolaPage implements OnInit {
     private firebaseProvider: FirebaseProvider,
     private fcm: FCM,
     private toastCtrl: ToastController
-  ) { 
-    
+  ){ 
+      
+  }
+  async ngOnInit() {
+    this.pedido = await this.getPedido();
+    if(this.pedido){
+      this.atualizarTotal();
+    }
+    this.endereco = await this.getEndereco();
+    this.user = await this.getUsuario();
+    this.getTaxaEntrega();
+  }
+  getTaxaEntrega(){
+    this.firebaseProvider.getTarifa(this.endereco.bairro).then(r =>{
+      try {
+        this.taxa_entrega = r[0].valor;
+      } catch (e) {
+        this.taxa_entrega = null;
+      }
+    });
   }
   pagamentoDin(){
-    this.pagamento = "Dinheiro";
-    this.alertTroco("");
+      this.pagamento = "Dinheiro";
+      this.alertTroco("");
   }
   pagamentoCard(){
     this.pagamento = "Cartão";
@@ -231,8 +249,16 @@ export class SacolaPage implements OnInit {
         position: 'top'
       });
       toast.present();
+    }else if(!this.taxa_entrega){
+      const toast = await this.toastCtrl.create({
+        message: "Problemas para definir a taxa de entrega, cadastre novamente seu endereço.",
+        duration: 1500,
+        color: "danger",
+        position: 'top'
+      });
+      toast.present();
     }
-    return (this.endereco && this.pagamento) ?
+    return (this.endereco && this.pagamento && this.taxa_entrega) ?
       true : false;
   }
 
@@ -319,14 +345,6 @@ export class SacolaPage implements OnInit {
       
   }
 
-  async ngOnInit() {
-    this.pedido = await this.getPedido();
-    if(this.pedido){
-      this.atualizarTotal();
-    }
-    this.endereco = await this.getEndereco();
-    this.user = await this.getUsuario();
-  }
 
   async closeModal(){
     await this.modalCtrl.dismiss();
@@ -336,7 +354,10 @@ export class SacolaPage implements OnInit {
       component: EnderecosPage,
       swipeToClose: true,
     });
-    modal.onDidDismiss().then(async () => this.endereco = await this.getEndereco());
+    modal.onDidDismiss().then(async () => {
+      this.endereco = await this.getEndereco();
+      this.getTaxaEntrega();
+    });
     return await modal.present();
   }
 

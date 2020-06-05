@@ -124,4 +124,31 @@ export class FirebaseProvider {
         });
     }
   }
+
+  getBairros(){
+    return new Promise((resolve, reject) =>{
+      this.afs.firestore.collection('Tarifa').get()
+      .then((r) => {
+        let array = [];
+        r.forEach((d) => {
+          let item = d.data();
+          array.push(item);
+        });
+        resolve(array);
+      });
+    });
+  }
+
+  getTarifa(bairro){
+    return new Promise((resolve, reject) =>{
+      this.afs.firestore.collection('Tarifa').where('bairro', '==', bairro).get()
+      .then((r) => {
+        let array = [];
+        r.forEach((d) => {
+          array.push(d.data());
+        });
+        resolve(array);
+      });
+    });
+  }
 }
