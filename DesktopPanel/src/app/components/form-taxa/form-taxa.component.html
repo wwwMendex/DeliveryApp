@@ -1,1 +1,36 @@
-<p>form-taxa works!</p>
+<div class="pad-10">
+    <mat-icon aria-hidden="false" (click)="closeDialog()">close</mat-icon>
+    <h5 class="century center bold cinza">EDITAR TAXA DE ENTREGA</h5>
+    <div class="mg-top-20">
+        <h5 class="center century bold cinza">Adicionar novo bairro</h5>
+        <form [formGroup]="formulario" (ngSubmit)="submitForm()">
+
+            <mat-form-field appearance="outline" color="accent" class="fieldBairro">
+                <mat-label>Bairro</mat-label>
+                <input matInput formControlName="bairro">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" color="accent" class="fieldValor">
+                <mat-label>Taxa: R$</mat-label>
+                <input matInput formControlName="valor">
+            </mat-form-field>
+    
+            <button mat-flat-button color="accent" type="submit" class="button">
+                <span class="branco" *ngIf="!edit">CADASTRAR BAIRRO</span>
+                <span class="branco" *ngIf="edit">SALVAR MUDANÇAS</span>
+            </button>
+            <button mat-flat-button class="button deleteBtn" *ngIf="edit" (click)="removerBairro()">
+                <span class="branco">REMOVER BAIRRO</span>
+            </button>
+        </form>
+    </div>
+    <div class="mg-top-20" *ngIf="bairros?.length > 0">
+        <h6 class="center century bold cinza">Editar/remover taxas de entrega</h6>
+        <div class="pad-10">
+            <p class="cinza no-margin bold" *ngFor="let b of bairros; let i = index">
+                {{b.bairro}} - R$ {{b.valor}}
+                <span class="btnRemover" (click)="editBairro(b)">EDITAR</span>
+            </p>
+        </div>
+    </div>
+  </div>

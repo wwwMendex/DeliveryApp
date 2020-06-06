@@ -1,0 +1,29 @@
+.fieldBairro{
+    width: 65%;
+}
+.fieldValor{
+    width: 35%;
+}
+.button{
+    width: 100%;
+    font-weight: 700;
+    font-size: 18px;
+    height: 45px;
+    border-radius: 10px;
+}
+.deleteBtn{
+    background-color: #dd2316;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 10px;
+}
+mat-icon{
+    float: right;
+}
+.btnRemover{
+    color: red;
+    // position: absolute;
+    // margin-left: 25vw;
+    float: right;
+}

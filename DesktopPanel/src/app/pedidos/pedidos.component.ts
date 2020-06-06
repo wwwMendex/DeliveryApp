@@ -34,6 +34,10 @@ export class PedidosComponent implements OnInit {
     this.getPedidosPreparo();
   }
 
+  imprimirPedido(pedido){
+    console.log(pedido);
+  }
+
   async getPedidosNovos(){
     this.pedidosNovos = await this.fb.getAllPedidoByStatus(1);
   }
@@ -57,16 +61,18 @@ export class PedidosComponent implements OnInit {
   confirmarPedido(index){
     this.enviarPush("Seu pedido foi confirmado!", "Está em preparo, aguarde para mais atualizações", this.pedidosNovos[index].token);
     this.pedidosNovos[index].status = 2;
+    this.imprimirPedido(this.pedidosNovos[index]);
     this.fb.atualizarPedido(this.pedidosNovos[index]);
     this.pedidosPreparo.push(this.pedidosNovos[index]);
     this.pedidosNovos.splice(index, 1);
     sessionStorage.setItem('pedidosPreparo', JSON.stringify(this.pedidosPreparo));
+
   }
   sairParaEntrega(){
     if(this.entregadoresForm.valid){
-      this.enviarPush("Seu pedido está a caminho!", "Fique atento ao entregador.", this.pedidosPreparo[this.indexPedidoSaiu].token);
       this.pedidosPreparo[this.indexPedidoSaiu].status = 3;
       this.pedidosPreparo[this.indexPedidoSaiu].entregador = this.entregadoresForm.get('nome').value;
+      this.enviarPush("Seu pedido está a caminho!", `${this.pedidosPreparo[this.indexPedidoSaiu].entregador} está levando até você.`, this.pedidosPreparo[this.indexPedidoSaiu].token);
       this.fb.atualizarPedido(this.pedidosPreparo[this.indexPedidoSaiu]);
       this.pedidosPreparo.splice(this.indexPedidoSaiu, 1);
       sessionStorage.setItem('pedidosPreparo', JSON.stringify(this.pedidosPreparo));

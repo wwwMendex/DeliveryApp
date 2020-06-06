@@ -7,7 +7,7 @@
             <mat-form-field appearance="outline" color="accent">
             <mat-label>Data</mat-label>
             <mat-select (selectionChange)="selecionaData($event)">
-                <mat-option *ngFor="let p of historico; let i = index" value={{i}}>{{p.data}}</mat-option>
+                <mat-option *ngFor="let p of historico; let i = index" value={{i}}>{{p?.data}}</mat-option>
             </mat-select>
             </mat-form-field>
             <div class="mg-top-20" *ngIf="selecionado">

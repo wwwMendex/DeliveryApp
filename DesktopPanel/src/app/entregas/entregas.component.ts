@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseProvider } from 'src/providers/firebase';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { PedidoEntregueComponent } from '../components/pedido-entregue/pedido-entregue.component';
+import { MatDialog } from '@angular/material/dialog';
+import { FormTaxaComponent } from '../components/form-taxa/form-taxa.component';
 
 @Component({
   selector: 'app-entregas',
@@ -17,7 +20,8 @@ export class EntregasComponent implements OnInit {
   });
   constructor(
     private fb: FirebaseProvider,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog
   ) { 
     this.entregadoresForm = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -69,6 +73,21 @@ export class EntregasComponent implements OnInit {
     }else{
       alert("Você deve abrir o caixa no painel antes!");
     }
+  }
+
+  modalTarifa(){
+    this.dialog.open(FormTaxaComponent, {
+      height: '90vh',
+      width: '35vw',
+    });
+  }
+
+  visualizarPedido(index){
+    this.dialog.open(PedidoEntregueComponent, {
+      height: '80vh',
+      width: '40vw',
+      data: this.pedidosEntregues[index]
+    });
   }
 
 }

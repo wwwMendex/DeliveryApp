@@ -31,7 +31,7 @@
             <button mat-raised-button class="btn" (click)="modalEntregador = true">
                 <img src="../../assets/icons/entregador-icon.png" class="icon-entregador" alt="icone entregador">Editar entregadores
             </button>
-            <button mat-raised-button class="btn">
+            <button mat-raised-button class="btn" (click)="modalTarifa()">
                 <img src="../../assets/icons/mapa-icon.png" class="icon-taxa" alt="icone editar taxa">Editar taxa de entrega
             </button>
         </div>
@@ -39,11 +39,11 @@
         <p class="linha no-margin mg-top-5"></p>
         <br/>
         <div *ngIf="pedidosEntregues">
-            <mat-card class="card-pedido mg-top-10" *ngFor="let p of pedidosEntregues">
+            <mat-card class="card-pedido mg-top-10" *ngFor="let p of pedidosEntregues; let i = index">
                 <div class="pad-5">
                     <p class="nome no-margin"><span class="cinza">Cliente:</span> {{p.nome_usuario}}</p>
                     <p class="contato no-margin bold">{{p.horario_entrega}}</p>
-                    <button mat-button>Vizualisar</button>
+                    <button mat-button (click)="visualizarPedido(i)">Visualizar</button>
                 </div>
             </mat-card>
         </div>

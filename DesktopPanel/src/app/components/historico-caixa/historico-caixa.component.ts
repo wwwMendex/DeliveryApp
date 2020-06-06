@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./historico-caixa.component.scss']
 })
 export class HistoricoCaixaComponent implements OnInit {
-  historico:any = JSON.parse(localStorage.getItem('historicoCaixa')) || [];
+  historico:any = [];
   selecionado:any =false;
   pedidoSelecionado:any = false;
   index: number;
@@ -16,7 +16,15 @@ export class HistoricoCaixaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.historico = JSON.parse(localStorage.getItem('historicoCaixa'));
+    this.limparHistorico();
+  }
+  limparHistorico(){
+    if(this.historico.length > 40){
+      let rem = this.historico.length - 40;
+      this.historico.splice(0, rem);
+      localStorage.setItem('historicoCaixa', JSON.stringify(this.historico));
+    }
   }
   selecionaData(event){
     this.index = parseInt(event.value);

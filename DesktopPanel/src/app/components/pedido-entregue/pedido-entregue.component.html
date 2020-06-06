@@ -1,0 +1,20 @@
+<div class="pad-25">
+    <mat-icon (click)="closeDialog()">close</mat-icon>
+    <h4 class="center">Pedido #{{data.id}}</h4>
+    <h5 class="mg-top-10">Cliente: {{data.nome_usuario}}</h5>
+    <h5>Contato: {{data.contato}}</h5>
+    <h5>Forma de Pagamento: {{data.pagamento}}</h5>
+    <h5 *ngIf="data.troco">Troco para {{data.troco}}</h5>
+    <br>
+    <h5>Pedido: <span *ngFor="let item of data.pedido">{{item}}; </span></h5>
+    <br>
+    <h5>Horario do pedido: {{data.horario_pedido}}</h5>
+    <h5>Horario da entrega: {{data.horario_entrega}}</h5>
+    <h6>Endereço: {{data.endereco}}</h6>
+    <br>
+    <h5 *ngIf="data.cupom">Cupom: {{data.cupom}}</h5>
+    <h5 *ngIf="data.cupom">Subtotal sem cupom: R${{data.subtotal_sem_cupom}}</h5>
+    <h5>Taxa de entrega: R${{data.taxa_entrega}}</h5>
+    <h5>Subtotal: R${{data.subtotal}}</h5>
+    <h5>Total: R${{data.total}}</h5>
+</div>

@@ -27,7 +27,7 @@
             <img src="../../assets/icons/caixa-icon.png" class="mg-top-5" alt="caixa" />
         </div>
         <div class="main-panel mg-top-20">
-            <p class="label-fundo branco century no-margin mg-top-20">Fundo inicial:</p>
+            <p class="label-fundo branco century no-margin mg-top-10">Fundo inicial:</p>
             <p class="fundo branco bold century no-margin">R$ {{caixaAberto?.fundoCaixa || 0}}</p>
             <p class="label-total branco century no-margin mg-top-10">Total de pedidos:</p>
             <h3 class="total laranja-padrao century bold no-margin">R$ {{caixaAberto?.totalCaixa || 0}}</h3>
@@ -77,14 +77,16 @@
     </div>
     <div class="panel panel-6">
         <div class="header-panel">
-            <img src="../../assets/icons/cupom-icon.png" class="mg-top-10" alt="novo pedido" />
+            <img src="../../assets/icons/cupom-icon.png" class="mg-top-5" alt="icone cupom" />
             <span class="century bold branco title-panel"> GERENCIAR CUPONS</span>
             <p class="linha no-margin mg-top-5"></p>
         </div>
         <div class="main-panel">
             <button mat-raised-button color="primary" class="btn" (click)="abrirCupom()"><span class="cinza bold corbel">EDITAR CUPONS</span></button>
-            <p class="mg-top-10 branco no-margin light cupons-label">Cupons ativos:</p>
-            <p class="branco no-margin cupom" *ngFor="let c of cupons">{{c.cupom}} - <span *ngIf="c.type=='valor'">R$</span> {{c.value}}<span *ngIf="c.type=='porcentagem'">%</span> OFF</p>
+            <div class="mg-top-10">
+                <p class="branco no-margin light cupons-label">Cupons ativos:</p>
+                <p class="branco no-margin cupom" *ngFor="let c of cupons">{{c.cupom}} - <span *ngIf="c.type=='valor'">R$</span> {{c.value}}<span *ngIf="c.type=='porcentagem'">%</span> OFF</p>
+            </div>
         </div>
     </div>
 </main>

@@ -12,10 +12,10 @@ export class FirebaseProvider {
   constructor(private afs: AngularFirestore) {}
 
   atualizarPedido = data =>
-    this.afs
-      .collection("Pedidos")
-      .doc(data.id)
-      .set(data);
+  this.afs
+    .collection("Pedidos")
+    .doc(data.id)
+    .set(data);
 
   criarSlide = data =>
   this.afs
@@ -38,6 +38,24 @@ export class FirebaseProvider {
   deleteCupom = id =>
   this.afs
     .collection("Cupom")
+    .doc(id)
+    .delete();
+
+  setStatus = status =>
+  this.afs
+    .collection("Status")
+    .doc('status')
+    .set(status);
+    
+  setTarifa = data =>
+  this.afs
+    .collection("Tarifa")
+    .doc(data.id)
+    .set(data);
+
+  deleteTarifa = id =>
+  this.afs
+    .collection("Tarifa")
     .doc(id)
     .delete();
 
@@ -181,9 +199,21 @@ export class FirebaseProvider {
     });
   }
 
-  setStatus = status =>
-  this.afs
-    .collection("Status")
-    .doc('status')
-    .set(status);
+  getTarifas(){
+    return new Promise((resolve, reject) =>{
+      this.afs.firestore.collection('Tarifa').get()
+      .then((r) => {
+        let array = [];
+        r.forEach((d) => {
+          let item = d.data();
+          array.push(item);
+        });
+        resolve(array);
+      });
+    });
   }
+
+
+}
+
+  

@@ -97,7 +97,7 @@ $branco: rgb(240, 238, 217);
             background-color: $prata-claro;
             margin: 5px 0 5px 2.5%;
             display: inline-grid;
-            grid-template-rows: 10% 45% 25% 10% 10%;
+            grid-template-rows: 20% 40% 20% 10% 10%;
             grid-template-areas: "p-header" "itens" "endereco" "total" "p-footer";
             border-radius: 8px;
             box-shadow: 1px 1px 8px 1px rgba(112, 112, 112, 0.212);
@@ -111,6 +111,9 @@ $branco: rgb(240, 238, 217);
                     max-width: 80%;
                 }
                 .horario{
+                    color: $laranja-avermelhado;
+                }
+                .icon-print{
                     float: right;
                 }
             }
@@ -132,13 +135,12 @@ $branco: rgb(240, 238, 217);
             .p-footer{
                 grid-area: p-footer;
                 .contato{
-                    font-size: 14px;
+                    font-size: 15px;
                     display: inline;
                 }
                 button{
-                    margin-left: 25px;
-                    padding: 0;
-                    outline: none;
+                   float: right;
+                   padding: 0px 2px;
                 }
             }
             

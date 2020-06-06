@@ -24,7 +24,7 @@
         <h4 class="corbel bold center laranja-padrao mg-top-20">NOVOS PEDIDOS</h4>
         <p class="linha no-margin mg-top-5"></p>
         <br/>
-        <div *ngIf="pedidosNovos">
+        <div *ngIf="pedidosNovos?.length > 0">
             <mat-card class="card-pedido mg-top-10" *ngFor="let p of pedidosNovos; let i = index">
                 <div class="pad-5">
                     <p class="nome no-margin"><span class="laranja-padrao">Pedido: </span>{{p.nome_usuario}}</p>
@@ -33,6 +33,9 @@
                 </div>
             </mat-card>
         </div>
+        <div *ngIf="pedidosNovos?.length == 0">
+            <h5 class="center century">Não há pedidos novos por enquanto.</h5>
+        </div>
     </div>
     <main class="main">
         <div class="container-pedidos">
@@ -40,8 +43,9 @@
             <div *ngIf="pedidosPreparo">
                 <div class="pedido-container" *ngFor="let p of pedidosPreparo; let i = index">
                     <div class="p-header">
+                        <mat-icon class="icon-print" (click)="imprimirPedido(p)">print</mat-icon>
+                        <p class="no-margin horario bold corbel">{{p.horario_pedido}}</p>
                         <p class="no-margin nome bold">{{p.nome_usuario}}</p>
-                        <p class="no-margin horario bold">{{p.horario_pedido}}</p>
                     </div>
                     <div class="itens">
                         <div class="laranja-padrao no-margin">
