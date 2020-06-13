@@ -73,6 +73,7 @@
                 <p class="lblTotal corbel italic no-margin mg-top-5">Subtotal<span class="valTotal">R$ {{pedido.subtotal}}</span></p>
                 <p class="lblTotal corbel no-margin">Taxa de entrega<span class="valTotal">R$ {{pedido.taxa_entrega}}</span></p>
                 <p class="lblTotal total corbel no-margin">Total<span class="valTotal">R$ {{pedido.total}}</span></p>
+                <p class="lblTotal total corbel no-margin" *ngIf="pedido.troco">Seu troco: <span class="valTotal">R$ {{(pedido.troco-pedido.total).toFixed(2)}}</span></p>
               </div>
             </ion-card-content>
           </div>

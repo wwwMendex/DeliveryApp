@@ -3,6 +3,7 @@ import { FirebaseProvider } from 'src/providers/firebase';
 import { FormCupomComponent } from '../components/form-cupom/form-cupom.component';
 import { MatDialog } from '@angular/material/dialog';
 import { HistoricoCaixaComponent } from '../components/historico-caixa/historico-caixa.component';
+import { FormPedidoComponent } from '../components/form-pedido/form-pedido.component';
 @Component({
   selector: 'app-painel',
   templateUrl: './painel.component.html',
@@ -13,6 +14,7 @@ export class PainelComponent implements OnInit {
   pedidosNovos:any = [];
   caixaAberto:any = JSON.parse(localStorage.getItem('caixaAberto')) || null;
   cupons: any = JSON.parse(sessionStorage.getItem('cupons')) || [];
+  pedido:any = [];
   constructor(
     private fb: FirebaseProvider,
     private dialog: MatDialog
@@ -63,6 +65,29 @@ export class PainelComponent implements OnInit {
       width: '40vw',
     });
   }
+
+  addPedido(){
+    this.dialog.open(FormPedidoComponent, {
+      height: '90vh',
+      width: '50vw',
+      data: this.pedido
+    });
+
+  }
+
+  confirmarPedido(){
+    if(this.pedido.length > 0){
+      this.fb.atualizarPedido(Object.assign({}, this.pedido[0]));
+      this.imprimirPedido(this.pedido);
+      alert("Pedido lançado com sucesso! Você poderá visualizar no painel 'Em preparo'");
+      this.pedido = [];
+    }
+  }
+  imprimirPedido(pedido){
+    console.log(pedido);
+  }
+
+
   async getPedidosNovos(){
     this.pedidosNovos = await this.fb.getAllPedidoByStatus(1);
   }
@@ -78,7 +103,7 @@ export class PainelComponent implements OnInit {
       width: '40vw',
       data: this.cupons
     });
-    dialogRef.afterClosed().subscribe(async result => {
+    dialogRef.afterClosed().subscribe(() => {
       sessionStorage.setItem('cupons', JSON.stringify(this.cupons));
     });
   }

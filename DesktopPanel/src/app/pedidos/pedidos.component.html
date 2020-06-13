@@ -34,7 +34,7 @@
             </mat-card>
         </div>
         <div *ngIf="pedidosNovos?.length == 0">
-            <h5 class="center century">Não há pedidos novos por enquanto.</h5>
+            <h5 class="center century pad-10">Não há pedidos novos por enquanto.</h5>
         </div>
     </div>
     <main class="main">
@@ -56,7 +56,8 @@
                         <p class="no-margin">{{p.endereco}}</p>
                     </div>
                     <div class="total">
-                        <p class=" no-margin"><span class="bold">Total:</span> {{p.total}} - {{p.pagamento}}</p>
+                        <p class=" no-margin"><span class="bold">Total:</span> R$ {{p.total}} - {{p.pagamento =='card' ? 'Cartão' : 'Dinheiro'}}</p>
+                        <p class=" no-margin" *ngIf="p.troco"><span class="bold">Troco: </span> R$ {{(p.troco - p.total).toFixed(2)}}</p>
                     </div>
                     <div class="p-footer">
                         <p class="contato no-margin laranja-padrao">{{p.contato}}</p>

@@ -55,11 +55,11 @@ export class SacolaPage implements OnInit {
     });
   }
   pagamentoDin(){
-      this.pagamento = "Dinheiro";
+      this.pagamento = "dinheiro";
       this.alertTroco("");
   }
   pagamentoCard(){
-    this.pagamento = "Cartão";
+    this.pagamento = "card";
   }
   pagamentoPontos(){
     if(this.user.pontos_fidelidade >=10){

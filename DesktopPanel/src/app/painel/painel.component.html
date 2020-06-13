@@ -45,17 +45,22 @@
             <p class="linha no-margin mg-top-5"></p>
         </div>
         <div class="main-panel">
-            <mat-form-field appearance="standard" color="warn">
-                <mat-label>Telefone</mat-label>
-                <input matInput placeholder="(11) 00000-0000" autocomplete="off">
-            </mat-form-field>
-            <button mat-raised-button color="primary" class="btn btn-add">Adicionar pedido</button>
-            <p class="branco label-pedido no-margin mg-top-5">Pedido:</p>
-            <div class="pedido">
+            <div class="mg-top-10">
+                <button mat-raised-button color="primary" class="btn btn-add" (click)="addPedido()" >
+                    <span *ngIf="!pedido[0]">Adicionar pedido</span>
+                    <span *ngIf="pedido[0]">Editar pedido</span>
+                </button>
+            </div>
+            <div class="pedido century branco" *ngIf="pedido[0]">
+                <span class="laranja-padrao bold">Cliente:</span> {{pedido[0]?.nome_usuario}}, <span class="laranja-padrao bold">tel:</span> {{pedido[0]?.contato}}<br>
+                <span class="laranja-padrao bold">Itens:</span> <span *ngFor="let item of pedido[0]?.pedido">{{item}}; </span><br>
+                <span class="laranja-padrao bold">Endereço:</span> {{pedido[0]?.endereco}}<br>
+                <span class="laranja-padrao bold">TOTAL:</span> R$ {{pedido[0]?.total}} <span class="laranja-padrao bold">({{pedido[0]?.pagamento=='card' ? 'Cartão' : 'Dinheiro'}})</span><br>
+                <span *ngIf="pedido[0].troco"><span class="laranja-padrao bold">Troco para</span> R$ {{pedido[0].troco}}</span>
             </div>
         </div>
         <div class="footer-panel">
-            <button mat-raised-button color="accent" class="btn btn-confirma">CONFIRMAR</button>
+            <button mat-raised-button color="accent" class="btn btn-confirma" (click)="confirmarPedido()" [disabled]="pedido?.length == 0">CONFIRMAR</button>
         </div>
     </div>
     <div class="panel panel-5">

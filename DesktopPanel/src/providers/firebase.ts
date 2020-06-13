@@ -138,29 +138,31 @@ export class FirebaseProvider {
       let arraySalgadas = [];
       let arrayDoces = [];
       let arrayBebidas = [];
-      this.afs.firestore.collection('Cardapio').doc('pizzas').collection('salgadas').get()
+      let promisses = [];
+      promisses.push(this.afs.firestore.collection('Cardapio').doc('pizzas').collection('salgadas').get()
         .then((r) => {
           r.forEach((d) => {
             let item = d.data();
             arraySalgadas.push(item);
           });
-        });  
+        }));
       
-      this.afs.firestore.collection('Cardapio').doc('pizzas').collection('doces').get()
+      promisses.push(this.afs.firestore.collection('Cardapio').doc('pizzas').collection('doces').get()
         .then((r) => {
           r.forEach((d) => {
             let item = d.data();
             arrayDoces.push(item);
           });
-        });
-      this.afs.firestore.collection('Cardapio').doc('bebidas').collection('options').get()
+        }));
+      promisses.push(this.afs.firestore.collection('Cardapio').doc('bebidas').collection('options').get()
         .then((r) => {
           r.forEach((d) => {
             let item = d.data();
             arrayBebidas.push(item);
           });
-        });
-        resolve([arraySalgadas, arrayDoces, arrayBebidas]);
+        }));
+        Promise.all(promisses).then(() => resolve([arraySalgadas, arrayDoces, arrayBebidas]));
+        
     });
   }
 

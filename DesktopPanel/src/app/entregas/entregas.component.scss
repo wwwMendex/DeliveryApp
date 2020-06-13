@@ -124,11 +124,11 @@ $branco: rgb(240, 238, 217);
         }
         .pedido-container{
             width: 30%;
-            height: 260px;
+            height: 320px;
             background-color: $cinza-claro;
             margin: 5px 0 5px 2.5%;
             display: inline-grid;
-            grid-template-rows: 10% 40% 20% 20% 10%;
+            grid-template-rows: 10% 35% 20% 25% 10%;
             grid-template-areas: "p-header" "itens" "endereco" "total" "p-footer";
             border-radius: 8px;
             box-shadow: 1px 1px 8px 1px rgba(112, 112, 112, 0.212);
@@ -137,7 +137,7 @@ $branco: rgb(240, 238, 217);
                 grid-area: p-header;
                 .nome{
                     margin-left: 10px;
-                    font-size: 18px;
+                    font-size: 17px;
                     display: inline;
                     max-width: 80%;
                 }
@@ -154,7 +154,7 @@ $branco: rgb(240, 238, 217);
             .endereco{
                 margin-left: 20px;
                 grid-area: endereco;
-                font-size: 14px;
+                font-size: 15px;
             }
             .total{
                 grid-area: total;

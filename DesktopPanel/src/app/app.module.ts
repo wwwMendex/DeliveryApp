@@ -18,6 +18,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 //firebase
 import { environment } from '../environments/environment';
 import { AngularFireModule } from "@angular/fire";
@@ -59,6 +60,7 @@ import { PedidoEntregueComponent } from './components/pedido-entregue/pedido-ent
     FormCupomComponent,
     HistoricoCaixaComponent,
     PedidoEntregueComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -78,7 +80,8 @@ import { PedidoEntregueComponent } from './components/pedido-entregue/pedido-ent
     MatSelectModule,
     MatDialogModule,
     MatIconModule,
-    MatChipsModule
+    MatChipsModule,
+    MatAutocompleteModule
   ],
   providers: [
     FirebaseProvider,

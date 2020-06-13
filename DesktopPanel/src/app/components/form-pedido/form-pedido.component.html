@@ -1,1 +1,146 @@
-<p>form-pedido works!</p>
+<div class="container-pedido pad-10">
+  <div class="header">
+      <mat-icon aria-hidden="false" (click)="closeDialog()">close</mat-icon>
+      <h5 class="century center bold cinza">SELECIONE OS ITENS DO PEDIDO</h5>
+  </div>
+  <div class="pad-10">
+    <div class="salgadas">
+      <mat-form-field class="input-item">
+        <mat-label>Buscar pizza salgada</mat-label>
+        <input type="text" matInput [matAutocomplete]="auto1" [formControl]="salgadaActive" (ngModelChange)="findItem(salgadaActive, cardapioSalgadas, 0)">
+        <button mat-button *ngIf="salgadaActive.value" matSuffix mat-icon-button aria-label="Clear" (click)="salgadaActive.setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-autocomplete #auto1="matAutocomplete">
+          <mat-option *ngFor="let item of filteredOptionsSal | async" [value]="item">
+            {{item}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div class="item pad-10" *ngIf="itemSelected[0]">
+        <p class="item-price bold century">R$ {{itemSelected[0].price}}</p>
+        <p class="item-name century">Item selecionado: <span class="laranja-padrao bold">{{itemSelected[0].name}}</span></p>
+        <mat-form-field class="input-obs" appearance="outline" color="primary">
+          <mat-label>Observações (opcional)</mat-label>
+          <input type="text" [formControl]="obsActive" matInput>
+          <button mat-button *ngIf="obsActive.value" matSuffix mat-icon-button aria-label="Clear" (click)="obsActive.setValue('')">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <button mat-flat-button color="accent" class="button-add" (click)="addItem(itemSelected[0])">Adicionar</button>
+      </div>
+    </div>
+    <div class="doces">
+      <mat-form-field class="input-item">
+        <mat-label>Buscar pizza doce</mat-label>
+        <input type="text" matInput [matAutocomplete]="auto2" [formControl]="doceActive" (ngModelChange)="findItem(doceActive, cardapioDoces, 1)">
+        <button mat-button *ngIf="doceActive.value" matSuffix mat-icon-button aria-label="Clear" (click)="doceActive.setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-autocomplete #auto2="matAutocomplete">
+          <mat-option *ngFor="let item of filteredOptionsDoc | async" [value]="item">
+            {{item}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div class="item pad-10" *ngIf="itemSelected[1]">
+        <p class="item-price bold century">R$ {{itemSelected[1].price}}</p>
+        <p class="item-name century">Item selecionado: <span class="laranja-padrao bold">{{itemSelected[1].name}}</span></p>
+        <mat-form-field class="input-obs" appearance="outline" color="primary">
+          <mat-label>Observações (opcional)</mat-label>
+          <input type="text" [formControl]="obsActive" matInput>
+          <button mat-button *ngIf="obsActive.value" matSuffix mat-icon-button aria-label="Clear" (click)="obsActive.setValue('')">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <button mat-flat-button color="accent" class="button-add" (click)="addItem(itemSelected[1])">Adicionar</button>
+      </div>
+
+    </div>
+    <div class="bebidas">
+      <mat-form-field class="input-item">
+        <mat-label>Buscar bebida</mat-label>
+        <input type="text" matInput [matAutocomplete]="auto3" [formControl]="bebidaActive" (ngModelChange)="findItem(bebidaActive, cardapioBebidas, 2)">
+        <button mat-button *ngIf="bebidaActive.value" matSuffix mat-icon-button aria-label="Clear" (click)="bebidaActive.setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-autocomplete #auto3="matAutocomplete">
+          <mat-option *ngFor="let item of filteredOptionsBeb | async" [value]="item">
+            {{item}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div class="item pad-10" *ngIf="itemSelected[2]">
+        <p class="item-price bold century">R$ {{itemSelected[2].price}}</p>
+        <p class="item-name century">Item selecionado: <span class="laranja-padrao bold">{{itemSelected[2].name}}</span></p>
+        <mat-form-field class="input-obs" appearance="outline" color="primary">
+          <mat-label>Observações (opcional)</mat-label>
+          <input type="text" [formControl]="obsActive" matInput>
+          <button mat-button *ngIf="obsActive.value" matSuffix mat-icon-button aria-label="Clear" (click)="obsActive.setValue('')">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <button mat-flat-button color="accent" class="button-add" (click)="addItem(itemSelected[2])">Adicionar</button>
+      </div>
+    </div>
+  </div>
+  <div class="pedido" *ngIf="pedidoSelect?.length > 0">
+    <h5 class="laranja-avermelhado century bold">Pedido aberto: </h5>
+    <div class="pad-10">
+      <div  *ngFor="let item of pedidoSelect; let i = index" class="mg-top-5">
+        <mat-icon class="btn-remover" (click)="removeItem(i)">delete_forever</mat-icon>
+        <p class="item-price bold century">R$ {{item.price}}</p>
+        <p class="item-name century bold laranja-padrao" >{{item.name}} <span *ngIf="item.obs" class="cinza normal">(obs): {{item.obs}}</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="cliente mg-top-20" *ngIf="pedidoSelect?.length > 0">
+    <h5 class="cinza century bold">Dados do cliente: </h5>
+    <div class="pad-10">
+      <mat-form-field class="input-tel-cliente" appearance="outline" color="primary">
+        <mat-label>Telefone</mat-label>
+        <input type="text" [formControl]="tel_cliente" (ngModelChange)="findCliente()" matInput>
+      </mat-form-field>
+      <mat-form-field class="input-nome-cliente" appearance="outline" color="primary">
+        <mat-label>Nome do cliente</mat-label>
+        <input type="text" [formControl]="nome_cliente" matInput>
+      </mat-form-field>
+      <mat-form-field class="input-end-cliente" appearance="outline" color="primary">
+        <mat-label>Endereço</mat-label>
+        <input type="text" [formControl]="end_cliente" matInput>
+      </mat-form-field>
+      
+      <mat-form-field class="input-bairro-cliente" appearance="outline" color="primary">
+        <mat-label>Bairro</mat-label>
+        <mat-select [formControl]="bairro_cliente" (ngModelChange)="addTaxa()">
+          <mat-option *ngFor="let bairro of bairros" [value]="bairro">{{bairro.bairro}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="footer" *ngIf="pedidoSelect?.length > 0">
+    <h5 class="cinza century bold">Pagamento: </h5>
+    <div class="pad-10">
+      <div>
+        <p class="cinza century bold subtotal">Subtotal: <span class="century laranja-padrao">R${{pedidoFechado?.subtotal}}</span></p>
+        <p class="cinza century bold center taxa">Taxa: <span class="century laranja-padrao">R${{pedidoFechado?.taxa_entrega}}</span></p>
+        <p class="cinza corbel bold total">TOTAL: <span class="century laranja-padrao">R${{pedidoFechado?.total}}</span></p>
+      </div>
+      <br>
+      <h6>Forma de pagamento: </h6>
+      <mat-form-field appearance="outline" color="primary" class="input-pagamento">
+        <mat-label>Dinheiro/Cartão</mat-label>
+        <mat-select [formControl]="pagamento">
+          <mat-option value="dinheiro">Dinheiro</mat-option>
+          <mat-option value="card">Cartão</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="input-troco" *ngIf="pagamento.value=='dinheiro'" appearance="outline" color="primary">
+        <mat-label>Troco para: R$</mat-label>
+        <input type="text" [formControl]="troco" matInput>
+      </mat-form-field>
+      <button mat-flat-button color="accent" class="button-confirm" (click)="confirmaPedido()">CONFIRMAR ITENS</button>
+    </div>
+  </div>
+    <!-- </form> -->
+</div>

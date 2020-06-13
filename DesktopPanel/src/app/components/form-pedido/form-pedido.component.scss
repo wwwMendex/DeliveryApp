@@ -1,0 +1,80 @@
+.container-pedido{
+    .input-item{
+        width: 100%;
+    }
+    .item-name{
+        font-size: 20px;
+    }
+    .item-price{
+        float: right;
+        font-size: 20px;
+    }
+    .header{
+        mat-icon{
+            float: right;
+        }
+    }
+    .item{
+        .input-obs{
+            width: 70%;
+        }
+        .button-add{
+            width: 30%;
+            height: 55px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+        }
+    }
+    .pedido{
+        .item-name, .item-price, .btn-remover{
+            margin: 0 !important;
+        }
+        .btn-remover{
+            padding-left: 5px;
+            padding-top: 4px;
+            float: right;
+            color: red;
+        }
+    }
+    .cliente{
+        .input-nome-cliente, .input-tel-cliente{
+            width: 50%;
+        }
+        .input-end-cliente{
+            width: 65%;
+        }
+        .input-bairro-cliente{
+            width: 35%;
+        }
+    }
+    .footer{
+        p{
+            display: inline;
+        }
+        .subtotal{
+            float: left;
+        }
+        .taxa{
+            margin-left: 40%;
+        }
+        .total{
+            float: right;
+        }
+        .input-pagamento{
+            width: 60%;
+        }
+        .input-troco{
+            width: 40%;
+        }
+        .button-confirm{
+            width: 90%;
+            margin-left: 5%;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            height: 45px;
+        }
+    }
+
+}
