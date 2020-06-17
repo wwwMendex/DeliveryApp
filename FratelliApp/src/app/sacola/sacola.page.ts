@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController, ToastController, Platform } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
@@ -7,7 +7,6 @@ import { EnderecosPage } from '../enderecos/enderecos.page';
 import { FirebaseProvider } from '../../providers/firebase';
 import { StatusPage } from '../status/status.page';
 import { FCM } from '@ionic-native/fcm/ngx';
-import { resolve } from 'url';
 
 @Component({
   selector: 'app-sacola',
@@ -24,7 +23,10 @@ export class SacolaPage implements OnInit {
   taxa_entrega:number = 0;
   total: number = 0;
   endereco: any = [];
-  disabled = false;
+  disabled = true;
+  fechado:any = false;
+  pontosPedido = 0;
+  pedidoPontosAtivo = true;
   constructor(
     private modalCtrl: ModalController,
     private router: Router,
@@ -44,6 +46,21 @@ export class SacolaPage implements OnInit {
     this.endereco = await this.getEndereco();
     this.user = await this.getUsuario();
     this.getTaxaEntrega();
+    this.verificaStatus();
+    this.pedidoPontosAtivo = await this.storage.get('pedidoPontos');
+  }
+
+  verificaStatus(){
+    this.firebaseProvider.getStatus()
+      .then(r => {
+        if(!r['status']){
+          this.disabled = true;
+          this.fechado = "LOJA FECHADA!";
+          return false;
+        }
+        this.disabled = false;
+        return true;
+      });
   }
   getTaxaEntrega(){
     this.firebaseProvider.getTarifa(this.endereco.bairro).then(r =>{
@@ -63,7 +80,7 @@ export class SacolaPage implements OnInit {
   }
   pagamentoPontos(){
     if(this.user.pontos_fidelidade >=10){
-      this.pagamento = "Pontos";
+      this.pagamento = "pontos";
     }
   }
   atualizarTotal(){
@@ -99,6 +116,10 @@ export class SacolaPage implements OnInit {
 
   async getPedido(){
     let pedidoAtual = await this.storage.get('pedido');
+    pedidoAtual.forEach(item => {
+      if(item.type =="pizza")
+        this.pontosPedido += item.qtd;
+    });
     return pedidoAtual && pedidoAtual.length > 0 ? pedidoAtual:false;
   }
   async confirmarRemover(){
@@ -311,6 +332,7 @@ export class SacolaPage implements OnInit {
         total: this.total,
         troco: this.troco,
         user_id: this.user.uid,
+        pontos: this.pontosPedido,
         token: token || null
       };
       // Subindo pedido no firestore
@@ -328,17 +350,14 @@ export class SacolaPage implements OnInit {
           .then(() => {
             pedidos.push(pedido.id);
             this.storage.set('pedidoEfetuado', pedidos);
-            if(this.pagamento == "Pontos"){
-              this.user.pontos_fidelidade -=10;
-              this.firebaseProvider.postUser(this.user);
-              this.storage.set('user', this.user);
+            if(this.pagamento == "pontos"){
+              this.storage.set('pedidoPontos', true);
             }
           })
           .then(() => {
             this.storage.remove('pedido');
-            this.router.navigateByUrl('home');
             this.closeModal();
-            this.abrirStatus();
+            this.router.navigateByUrl('status');
           });
         });
       }
@@ -359,14 +378,6 @@ export class SacolaPage implements OnInit {
       this.getTaxaEntrega();
     });
     return await modal.present();
-  }
-
-  async abrirStatus(){
-    const modalStatus = await this.modalCtrl.create({
-      component: StatusPage,
-      swipeToClose: true,
-    });
-    return await modalStatus.present();
   }
 
   goToHome(){

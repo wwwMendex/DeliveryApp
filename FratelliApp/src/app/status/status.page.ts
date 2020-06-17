@@ -41,6 +41,9 @@ export class StatusPage implements OnInit {
     let index = id.length -1;
     id.forEach(async ped => {
       let pedido = await this.fb.getPedido(ped);
+      if(pedido['status'] > 1 && pedido['pagamento'] == 'pontos'){
+        this.storage.remove('pedidoPontos');
+      }
       if(pedido['horario_entrega'] != null){
         pedido['horario_entrega'] = new Date(pedido['horario_entrega'] * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
       }

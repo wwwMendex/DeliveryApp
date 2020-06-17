@@ -56,7 +56,7 @@
       <p class="corbel extra-bold no-margin pad-top-20 label">Como será o pagamento?</p>
       <ion-list class="no-pad pagamento mg-top-5">
         <ion-radio-group>
-          <ion-item *ngIf="user?.pontos_fidelidade >=10">
+          <ion-item *ngIf="user?.pontos_fidelidade >=10 && !pedidoPontosAtivo">
             <ion-icon class="iconPontos" name="ribbon-outline"></ion-icon>
             <ion-label class="lblPagamento"> Utilizar meus pontos</ion-label>
             <ion-radio slot="start" class="radioPontos" value="pontos" (click)="pagamentoPontos()"></ion-radio>
@@ -79,7 +79,7 @@
       </ion-list>
       <ion-button class="btnAdd" expand="block" [disabled]="disabled" size="large" color="danger" *ngIf="endereco" (click)="confirmarPedido()">
         <ion-icon slot="start" name="thumbs-up-sharp"></ion-icon>
-        <span> CONFIRMAR PEDIDO</span>
+        <span> {{fechado ? fechado : 'CONFIRMAR PEDIDO'}}</span>
       </ion-button>
       <ion-button class="btnAdd" expand="block" size="large" color="danger" *ngIf="!endereco" (click)="abrirEndereco()">
         <ion-icon slot="start" name="home-outline"></ion-icon>
