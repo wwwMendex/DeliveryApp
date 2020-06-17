@@ -161,8 +161,7 @@ export class FirebaseProvider {
             arrayBebidas.push(item);
           });
         }));
-        Promise.all(promisses).then(() => resolve([arraySalgadas, arrayDoces, arrayBebidas]));
-        
+        Promise.all(promisses).then(() => resolve([arraySalgadas, arrayDoces, arrayBebidas])); 
     });
   }
 
@@ -215,6 +214,18 @@ export class FirebaseProvider {
     });
   }
 
+  atualizarPontos(uid: string, pontos: number){
+    this.afs.firestore.collection('Users').doc(uid).get()
+    .then((r) => {
+      let user = r.data();
+      user.pontos_fidelidade += pontos;
+      this.afs
+        .collection("Users")
+        .doc(uid)
+        .set(user);
+    });
+    return;
+  }
 
 }
 

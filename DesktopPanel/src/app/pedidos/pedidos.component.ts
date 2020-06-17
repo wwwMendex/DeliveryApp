@@ -53,21 +53,26 @@ export class PedidosComponent implements OnInit {
     this.entregadores = JSON.parse(localStorage.getItem('entregadores')) || [];
     this.entregadoresForm.reset();
   }
+
   closeModal(){
     this.modalEntregador = false;
     this.indexPedidoSaiu = null;
     this.entregadoresForm.reset();
   }
+  
   confirmarPedido(index){
-    this.enviarPush("Seu pedido foi confirmado!", "Está em preparo, aguarde para mais atualizações", this.pedidosNovos[index].token);
+    this.enviarPush("Seu pedido foi confirmado!", "Está em preparo, te avisaremos quando ele sair para entrega.", this.pedidosNovos[index].token);
     this.pedidosNovos[index].status = 2;
+    if(this.pedidosNovos[index].pagamento =='pontos')
+      this.fb.atualizarPontos(this.pedidosNovos[index].user_id, (-10 * this.pedidosNovos[index].qtd_pizzas_pontos)); // remove 10 pontos por pizza
+    this.fb.atualizarPontos(this.pedidosNovos[index].user_id, this.pedidosNovos[index].pontos); // soma pontos do restante do pedido
     this.imprimirPedido(this.pedidosNovos[index]);
     this.fb.atualizarPedido(this.pedidosNovos[index]);
     this.pedidosPreparo.push(this.pedidosNovos[index]);
     this.pedidosNovos.splice(index, 1);
     sessionStorage.setItem('pedidosPreparo', JSON.stringify(this.pedidosPreparo));
-
   }
+
   sairParaEntrega(){
     if(this.entregadoresForm.valid){
       this.pedidosPreparo[this.indexPedidoSaiu].status = 3;
