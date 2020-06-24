@@ -35,6 +35,7 @@
               <ion-button color="primary" fill="outline" *ngIf="pedido.status==2">Em preparo</ion-button>
               <ion-button color="danger" fill="outline" *ngIf="pedido.status==3">Saiu para entrega</ion-button>
               <ion-button color="success" fill="outline" *ngIf="pedido.status==4">Pedido entregue</ion-button>
+              <ion-button color="dark" fill="outline" *ngIf="pedido.status==5">Pedido cancelado</ion-button>
               <ion-button fill="clear" (click)="presentHelpAlert()">
                 <ion-icon name="help" slot="end" color="dark"></ion-icon>
               </ion-button>

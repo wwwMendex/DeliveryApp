@@ -63,9 +63,10 @@ export class PedidosComponent implements OnInit {
   confirmarPedido(pedido, index){
     this.enviarPush("Seu pedido foi confirmado!", "Está em preparo, te avisaremos quando ele sair para entrega.", this.pedidosNovos[index].token);
     pedido.status = 2;
-    if(pedido.user_id && pedido.pagamento =='pontos')
-      this.fb.atualizarPontos(pedido.user_id, (-10 * pedido.qtd_pizzas_pontos)); // remove 10 pontos por pizza
-    if(pedido.user_id && pedido.pontos > 0)
+    if(pedido.pagamento =='pontos'){
+      this.fb.atualizarPontos(pedido.user_id, (-10 * pedido.qtd_pizza_pontos)); // remove 10 pontos por pizza
+    }
+    if(pedido.pontos > 0)
       this.fb.atualizarPontos(pedido.user_id, pedido.pontos); // soma pontos do restante do pedido
     this.imprimirPedido(pedido);
     this.fb.atualizarPedido(pedido);
@@ -76,17 +77,21 @@ export class PedidosComponent implements OnInit {
 
   rejeitarPedido(pedido, index){
     this.enviarPush("Seu pedido foi rejeitado!", "O restaurante não aceitou seu pedido.", pedido.token);
-    this.fb.cancelarPedido(pedido.id);
+    pedido.status = 5;
+    this.fb.atualizarPedido(pedido);
     this.pedidosNovos.splice(index, 1);
   }
 
   cancelarPedido(pedido, index){
     this.enviarPush("Seu pedido foi cancelado!", "O restaurante não entregará mais seu pedido.", pedido.token);
-    if(pedido.user_id && pedido.pagamento =='pontos')
-      this.fb.atualizarPontos(pedido.user_id, (10 * pedido.qtd_pizzas_pontos)); // devolve 10 pontos por pizza
-    if(pedido.user_id)
+    if(pedido.pagamento =='pontos'){
+      this.fb.atualizarPontos(pedido.user_id, 10 * pedido.qtd_pizza_pontos);
+    } // devolve 10 pontos por pizza
+    if(pedido.pontos > 0){
       this.fb.atualizarPontos(pedido.user_id, -pedido.pontos); // remove pontos do restante do pedido
-    this.fb.cancelarPedido(pedido.id);
+    }
+    pedido.status = 5;
+    this.fb.atualizarPedido(pedido);
     this.pedidosPreparo.splice(index, 1);
     sessionStorage.setItem('pedidosPreparo', JSON.stringify(this.pedidosPreparo));
   }

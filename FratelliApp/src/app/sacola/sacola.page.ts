@@ -152,8 +152,9 @@ export class SacolaPage implements OnInit {
   async getPedido(){
     let pedidoAtual = await this.storage.get('pedido');
     pedidoAtual.forEach(item => {
-      if((item.type =="salgada" || item.type =="doce") && !item.promo)
+      if((item.type =="salgada" || item.type =="doce") && !item.promo){
         this.pontosPedido += item.qtd;
+      }
     });
     return pedidoAtual && pedidoAtual.length > 0 ? pedidoAtual:false;
   }

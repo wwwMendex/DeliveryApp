@@ -57,9 +57,9 @@ export class FirebaseProvider {
   getUltimosPedidos(uid){
     return new Promise((resolve, reject) =>{ 
       this.afs.firestore.collection('Pedidos')
-      .orderBy('horario_pedido', 'desc')
+      .orderBy('contato')
       .where("user_id", "==", uid).where("status", "==",4)
-      .limit(3)
+      .limitToLast(3)
       .get()
       .then((r) => {
         let array = [];

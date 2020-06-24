@@ -17,12 +17,6 @@ export class FirebaseProvider {
     .doc(data.id)
     .set(data);
 
-  cancelarPedido = id =>
-  this.afs
-    .collection("Pedidos")
-    .doc(id)
-    .delete();
-
   criarSlide = data =>
   this.afs
     .collection("Slides")
@@ -224,7 +218,7 @@ export class FirebaseProvider {
     this.afs.firestore.collection('Users').doc(uid).get()
     .then((r) => {
       let user = r.data();
-      user.pontos_fidelidade += pontos;
+      user.pontos_fidelidade += pontos;        
       this.afs
         .collection("Users")
         .doc(uid)

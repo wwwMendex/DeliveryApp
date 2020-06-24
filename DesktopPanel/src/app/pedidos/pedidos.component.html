@@ -62,7 +62,7 @@
                         <p class="no-margin">{{p.endereco}}</p>
                     </div>
                     <div class="total">
-                        <p class=" no-margin"><span class="bold">Total:</span> R$ {{p.total}} - {{p.pagamento =='card' ? 'Cartão' : 'Dinheiro'}}</p>
+                        <p class=" no-margin"><span class="bold">Total:</span> R$ {{p.total}} - {{p.pagamento =='card' ? 'Cartão' : p.pagamento=='pontos' ? 'Pontos' : 'Dinheiro'}}</p>
                         <p class=" no-margin" *ngIf="p.troco"><span class="bold">Troco: </span> R$ {{(p.troco - p.total).toFixed(2)}}</p>
                     </div>
                     <div class="p-footer">
