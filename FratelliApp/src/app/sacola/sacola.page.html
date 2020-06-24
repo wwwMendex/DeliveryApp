@@ -30,8 +30,10 @@
           <span class="numQtd"> {{i.qtd}} </span>
           <button class="buttonQtd" (click)="addItem(i.id)" *ngIf="i.qtd<15">+</button>
         </div>
-        <p class="item-type century bold no-margin" *ngIf="i.type=='Pizzas Doces' || i.type == 'Pizzas Salgadas'">Pizza grande (8 pedaços)</p>
-        <p class="item-type century bold no-margin" *ngIf="i.type=='Bebidas'">Refrigerante</p>
+        <p class="item-type century bold no-margin" *ngIf="i.type!='bebidas'">Pizza grande (8 pedaços)
+          <span class="laranja-padrao label-promo century" *ngIf="i.promo && user.pontos_fidelidade >= 10">PROMO</span>
+        </p>
+        <p class="item-type century bold no-margin" *ngIf="i.type=='bebidas'">Bebida</p>
         <p class="item-name corbel italic no-margin">{{i.name}}</p>
         <p class="item-obs calibri italic no-margin" *ngIf="i.obs!=''">Obs: {{i.obs}} </p>
         <p class="item-price corbel bold no-margin">R$ {{i.price}}</p>
@@ -56,7 +58,7 @@
       <p class="corbel extra-bold no-margin pad-top-20 label">Como será o pagamento?</p>
       <ion-list class="no-pad pagamento mg-top-5">
         <ion-radio-group>
-          <ion-item *ngIf="user?.pontos_fidelidade >=10 && !pedidoPontosAtivo">
+          <ion-item *ngIf="podePagarComPontos"> 
             <ion-icon class="iconPontos" name="ribbon-outline"></ion-icon>
             <ion-label class="lblPagamento"> Utilizar meus pontos</ion-label>
             <ion-radio slot="start" class="radioPontos" value="pontos" (click)="pagamentoPontos()"></ion-radio>

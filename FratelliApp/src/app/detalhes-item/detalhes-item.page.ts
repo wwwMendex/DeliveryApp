@@ -21,6 +21,7 @@ export class DetalhesItemPage implements OnInit {
   }
 
   @Input() public item: any;
+  @Input() public pontos: number;
   ngOnInit() {
   }
 
@@ -53,7 +54,8 @@ export class DetalhesItemPage implements OnInit {
         'obs' : this.observation,
         'qtd' : this.numQtd,
         'price' : this.item[0].price,
-        'type' : this.item[0].type
+        'type' : this.item[0].type,
+        'promo' : this.item[0].promo
       });
       this.storage.set('pedido', pedido); //armazena no storage novo pedido
     }

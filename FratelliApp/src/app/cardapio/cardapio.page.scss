@@ -22,6 +22,10 @@ ion-title{
     text-transform: uppercase;
     width: 80%;
 }
+.item-promo{
+    float: right;
+    color: #E5690B;
+}
 .item-description{
     color: #535353;
     font-size: 16px;
@@ -30,10 +34,9 @@ ion-title{
 }
 .item-price{
     color: #252519;
-    position: absolute;
     font-size: 19px;
     font-weight: 700;
-    right: 0;
+    float: right;
     bottom: 13px;
 }
 ion-avatar{

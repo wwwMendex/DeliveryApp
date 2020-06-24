@@ -11,7 +11,7 @@ import { EnderecosPage } from '../enderecos/enderecos.page';
   styleUrls: ['./menu.page.scss'],
 })
 export class MenuPage implements OnInit {
-  user:any ;
+  user:any;
   pedidos:any;
 
   constructor(

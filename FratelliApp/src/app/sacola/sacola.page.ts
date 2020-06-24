@@ -15,6 +15,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
 })
 export class SacolaPage implements OnInit {
   pagamento: any;
+  podePagarComPontos = false;
   troco: any = null;
   cupom:any = [];
   pedido:any = false;
@@ -27,6 +28,8 @@ export class SacolaPage implements OnInit {
   fechado:any = false;
   pontosPedido = 0;
   pedidoPontosAtivo = true;
+  qtd_promo = 0;
+  warn = false;
   constructor(
     private modalCtrl: ModalController,
     private router: Router,
@@ -43,11 +46,43 @@ export class SacolaPage implements OnInit {
     if(this.pedido){
       this.atualizarTotal();
     }
+    this.pedidoPontosAtivo = await this.storage.get('pedidoPontos');
     this.endereco = await this.getEndereco();
     this.user = await this.getUsuario();
+    this.podePagarComPontos = this.validaPedidoPontos(this.pedido, this.user);
     this.getTaxaEntrega();
     this.verificaStatus();
-    this.pedidoPontosAtivo = await this.storage.get('pedidoPontos');
+  }
+
+  validaPedidoPontos(pedido, user){
+    this.qtd_promo = 0;
+    if(user.pontos_fidelidade >= 10 && !this.pedidoPontosAtivo){
+      for(let item of pedido){
+        if(!item.promo){
+          this.alertController.create({
+            header: 'Para pagar com seus pontos adicione no pedido somente pizzas da promoção!',
+            buttons: [
+              {
+                text: 'Entendi',
+                role: 'cancel'
+              }
+            ]
+          }).then(a => {
+            if(!this.warn){
+              a.present();
+              this.warn = true;
+            }
+          });
+          this.qtd_promo = 0;
+          return false;
+        }
+        this.qtd_promo+=item.qtd;
+      }
+      return (user.pontos_fidelidade - 10*this.qtd_promo) >=0
+      ? true
+      : false;
+    }
+    return false;
   }
 
   verificaStatus(){
@@ -117,62 +152,49 @@ export class SacolaPage implements OnInit {
   async getPedido(){
     let pedidoAtual = await this.storage.get('pedido');
     pedidoAtual.forEach(item => {
-      if(item.type =="pizza")
+      if((item.type =="salgada" || item.type =="doce") && !item.promo)
         this.pontosPedido += item.qtd;
     });
     return pedidoAtual && pedidoAtual.length > 0 ? pedidoAtual:false;
   }
-  async confirmarRemover(){
+  async confirmarRemover(index){
     const alert = await this.alertController.create({
       header: 'Deseja remover o item?',
       buttons: [
         {
           text: 'Não!',
-          handler: () => {
-            return false;
-          }
+          role: 'cancel',
         }, {
           text: 'Sim!',
           handler: () => {
-            return true;
+            this.pedido.splice(index, 1);
+            this.atualizarTotal();
+            this.storage.set('pedido', this.pedido);
+            this.podePagarComPontos = this.validaPedidoPontos(this.pedido, this.user);
           }
         }
       ]
     });
-
-    await alert.present();
+    alert.present();
   }
   async removerItem(id:any){
     let index = this.pedido.findIndex((item:any) => {return item.id == id});
     if(this.pedido[index].qtd == 1){
-      const alert = await this.alertController.create({
-        header: 'Deseja remover o item?',
-        buttons: [
-          {
-            text: 'Não!',
-            role: 'cancel',
-          }, {
-            text: 'Sim!',
-            handler: () => {
-              this.pedido.splice(index, 1);
-              this.atualizarTotal();
-              this.storage.set('pedido', this.pedido);
-            }
-          }
-        ]
-      });
-      alert.present();
+      this.confirmarRemover(index);
     }else{
       this.pedido[index].qtd--;
       this.storage.set('pedido', this.pedido);
       this.atualizarTotal();
+      this.podePagarComPontos = this.validaPedidoPontos(this.pedido, this.user);
     }
+    
   }
   addItem(id:any){
     let index = this.pedido.findIndex((item:any) => {return item.id == id});
     this.pedido[index].qtd++;
     this.atualizarTotal();
     this.storage.set('pedido', this.pedido);
+    this.podePagarComPontos = this.validaPedidoPontos(this.pedido, this.user);
   }
 
   async alertTroco(warn) {
@@ -306,6 +328,8 @@ export class SacolaPage implements OnInit {
         valorSemCupom = parseFloat((this.subtotal / ((100 - cupomUtilizado)/100)).toFixed(2));
         cupomUtilizado += "%";
       }
+      if(this.pagamento =="pontos")
+        this.pontosPedido = 0;
       let token;
       try{
         token = await this.fcm.getToken();
@@ -325,6 +349,7 @@ export class SacolaPage implements OnInit {
         pagamento: this.pagamento,
         pedido: itens,
         status: 1,
+        qtd_pizza_pontos: this.qtd_promo,
         subtotal: this.subtotal,
         cupom: cupomUtilizado,
         subtotal_sem_cupom: valorSemCupom,
