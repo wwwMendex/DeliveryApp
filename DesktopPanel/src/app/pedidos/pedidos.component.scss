@@ -73,12 +73,11 @@ $branco: rgb(240, 238, 217);
                 color: $cinza-claro;
                 display: inline;
             }
-            button{
-                outline: none;
-                position: absolute;
-                right: 0;
-                bottom: 0px;
-                font-weight: 700;
+            .buttons-novo-pedido{
+                float: right;
+                button{
+                    font-weight: 700;
+                }
             }
         }
     }
@@ -113,8 +112,11 @@ $branco: rgb(240, 238, 217);
                 .horario{
                     color: $laranja-avermelhado;
                 }
-                .icon-print{
+                .buttons-header-pedido{
                     float: right;
+                    mat-icon{
+                        margin-left: 10px;
+                    }
                 }
             }
             .itens{

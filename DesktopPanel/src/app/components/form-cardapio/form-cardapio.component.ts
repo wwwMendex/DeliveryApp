@@ -18,6 +18,7 @@ export class FormCardapioComponent implements OnInit {
     description: new FormControl(),
     price: new FormControl(),
     id: new FormControl(),
+    promo: new FormControl(),
   });
 
   constructor(
@@ -32,20 +33,28 @@ export class FormCardapioComponent implements OnInit {
   ngOnInit(): void {
   }
   initForm() {
+    console.log(this.data);
+    
     this.formulario = this.formBuilder.group({
       type: [this.data?.type ||'', Validators.required],
-      sub_type: [this.data?.sub_type ||'option', Validators.required],
+      sub_type: [this.data?.sub_type ||'', Validators.required],
       name: [this.data?.name ||'', Validators.required],
       description: [this.data?.description || '', Validators.required],
       price: [this.data?.price || '', Validators.required],
-      id: this.data?.id || (Date.now() + Math.random()).toString().replace('.', '')
+      id: this.data?.id || (Date.now() + Math.random()).toString().replace('.', ''),
+      promo: false
     });
   }
   submitForm(){
+    if(this.formulario.get('type').value =='bebida')
+      this.formulario.get('sub_type').setValue('option');
     if(this.formulario.valid){
-      this.formulario.get('price').setValue(parseFloat(this.formulario.get('price').value.toString().replace(/,/g, '.')));
+      const price = this.formulario.get('price').value.toString().match(/[\d\.\,]+/g).toString();
+      this.formulario.get('price').setValue(parseFloat(price.replace(/,/g, '.')));
       this.fb.criarItem(this.formulario.value);
       this.closeDialog(true);
+    }else{
+      alert('Confira se o formulário está preenchido corretamente.');
     }
   }
   deleteItem(){

@@ -67,8 +67,9 @@ $branco: rgb(240, 238, 217);
                 font-size: 18px;
                 width: 80%;
             }
-            .item-preco{
+            .item-preco, .icon-promo{
                 float: right;
+                margin-left: 10px;
             }
             .item-desc{
                 width: 80%;

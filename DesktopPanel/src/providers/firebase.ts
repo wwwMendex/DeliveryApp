@@ -17,6 +17,12 @@ export class FirebaseProvider {
     .doc(data.id)
     .set(data);
 
+  cancelarPedido = id =>
+  this.afs
+    .collection("Pedidos")
+    .doc(id)
+    .delete();
+
   criarSlide = data =>
   this.afs
     .collection("Slides")

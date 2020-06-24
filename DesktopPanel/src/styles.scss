@@ -17,6 +17,17 @@
     font-family: 'Noto Sans', sans-serif;
 }
 
+::-webkit-scrollbar-track {
+    background-color: #888888;
+}
+::-webkit-scrollbar {
+    width: 6px;
+    background: #888888;
+}
+::-webkit-scrollbar-thumb {
+    background: #3f3f3f;
+}
+
 // font style
 .extra-bold{
     font-weight: 800;
@@ -47,7 +58,7 @@
     @include mat-core();
     $my-app-primary: mat-palette($mat-orange);
     $my-app-accent:  mat-palette($mat-green);
-    $my-app-warn:    mat-palette($mat-deep-orange);
+    $my-app-warn:    mat-palette($mat-red);
     $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
     @include angular-material-theme($my-app-theme);
 

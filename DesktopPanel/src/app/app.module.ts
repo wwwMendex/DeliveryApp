@@ -19,6 +19,7 @@ import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dia
 import {MatIconModule} from '@angular/material/icon';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 //firebase
 import { environment } from '../environments/environment';
 import { AngularFireModule } from "@angular/fire";
@@ -81,7 +82,8 @@ import { PedidoEntregueComponent } from './components/pedido-entregue/pedido-ent
     MatDialogModule,
     MatIconModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatCheckboxModule
   ],
   providers: [
     FirebaseProvider,

@@ -20,6 +20,12 @@
         </mat-select>
       </mat-form-field>
 
+      
+      <mat-checkbox formControlName="promo" *ngIf="formulario.get('type').value =='salgada' || formulario.get('type').value =='doce'">Pizza da promoção</mat-checkbox>
+      
+
+      
+
       <mat-form-field appearance="outline" color="accent">
         <mat-label>Titulo do item</mat-label>
         <input matInput formControlName="name"/>

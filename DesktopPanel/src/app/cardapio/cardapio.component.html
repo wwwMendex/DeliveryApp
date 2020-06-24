@@ -12,6 +12,7 @@
             <div class="cardapio-itens">
                 <div class="item mg-top-10" *ngFor="let item of cardapio[0]">
                     <p class="item-preco no-margin bold corbel">R$ {{item.price}}</p>
+                    <mat-icon class="icon-promo" color="accent" *ngIf="item.promo">monetization_on</mat-icon>
                     <p class="item-name bold century no-margin">{{item.name}}</p>
                     <mat-icon class="icon-edit" aria-hidden="false" (click)="abrirForm(item)" *ngIf="edit">edit</mat-icon>
                     <p class="item-desc no-margin">{{item.description}}</p>

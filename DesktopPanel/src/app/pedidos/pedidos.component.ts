@@ -60,16 +60,34 @@ export class PedidosComponent implements OnInit {
     this.entregadoresForm.reset();
   }
   
-  confirmarPedido(index){
+  confirmarPedido(pedido, index){
     this.enviarPush("Seu pedido foi confirmado!", "Está em preparo, te avisaremos quando ele sair para entrega.", this.pedidosNovos[index].token);
-    this.pedidosNovos[index].status = 2;
-    if(this.pedidosNovos[index].pagamento =='pontos')
-      this.fb.atualizarPontos(this.pedidosNovos[index].user_id, (-10 * this.pedidosNovos[index].qtd_pizzas_pontos)); // remove 10 pontos por pizza
-    this.fb.atualizarPontos(this.pedidosNovos[index].user_id, this.pedidosNovos[index].pontos); // soma pontos do restante do pedido
-    this.imprimirPedido(this.pedidosNovos[index]);
-    this.fb.atualizarPedido(this.pedidosNovos[index]);
-    this.pedidosPreparo.push(this.pedidosNovos[index]);
+    pedido.status = 2;
+    if(pedido.user_id && pedido.pagamento =='pontos')
+      this.fb.atualizarPontos(pedido.user_id, (-10 * pedido.qtd_pizzas_pontos)); // remove 10 pontos por pizza
+    if(pedido.user_id && pedido.pontos > 0)
+      this.fb.atualizarPontos(pedido.user_id, pedido.pontos); // soma pontos do restante do pedido
+    this.imprimirPedido(pedido);
+    this.fb.atualizarPedido(pedido);
+    this.pedidosPreparo.push(pedido);
     this.pedidosNovos.splice(index, 1);
+    sessionStorage.setItem('pedidosPreparo', JSON.stringify(this.pedidosPreparo));
+  }
+
+  rejeitarPedido(pedido, index){
+    this.enviarPush("Seu pedido foi rejeitado!", "O restaurante não aceitou seu pedido.", pedido.token);
+    this.fb.cancelarPedido(pedido.id);
+    this.pedidosNovos.splice(index, 1);
+  }
+
+  cancelarPedido(pedido, index){
+    this.enviarPush("Seu pedido foi cancelado!", "O restaurante não entregará mais seu pedido.", pedido.token);
+    if(pedido.user_id && pedido.pagamento =='pontos')
+      this.fb.atualizarPontos(pedido.user_id, (10 * pedido.qtd_pizzas_pontos)); // devolve 10 pontos por pizza
+    if(pedido.user_id)
+      this.fb.atualizarPontos(pedido.user_id, -pedido.pontos); // remove pontos do restante do pedido
+    this.fb.cancelarPedido(pedido.id);
+    this.pedidosPreparo.splice(index, 1);
     sessionStorage.setItem('pedidosPreparo', JSON.stringify(this.pedidosPreparo));
   }
 
@@ -99,7 +117,13 @@ export class PedidosComponent implements OnInit {
         },
         "to" : token,
       });
-      return this.http.post(url, body, { headers: headers}).subscribe(data => console.log(data => console.log(data)));
+      return this.http.post(
+        url, 
+        body, 
+        { headers: headers}
+      ).subscribe(
+        data => console.log(data => console.log(data))
+      );
     }
   }
 

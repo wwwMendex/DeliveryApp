@@ -29,7 +29,10 @@
                 <div class="pad-5">
                     <p class="nome no-margin"><span class="laranja-padrao">Pedido: </span>{{p.nome_usuario}}</p>
                     <p class="contato no-margin">{{p.horario_pedido}}</p>
-                    <button mat-button color="accent" (click)="confirmarPedido(i)">Confirmar</button>
+                    <div class="buttons-novo-pedido">
+                        <button mat-button color="warn" (click)="rejeitarPedido(p, i)">Rejeitar</button>
+                        <button mat-button color="accent" (click)="confirmarPedido(p, i)">Confirmar</button>
+                    </div>
                 </div>
             </mat-card>
         </div>
@@ -43,7 +46,10 @@
             <div *ngIf="pedidosPreparo">
                 <div class="pedido-container" *ngFor="let p of pedidosPreparo; let i = index">
                     <div class="p-header">
-                        <mat-icon class="icon-print" (click)="imprimirPedido(p)">print</mat-icon>
+                        <div class="buttons-header-pedido">
+                            <mat-icon class="icon-cancel" color="warn" (click)="cancelarPedido(p, i)">cancel</mat-icon>
+                            <mat-icon class="icon-print" (click)="imprimirPedido(p)">print</mat-icon>
+                        </div>
                         <p class="no-margin horario bold corbel">{{p.horario_pedido}}</p>
                         <p class="no-margin nome bold">{{p.nome_usuario}}</p>
                     </div>
