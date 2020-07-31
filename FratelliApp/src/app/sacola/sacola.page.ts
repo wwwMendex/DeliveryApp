@@ -44,14 +44,14 @@ export class SacolaPage implements OnInit {
   async ngOnInit() {
     this.pedido = await this.getPedido();
     if(this.pedido){
+      this.pedidoPontosAtivo = await this.storage.get('pedidoPontos');
+      this.endereco = await this.getEndereco();
+      this.user = await this.getUsuario();
+      this.podePagarComPontos = this.validaPedidoPontos(this.pedido, this.user);
+      this.getTaxaEntrega();
+      this.verificaStatus();
       this.atualizarTotal();
     }
-    this.pedidoPontosAtivo = await this.storage.get('pedidoPontos');
-    this.endereco = await this.getEndereco();
-    this.user = await this.getUsuario();
-    this.podePagarComPontos = this.validaPedidoPontos(this.pedido, this.user);
-    this.getTaxaEntrega();
-    this.verificaStatus();
   }
 
   validaPedidoPontos(pedido, user){

@@ -44,9 +44,7 @@ export class StatusPage implements OnInit {
       if(pedido['status'] > 1 && pedido['pagamento'] == 'pontos'){
         this.storage.remove('pedidoPontos');
       }
-      if(pedido['horario_entrega'] != null){
-        pedido['horario_entrega'] = new Date(pedido['horario_entrega'] * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-      }
+      
       this.pedidos[index] = pedido;
       if(pedido['status']>=4){
         pedidoAberto--;
