@@ -6,7 +6,7 @@
     <h5>Forma de Pagamento: {{data.pagamento}}</h5>
     <h5 *ngIf="data.troco">Troco para {{data.troco}}</h5>
     <br>
-    <h5>Pedido: <span *ngFor="let item of data.pedido">{{item}}; </span></h5>
+    <h5>Pedido: <span *ngFor="let item of data.pedido">{{item.qtd + ' x ' + item.name}} </span></h5>
     <br>
     <h5>Horario do pedido: {{data.horario_pedido}}</h5>
     <h5>Horario da entrega: {{data.horario_entrega}}</h5>

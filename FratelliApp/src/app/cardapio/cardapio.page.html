@@ -22,7 +22,7 @@
           <img class="border-img" src="./assets/imgs/pizza.jpg">
         </ion-avatar>
         <ion-label>
-          <p class="laranja-avermelhado item-promo" *ngIf="pizza.promo && user.pontos_fidelidade > 10">PROMO</p>
+          <p class="laranja-avermelhado item-promo" *ngIf="pizza.promo && user.pontos_fidelidade >= 10">PROMO</p>
           <p class="item-title century">{{pizza.name}}</p>
           <p class="item-price century">R$ {{pizza.price}}</p>
           <p class="item-description corbel">{{pizza.description}}</p>

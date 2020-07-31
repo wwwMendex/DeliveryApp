@@ -1,15 +1,33 @@
 {
-  "name": "desktop-panel",
-  "version": "0.0.0",
+  "name": "fratelli_admin_panel",
+  "version": "1.0.0",
   "main": "main.js",
+  "description": "Painel adiministrativo para o lojista administrar e receber pedidos.",
+  "author": "wwwMendex",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "electron-run": "ng build --prod && electron ."
+  },
+  "build": {
+    "asar": "true",
+    "productName": "FratelliADM",
+    "files": [
+      "dist/DesktopPanel/**/*",
+      "node_modules/**/*",
+      "package.json",
+      "main.js"
+    ],
+    "win": {
+      "target": "NSIS",
+      "icon": "build/icon.ico"
+    }
   },
   "private": true,
   "dependencies": {
@@ -30,8 +48,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "firebase": "^7.14.4",
+    "node-thermal-printer": "^4.1.2",
     "rxjs": "~6.5.4",
-    "serialport": "^9.0.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },
@@ -44,6 +62,7 @@
     "@types/node": "^12.12.39",
     "codelyzer": "^5.1.2",
     "electron": "^9.0.0",
+    "electron-builder": "^22.8.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~5.0.0",
@@ -51,7 +70,6 @@
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~3.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
-    "node-thermal-printer": "^4.1.2",
     "protractor": "~5.4.3",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",

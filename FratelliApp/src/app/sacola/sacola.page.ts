@@ -151,6 +151,8 @@ export class SacolaPage implements OnInit {
 
   async getPedido(){
     let pedidoAtual = await this.storage.get('pedido');
+    console.log(pedidoAtual);
+    
     pedidoAtual.forEach(item => {
       if((item.type =="salgada" || item.type =="doce") && !item.promo){
         this.pontosPedido += item.qtd;
@@ -312,10 +314,16 @@ export class SacolaPage implements OnInit {
       this.atualizarTotal();
       let itens = [];
       this.pedido.forEach(item => {
-        let retorno = item.qtd + "x " + item.name;
-        if(item.obs){
-          retorno += " (obs): " + item.obs;
-        }
+        let retorno:any = {
+          name: item.name,
+          qtd: item.qtd,
+          price: item.price
+        };
+        if(item.obs)
+          retorno = {
+            ...retorno,
+            obs : item.obs
+          };
         itens.push(retorno);
       });
       let data = new Date().toLocaleString(['pt-BR'], {day:'2-digit', month: '2-digit', year: '2-digit'});

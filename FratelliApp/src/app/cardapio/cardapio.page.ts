@@ -55,7 +55,7 @@ export class CardapioPage implements OnInit {
 
   async getCardapio(id){
     const res = await this.firebaseProvider.getCardapio(id);
-    this.cardapio = res;
+    this.cardapio = res;    
     this.defineTemplate(id);
   }
   async getUsuario(){

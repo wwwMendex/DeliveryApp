@@ -37,7 +37,7 @@
       <p class="sem-pedidos century bold no-margin" *ngIf="!pedidos || pedidos?.length == 0">Você ainda não fez pedidos</p>
       <div *ngIf="pedidos?.length > 0">
         <div class="pedido mg-top-20" *ngFor="let pedido of pedidos">
-          <p class="item-name century bold no-margin" *ngFor="let item of pedido.pedido">{{item}}</p>
+          <p class="item-name century bold no-margin" *ngFor="let item of pedido.pedido">{{item.qtd + ' x ' + item.name}}</p>
           <p class="pedido-total corbel italic no-margin">Total: <span class="total bold">R$ {{pedido.total}}</span></p>
           <p class="item-date corbel italic no-margin">{{pedido.data_pedido + ' ' + pedido.horario_pedido}}</p>
           <p class="linha pad-top-15"></p>

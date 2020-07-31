@@ -10,7 +10,7 @@ export class ImpressaoService {
 
   }
 
-  imprimir(pedido: object, url: string){
-    return this.http.post<any>(url, pedido);
+  imprimir(pedido: object){
+    this.http.post<any>('http://127.0.0.1:8111/imprimir', pedido).subscribe((res) => {});
   }
 }

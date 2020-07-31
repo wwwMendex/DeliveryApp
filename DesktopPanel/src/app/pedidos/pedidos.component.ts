@@ -3,6 +3,7 @@ import { FirebaseProvider } from 'src/providers/firebase';
 import { HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { notificationKey } from '../../environments/environment';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { ImpressaoService } from 'src/services/impressao.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -10,7 +11,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
   styleUrls: ['./pedidos.component.scss']
 })
 export class PedidosComponent implements OnInit {
-  pedidosPreparo:any = JSON.parse(sessionStorage.getItem('pedidosPreparo')) || [];
+  pedidosPreparo:any = [];
   pedidosNovos:any = [];
   modalEntregador = false;
   indexPedidoSaiu:any = null;
@@ -21,7 +22,8 @@ export class PedidosComponent implements OnInit {
   constructor(
     private fb: FirebaseProvider,
     private http: HttpClient,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private impressaoService: ImpressaoService
   ) { 
     //setInterval(()=> this.getPedidosNovos,60000) // atualiza a cada minuto
     this.entregadoresForm = this.formBuilder.group({
@@ -36,6 +38,7 @@ export class PedidosComponent implements OnInit {
 
   imprimirPedido(pedido){
     console.log(pedido);
+    this.impressaoService.imprimir(pedido);
   }
 
   async getPedidosNovos(){
@@ -44,7 +47,6 @@ export class PedidosComponent implements OnInit {
   async getPedidosPreparo(){
     if(this.pedidosPreparo.length == 0){
       this.pedidosPreparo = await this.fb.getAllPedidoByStatus(2);
-      sessionStorage.setItem('pedidosPreparo', JSON.stringify(this.pedidosPreparo));
     }
   }
   confirmarEntregador(index){
@@ -66,34 +68,36 @@ export class PedidosComponent implements OnInit {
     if(pedido.pagamento =='pontos'){
       this.fb.atualizarPontos(pedido.user_id, (-10 * pedido.qtd_pizza_pontos)); // remove 10 pontos por pizza
     }
-    if(pedido.pontos > 0)
-      this.fb.atualizarPontos(pedido.user_id, pedido.pontos); // soma pontos do restante do pedido
+    // if(pedido.pontos > 0)
+    //   this.fb.atualizarPontos(pedido.user_id, pedido.pontos); // soma pontos do restante do pedido
     this.imprimirPedido(pedido);
     this.fb.atualizarPedido(pedido);
     this.pedidosPreparo.push(pedido);
     this.pedidosNovos.splice(index, 1);
-    sessionStorage.setItem('pedidosPreparo', JSON.stringify(this.pedidosPreparo));
   }
 
   rejeitarPedido(pedido, index){
-    this.enviarPush("Seu pedido foi rejeitado!", "O restaurante não aceitou seu pedido.", pedido.token);
-    pedido.status = 5;
-    this.fb.atualizarPedido(pedido);
-    this.pedidosNovos.splice(index, 1);
+    if(confirm("Rejeitar pedido ?")){
+      this.enviarPush("Seu pedido foi rejeitado!", "O restaurante não aceitou seu pedido.", pedido.token);
+      pedido.status = 5;
+      this.fb.atualizarPedido(pedido);
+      this.pedidosNovos.splice(index, 1);
+    }
   }
 
   cancelarPedido(pedido, index){
-    this.enviarPush("Seu pedido foi cancelado!", "O restaurante não entregará mais seu pedido.", pedido.token);
-    if(pedido.pagamento =='pontos'){
-      this.fb.atualizarPontos(pedido.user_id, 10 * pedido.qtd_pizza_pontos);
-    } // devolve 10 pontos por pizza
-    if(pedido.pontos > 0){
-      this.fb.atualizarPontos(pedido.user_id, -pedido.pontos); // remove pontos do restante do pedido
+    if(confirm("Cancelar pedido ?")){
+      this.enviarPush("Seu pedido foi cancelado!", "O restaurante não entregará mais seu pedido.", pedido.token);
+      if(pedido.pagamento =='pontos'){
+        this.fb.atualizarPontos(pedido.user_id, 10 * pedido.qtd_pizza_pontos);
+      } // devolve 10 pontos por pizza
+      // if(pedido.pontos > 0){
+      //   this.fb.atualizarPontos(pedido.user_id, -pedido.pontos); // remove pontos do restante do pedido
+      // }
+      pedido.status = 5;
+      this.fb.atualizarPedido(pedido);
+      this.pedidosPreparo.splice(index, 1);
     }
-    pedido.status = 5;
-    this.fb.atualizarPedido(pedido);
-    this.pedidosPreparo.splice(index, 1);
-    sessionStorage.setItem('pedidosPreparo', JSON.stringify(this.pedidosPreparo));
   }
 
   sairParaEntrega(){
@@ -103,7 +107,6 @@ export class PedidosComponent implements OnInit {
       this.enviarPush("Seu pedido está a caminho!", `${this.pedidosPreparo[this.indexPedidoSaiu].entregador} está levando até você.`, this.pedidosPreparo[this.indexPedidoSaiu].token);
       this.fb.atualizarPedido(this.pedidosPreparo[this.indexPedidoSaiu]);
       this.pedidosPreparo.splice(this.indexPedidoSaiu, 1);
-      sessionStorage.setItem('pedidosPreparo', JSON.stringify(this.pedidosPreparo));
       this.indexPedidoSaiu = null;
       this.modalEntregador = false;
       this.entregadoresForm.reset();

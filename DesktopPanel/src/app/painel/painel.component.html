@@ -1,6 +1,22 @@
+<div class="selecionarEntregador" [ngStyle]="{'display': modalCaixa ? 'block' : 'none'}">
+    <div class="backdrop"></div>
+    <div class="modal-entregadores">
+        <div class="pad-25">
+            <mat-icon aria-hidden="false" (click)="modalCaixa = !modalCaixa">close</mat-icon>
+            <h5 class="center century bold cinza">Insira o valor do fundo de caixa</h5>
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Valor: R$</mat-label>
+                <input matInput [(ngModel)]="valorFundo">
+            </mat-form-field>
+            <button mat-flat-button color="accent" class="no-margin" (click)="abrirCaixa(valorFundo)">
+                CONFIRMAR
+            </button>
+        </div>
+    </div>
+</div>
 <main class="painel-container">
     <div class="panel panel-1">
-        <img src="../../assets/icons/2@Fratelli logo-preto.png" alt="logo fratelli">
+        <img src="./assets/icons/2@Fratelli logo-preto.png" alt="logo fratelli">
         <p class="no-margin century sub-title">pizza delivery</p>
         <p class="linha no-margin mg-top-10"></p>
         <p class="no-margin mg-top-10 calibri bold welcome">Bem-vindo ao gestor de pedidos do seu estabelecimento</p>
@@ -10,8 +26,8 @@
     </div>
     <div class="panel panel-2">
         <h5 class="century bold branco center no-margin mg-top-10">STATUS</h5>
-        <img src="../../assets/icons/open-sign.png" class="mg-top-5" alt="placa aberto" *ngIf="isOpen" />
-        <img src="../../assets/icons/close-sign.png" class="mg-top-5" alt="placa fechado" *ngIf="!isOpen" />
+        <img src="./assets/icons/open-sign.png" class="mg-top-5" alt="placa aberto" *ngIf="isOpen" />
+        <img src="./assets/icons/close-sign.png" class="mg-top-5" alt="placa fechado" *ngIf="!isOpen" />
         <h1 class="status-open no-margin center century" *ngIf="isOpen">ABERTO</h1>
         <h1 class="status-close no-margin center century" *ngIf="!isOpen">FECHADO</h1>
         <mat-slide-toggle class="mg-top-10 toggle" [(ngModel)]="isOpen" (change)="changeStatus()"></mat-slide-toggle>
@@ -24,7 +40,7 @@
         <div class="header-panel">
             <mat-icon class="icon-history branco" aria-hidden="false" (click)="abrirHistorico()">history</mat-icon>
             <h5 class="century bold branco center no-margin mg-top-10">CAIXA</h5>
-            <img src="../../assets/icons/caixa-icon.png" class="mg-top-5" alt="caixa" />
+            <img src="./assets/icons/caixa-icon.png" class="mg-top-5" alt="caixa" />
         </div>
         <div class="main-panel mg-top-20">
             <p class="label-fundo branco century no-margin mg-top-10">Fundo inicial:</p>
@@ -33,14 +49,14 @@
             <h3 class="total laranja-padrao century bold no-margin">R$ {{caixaAberto?.totalCaixa || 0}}</h3>
         </div>
         <div class="footer-panel">
-            <button mat-button color="accent" class="btn-abrir" (click)="abrirCaixa()" *ngIf="!caixaAberto">Abrir</button>
+            <button mat-button color="accent" class="btn-abrir" (click)="modalCaixa = !modalCaixa" *ngIf="!caixaAberto">Abrir</button>
             <button mat-button color="warn" class="btn-fechar" (click)="fecharCaixa()" *ngIf="caixaAberto">Fechar</button>
         </div>
     </div>
 
     <div class="panel panel-4">
         <div class="header-panel">
-            <img src="../../assets/icons/novo-pedido-icon.png" class="mg-top-10" alt="novo pedido" />
+            <img src="./assets/icons/novo-pedido-icon.png" class="mg-top-10" alt="novo pedido" />
             <span class="century bold branco title-panel"> LANÇAR PEDIDO</span>
             <p class="linha no-margin mg-top-5"></p>
         </div>
@@ -53,7 +69,7 @@
             </div>
             <div class="pedido century branco" *ngIf="pedido[0]">
                 <span class="laranja-padrao bold">Cliente:</span> {{pedido[0]?.nome_usuario}}, <span class="laranja-padrao bold">tel:</span> {{pedido[0]?.contato}}<br>
-                <span class="laranja-padrao bold">Itens:</span> <span *ngFor="let item of pedido[0]?.pedido">{{item}}; </span><br>
+                <span class="laranja-padrao bold">Itens:</span> <span *ngFor="let item of pedido[0]?.pedido">{{item.qtd + ' x ' + item.name}} {{item.obs ? ' (obs)'+item.obs : ''}}</span><br>
                 <span class="laranja-padrao bold">Endereço:</span> {{pedido[0]?.endereco}}<br>
                 <span class="laranja-padrao bold">TOTAL:</span> R$ {{pedido[0]?.total}} <span class="laranja-padrao bold">({{pedido[0]?.pagamento=='card' ? 'Cartão' : 'Dinheiro'}})</span><br>
                 <span *ngIf="pedido[0].troco"><span class="laranja-padrao bold">Troco para</span> R$ {{pedido[0].troco}}</span>
@@ -65,7 +81,7 @@
     </div>
     <div class="panel panel-5">
         <div class="header-panel">
-            <img src="../../assets/icons/sino-icon.png" class="mg-top-10" alt="notificações" />
+            <img src="./assets/icons/sino-icon.png" class="mg-top-10" alt="notificações" />
             <span class="century bold branco title-panel"> NOVOS PEDIDOS</span>
             <p class="linha no-margin mg-top-5"></p>
         </div>
@@ -82,7 +98,7 @@
     </div>
     <div class="panel panel-6">
         <div class="header-panel">
-            <img src="../../assets/icons/cupom-icon.png" class="mg-top-5" alt="icone cupom" />
+            <img src="./assets/icons/cupom-icon.png" class="mg-top-5" alt="icone cupom" />
             <span class="century bold branco title-panel"> GERENCIAR CUPONS</span>
             <p class="linha no-margin mg-top-5"></p>
         </div>

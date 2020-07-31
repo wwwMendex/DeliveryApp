@@ -3,7 +3,7 @@ import { FirebaseProvider } from 'src/providers/firebase';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import {map, startWith, throttleTime} from 'rxjs/operators';
 
 
 export interface Item {
@@ -43,9 +43,11 @@ export class FormPedidoComponent implements OnInit {
   //cliente
   tel_cliente = new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/), Validators.minLength(8)]);
   nome_cliente = new FormControl('', [Validators.required, Validators.minLength(3), Validators.pattern(/[a-z\u00C0-\u00FF ]/gi)]);
+  local_cliente = new FormControl('', [Validators.required]);
   end_cliente = new FormControl('', [Validators.required, Validators.minLength(5)]);
   bairro_cliente = new FormControl('', [Validators.required]);
   bairros:any = [];
+  locais_cliente:any = [];
   // pagamento
   pagamento = new FormControl('', [Validators.required]);
   troco = new FormControl('', Validators.pattern(/[0-9.,]/g));
@@ -77,67 +79,121 @@ export class FormPedidoComponent implements OnInit {
       this.montarPedido();
       this.data[0] = this.pedidoFechado;
       this.closeDialog();
-    }else{
-      let erros = [];
-      alert('Confira os dados dos campos!');
     }
   }
   verificaForm(): boolean{
-    return this.tel_cliente.valid && this.nome_cliente.valid && this.end_cliente.valid 
-      && this.bairro_cliente.valid && this.pagamento.valid && this.troco.valid && this.pedidoSelect.length > 0
-      ? true : false;
+    if(!this.tel_cliente.valid){
+      alert('Telefone inválido!');
+      return false;
+    }
+    if(!this.nome_cliente.valid){
+      alert('Nome do cliente inválido!');
+      return false;
+    }
+    if(!this.end_cliente.valid){
+      alert('Endereço do cliente inválido!');
+      return false;
+    }
+    if(!this.bairro_cliente.valid){
+      alert('Selecione um bairro!');
+      return false;
+    }
+    if(!this.pagamento.valid){
+      alert('Selecione uma forma de pagamento!');
+      return false;
+    }
+    if(!this.bairro_cliente.valid){
+      alert('Selecione um bairro!');
+      return false;
+    }
+    if(this.pagamento.value == 'dinheiro'){
+      let troco = parseFloat(this.troco.value.replace(',', '.'));
+      if(!this.troco.valid || troco < this.pedidoFechado.total){
+        alert('Valor do troco inválido! O valor deve ser maior que o total do pedido!');
+        return false;
+      }
+    }
+    if(this.pedidoSelect.length <= 0){
+      alert('Pedido vazio!');
+      return false;
+    }
+    return true;
   }
   async montarPedido(){
-    if(!this.cadastrado)
-      this.salvarCliente();
+    this.salvarCliente();
     let itens = [];
-      this.pedidoSelect.forEach(item => {
-        let retorno = item.name;
-        if(item.obs){
-          retorno += " (obs): " + item.obs;
-        }
-        itens.push(retorno);
-      });
-      this.pedidoFechado['contato'] = this.tel_cliente.value;
-      this.pedidoFechado['nome_usuario'] = this.nome_cliente.value;
-      this.pedidoFechado['endereco'] = this.end_cliente.value + ', ' + this.bairro_cliente.value['bairro'];
-      this.pedidoFechado['data_pedido'] = new Date().toLocaleString(['pt-BR'], {day:'2-digit', month: '2-digit', year: '2-digit'});
-      this.pedidoFechado['horario_pedido'] = new Date().toLocaleString(['pt-BR'], {hour: '2-digit', minute:'2-digit'});
-      this.pedidoFechado['horario_entrega'] = null;
-      this.pedidoFechado['entregador'] = null;
-      this.pedidoFechado['id'] = (Date.now() + Math.random()).toString().replace('.', '').substr(2,9);
-      this.pedidoFechado['pagamento'] = this.pagamento.value;
-      this.pedidoFechado['pedido'] = itens;
-      this.pedidoFechado['status'] = 2;
-      this.pedidoFechado['taxa_entrega'] = this.bairro_cliente.value['valor'];
-      this.pedidoFechado['troco'] = this.troco.value ? parseFloat(this.troco.value.replace(',', '.')) : null;
-      this.pedidoFechado['token'] = null;
+    this.pedidoSelect.forEach(item => {
+      let retorno:any = {
+        name: item.name,
+        qtd: 1,
+        price: item.price
+      };
+      if(item.obs)
+        retorno = {
+          ...retorno,
+          obs : item.obs
+        };
+      itens.push(retorno);
+    });
+    this.pedidoFechado['contato'] = this.tel_cliente.value;
+    this.pedidoFechado['nome_usuario'] = this.nome_cliente.value;
+    this.pedidoFechado['endereco'] = this.end_cliente.value + ', ' + this.bairro_cliente.value['bairro'];
+    this.pedidoFechado['data_pedido'] = new Date().toLocaleString(['pt-BR'], {day:'2-digit', month: '2-digit', year: '2-digit'});
+    this.pedidoFechado['horario_pedido'] = new Date().toLocaleString(['pt-BR'], {hour: '2-digit', minute:'2-digit'});
+    this.pedidoFechado['horario_entrega'] = null;
+    this.pedidoFechado['entregador'] = null;
+    this.pedidoFechado['id'] = (Date.now() + Math.random()).toString().replace('.', '').substr(2,9);
+    this.pedidoFechado['pagamento'] = this.pagamento.value;
+    this.pedidoFechado['pedido'] = itens;
+    this.pedidoFechado['status'] = 2;
+    this.pedidoFechado['taxa_entrega'] = this.bairro_cliente.value['valor'];
+    this.pedidoFechado['troco'] = this.troco.value ? parseFloat(this.troco.value.replace(',', '.')) : null;
+    this.pedidoFechado['token'] = null;
       
   }
   async salvarCliente(){
-    let clientes = await JSON.parse(localStorage.getItem('clientes')) || [];
+    let clienteFind = await this.clientes_cadastrados.findIndex((cliente) => cliente.contato == this.tel_cliente.value);
     let cliente = {
       contato: this.tel_cliente.value,
       nome: this.nome_cliente.value,
-      endereco: this.end_cliente.value
+      locais: [
+        {
+          local_name: this.local_cliente.value['local_name'] || this.local_cliente.value,
+          endereco: this.end_cliente.value
+        }
+      ]
+    };
+    if(clienteFind>=0){
+      this.clientes_cadastrados[clienteFind].locais.forEach(local => {
+        if(local.local_name == cliente.locais[0].local_name){
+          local.endereco = cliente.locais[0].endereco;
+        }else{
+          cliente.locais.push(local);
+        }
+      });
+      this.clientes_cadastrados[clienteFind] = cliente;      
+    }else{
+      this.clientes_cadastrados.push(cliente);
     }
-    clientes.push(cliente);
-    localStorage.setItem('clientes', JSON.stringify(clientes));
+    localStorage.setItem('clientes', JSON.stringify(this.clientes_cadastrados));
   }
   findCliente(){
-    let match:any = null;
-    
-    for (let cliente of this.clientes_cadastrados){
-      match = cliente.contato == this.tel_cliente.value
-        ? cliente
-        : match;
-    }
     this.cadastrado = false;
+    let match = this.clientes_cadastrados.find((cliente) => cliente.contato == this.tel_cliente.value);
     
     if(match){
       this.nome_cliente.setValue(match.nome);
-      this.end_cliente.setValue(match.endereco);
+      this.locais_cliente = match.locais;
       this.cadastrado = true;
+    }
+  }
+  setEnderecoCliente(){
+    if(this.local_cliente.value == 'new'){
+      this.cadastrado = false;
+      this.end_cliente.setValue('');
+      this.local_cliente.setValue('');
+    }else{
+      this.end_cliente.setValue(this.local_cliente.value['endereco']);
     }
   }
 
@@ -182,6 +238,7 @@ export class FormPedidoComponent implements OnInit {
   }
   addTaxa(){
     this.pedidoFechado['taxa_entrega'] = this.bairro_cliente.value['valor'];
+    this.atualizarTotal();
   }
   removeItem(index){
     if(confirm('Remover item do pedido?')){

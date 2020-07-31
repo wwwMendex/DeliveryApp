@@ -29,10 +29,10 @@
     <div class="lateral">
         <div class="mg-top-30">
             <button mat-raised-button class="btn" (click)="modalEntregador = true">
-                <img src="../../assets/icons/entregador-icon.png" class="icon-entregador" alt="icone entregador">Editar entregadores
+                <img src="./assets/icons/entregador-icon.png" class="icon-entregador" alt="icone entregador">Editar entregadores
             </button>
             <button mat-raised-button class="btn" (click)="modalTarifa()">
-                <img src="../../assets/icons/mapa-icon.png" class="icon-taxa" alt="icone editar taxa">Editar taxa de entrega
+                <img src="./assets/icons/mapa-icon.png" class="icon-taxa" alt="icone editar taxa">Editar taxa de entrega
             </button>
         </div>
         <h4 class="corbel bold center success mg-top-20">ENTREGUES</h4>
@@ -59,7 +59,7 @@
                     </div>
                     <div class="itens">
                         <div class="branco century no-margin">
-                            <p class="no-margin" *ngFor="let item of p.pedido">{{item}}</p>
+                            <p class="no-margin" *ngFor="let item of p.pedido">{{item.qtd + ' x ' + item.name}}</p>
                         </div>
                     </div>
                     <div class="endereco">

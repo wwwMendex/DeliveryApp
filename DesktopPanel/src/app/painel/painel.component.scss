@@ -23,6 +23,38 @@ $branco: rgb(240, 238, 217);
     width: 85%;
     margin-left: 7.5%;
 }
+
+.selecionarEntregador{
+    .backdrop{
+        width: 100%;
+        height: 100%;
+        z-index: 6;
+        position: absolute;
+        background: rgba($color: #000000, $alpha: 0.3);
+    }
+    .modal-entregadores{
+        width: 35vw;
+        height: 35vh;
+        border-radius: 5px;
+        margin: 15vh 0 0 30vw;
+        z-index: 7;
+        position: absolute;
+        background: #fff;
+        mat-form-field{
+            width: 100%;
+        }
+        mat-icon{
+            float: right;
+        }
+        button{
+            width: 100%;
+            color: white;
+            font-weight: 700;
+            margin-top: 20px;
+        }
+    }
+}
+
 .panel-1{
     grid-area: panel-1;
     background-color: #f5f5f5;

@@ -4,6 +4,8 @@ import { FormCupomComponent } from '../components/form-cupom/form-cupom.componen
 import { MatDialog } from '@angular/material/dialog';
 import { HistoricoCaixaComponent } from '../components/historico-caixa/historico-caixa.component';
 import { FormPedidoComponent } from '../components/form-pedido/form-pedido.component';
+import { ImpressaoService } from 'src/services/impressao.service';
+
 @Component({
   selector: 'app-painel',
   templateUrl: './painel.component.html',
@@ -15,9 +17,12 @@ export class PainelComponent implements OnInit {
   caixaAberto:any = JSON.parse(localStorage.getItem('caixaAberto')) || null;
   cupons: any = JSON.parse(sessionStorage.getItem('cupons')) || [];
   pedido:any = [];
+  modalCaixa = false;
+  valorFundo = "";
   constructor(
     private fb: FirebaseProvider,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private impressaoService: ImpressaoService
   ) { 
     //setInterval(()=> this.getPedidosNovos,90000) // atualiza a cada 1 minuto e meio
   }
@@ -38,8 +43,8 @@ export class PainelComponent implements OnInit {
       sessionStorage.setItem('status', JSON.stringify(this.isOpen));
     }
   }
-  async abrirCaixa(){
-    let input = prompt("Insira o valor do fundo do caixa").match(/[\d\.\,]+/g);
+  async abrirCaixa(valorFundo){
+    let input = valorFundo.match(/[\d\.\,]+/g);
     if(input){
       this.caixaAberto = [];
       let fundo = parseFloat(input.toString().replace(/,/g, '.'));
@@ -47,6 +52,7 @@ export class PainelComponent implements OnInit {
       this.caixaAberto['totalCaixa'] = fundo;
       this.caixaAberto['data'] = new Date().toLocaleString(['pt-BR'], {day:'2-digit', month: '2-digit', year: '2-digit'});
       localStorage.setItem('caixaAberto', JSON.stringify(Object.assign({},this.caixaAberto)));
+      this.modalCaixa = false;
     }
   }
   fecharCaixa(){
@@ -79,12 +85,13 @@ export class PainelComponent implements OnInit {
     if(this.pedido.length > 0){
       this.fb.atualizarPedido(Object.assign({}, this.pedido[0]));
       this.imprimirPedido(this.pedido);
-      alert("Pedido lançado com sucesso! Você poderá visualizar no painel 'Em preparo'");
+      alert("Pedido lançado com sucesso! Você poderá visualizar no painel 'Pedidos - Em preparo'");
       this.pedido = [];
     }
   }
   imprimirPedido(pedido){
     console.log(pedido);
+    this.impressaoService.imprimir(pedido);
   }
 
 

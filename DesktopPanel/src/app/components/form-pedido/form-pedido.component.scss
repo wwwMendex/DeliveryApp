@@ -38,7 +38,10 @@
         }
     }
     .cliente{
-        .input-nome-cliente, .input-tel-cliente{
+        .input-tel-cliente{
+            width: 100%;
+        }
+        .input-nome-cliente, .input-select-end-cliente{
             width: 50%;
         }
         .input-end-cliente{

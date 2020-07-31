@@ -105,6 +105,17 @@
         <mat-label>Nome do cliente</mat-label>
         <input type="text" [formControl]="nome_cliente" matInput>
       </mat-form-field>
+      <mat-form-field class="input-select-end-cliente" appearance="outline" color="primary" *ngIf="cadastrado">
+        <mat-label>Selecionar Local</mat-label>
+        <mat-select [formControl]="local_cliente" (ngModelChange)="setEnderecoCliente()">
+          <mat-option *ngFor="let local of locais_cliente" [value]="local">{{local.local_name}}</mat-option>
+          <mat-option value="new">Cadastrar novo local</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="input-select-end-cliente" appearance="outline" color="primary" *ngIf="!cadastrado">
+        <mat-label>Nomear Local</mat-label>
+        <input type="text" [formControl]="local_cliente" matInput>
+      </mat-form-field>
       <mat-form-field class="input-end-cliente" appearance="outline" color="primary">
         <mat-label>Endereço</mat-label>
         <input type="text" [formControl]="end_cliente" matInput>

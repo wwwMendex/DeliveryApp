@@ -55,7 +55,7 @@
                     </div>
                     <div class="itens">
                         <div class="laranja-padrao no-margin">
-                            <p class="no-margin" *ngFor="let item of p.pedido">{{item}}</p>
+                            <p class="no-margin" *ngFor="let item of p.pedido">{{item.qtd + ' x ' + item.name}} <b>{{item.obs ? ' (obs)'+item.obs : ''}}</b></p>
                         </div>
                     </div>
                     <div class="endereco">

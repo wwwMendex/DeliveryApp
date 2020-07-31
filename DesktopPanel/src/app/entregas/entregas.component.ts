@@ -64,9 +64,12 @@ export class EntregasComponent implements OnInit {
       this.pedidosEntregues.push(this.pedidosSaiuEntrega[index]);
       caixaAberto['pedidos'] = caixaAberto['pedidos'] ? caixaAberto['pedidos'] : [];
       caixaAberto['pedidos'].push(this.pedidosSaiuEntrega[index]);
-      caixaAberto['totalCaixa']+=parseFloat((this.pedidosSaiuEntrega[index].total).toFixed(2));
+      caixaAberto['totalCaixa']=parseFloat( (caixaAberto['totalCaixa'] + this.pedidosSaiuEntrega[index].total).toFixed(2));
       localStorage.setItem('caixaAberto', JSON.stringify(caixaAberto));
       this.fb.atualizarPedido(this.pedidosSaiuEntrega[index]);
+      if(this.pedidosSaiuEntrega[index].pontos > 0){ // soma pontos do restante do pedido
+        this.fb.atualizarPontos(this.pedidosSaiuEntrega[index].user_id, this.pedidosSaiuEntrega[index].pontos);
+      }
       this.pedidosSaiuEntrega.splice(index, 1);
       sessionStorage.setItem('pedidosEntregues', JSON.stringify(this.pedidosEntregues));
       sessionStorage.setItem('pedidosSaiuEntrega', JSON.stringify(this.pedidosSaiuEntrega));

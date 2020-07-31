@@ -41,7 +41,7 @@
               </ion-button>
             </ion-item>
             <ion-card-content>
-              <p class="no-margin item-name" *ngFor="let item of pedido.pedido">{{item}}</p>
+              <p class="no-margin item-name" *ngFor="let item of pedido.pedido">{{item.qtd + ' x ' + item.name}}</p>
               <p class="item-date corbel italic no-margin">Pedido {{pedido.data_pedido + ' ' + pedido.horario_pedido}}</p>
               <p class="item-date corbel italic no-margin" *ngIf="pedido.horario_entrega">Entregue {{pedido.horario_entrega}}</p>
               <div class="center mg-top-10">

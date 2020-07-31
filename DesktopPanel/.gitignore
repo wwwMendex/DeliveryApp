@@ -2,6 +2,7 @@
 
 # compiled output
 /dist
+/release-builds
 /tmp
 /out-tsc
 # Only exists if Bazel was run
