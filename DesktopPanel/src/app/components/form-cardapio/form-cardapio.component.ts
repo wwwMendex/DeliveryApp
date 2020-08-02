@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog'
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FirebaseProvider } from 'src/providers/firebase';
+import { showAlertDialog } from '../alert-component/alert-component.component'
 
 
 @Component({
@@ -23,6 +24,7 @@ export class FormCardapioComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<FormCardapioComponent>,
+    public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private fb: FirebaseProvider,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -33,7 +35,6 @@ export class FormCardapioComponent implements OnInit {
   ngOnInit(): void {
   }
   initForm() {
-    console.log(this.data);
     
     this.formulario = this.formBuilder.group({
       type: [this.data?.type ||'', Validators.required],
@@ -42,10 +43,10 @@ export class FormCardapioComponent implements OnInit {
       description: [this.data?.description || '', Validators.required],
       price: [this.data?.price || '', Validators.required],
       id: this.data?.id || (Date.now() + Math.random()).toString().replace('.', ''),
-      promo: false
+      promo: this.data?.promo
     });
   }
-  submitForm(){
+  async submitForm(){
     if(this.formulario.get('type').value =='bebida')
       this.formulario.get('sub_type').setValue('option');
     if(this.formulario.valid){
@@ -54,13 +55,27 @@ export class FormCardapioComponent implements OnInit {
       this.fb.criarItem(this.formulario.value);
       this.closeDialog(true);
     }else{
-      alert('Confira se o formulário está preenchido corretamente.');
+      showAlertDialog({
+        type: 'alert',
+        title: 'Confira',
+        text: 'Parece que os dados do formulário não estão preenchidos corretamente!',
+        btnFalse: null,
+        btnTrue: null,
+        inputLabel: null
+      }, this.dialog);
     }
   }
-  deleteItem(){
-    if(confirm("Você deseja remover o item?")){
+  async deleteItem(){
+    if(await showAlertDialog({
+      type: 'confirm',
+      title: 'Confirme',
+      text: 'Realmente deseja remover o item?',
+      btnFalse: 'Voltar',
+      btnTrue: 'Sim!',
+      inputLabel: null
+    }, this.dialog)){
       this.fb.deleteItem(this.formulario.value);
-      this.closeDialog(true);
+      this.closeDialog(true);      
     }
   }
 

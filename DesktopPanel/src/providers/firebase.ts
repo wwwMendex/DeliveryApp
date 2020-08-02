@@ -1,15 +1,20 @@
 import { Injectable } from "@angular/core";
 import {
   AngularFirestore,
-  AngularFirestoreCollection
 } from "@angular/fire/firestore";
-import { resolve } from 'dns';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { notificationKey } from 'src/environments/environment';
 
 
 
 @Injectable()
 export class FirebaseProvider {
-  constructor(private afs: AngularFirestore) {}
+  constructor(
+    private afs: AngularFirestore,
+    private http: HttpClient
+  ) {
+    
+  }
 
   atualizarPedido = data =>
   this.afs
@@ -225,6 +230,28 @@ export class FirebaseProvider {
         .set(user);
     });
     return;
+  }
+
+  enviarPush(titulo, desc, token){
+    if(token){
+      let headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':notificationKey});
+      const url = 'https://fcm.googleapis.com/fcm/send';
+      const body = JSON.stringify({
+        "notification":{
+          "title" : titulo,
+          "body" : desc,
+          "icon" : "fcm_push_icon"
+        },
+        "to" : token,
+      });
+      return this.http.post(
+        url, 
+        body, 
+        { headers: headers}
+      ).subscribe(
+        data => console.log(data => console.log(data))
+      );
+    }
   }
 
 }

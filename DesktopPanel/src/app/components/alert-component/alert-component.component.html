@@ -1,0 +1,32 @@
+    
+<div class="alert" *ngIf="data.type=='alert'">
+    <h1 mat-dialog-title>{{data.title}}</h1>
+    <div mat-dialog-content>{{data.text}}</div>
+    <div mat-dialog-actions style="float: right;">
+        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial>{{data.btnTrue || 'Okay'}}</button>
+    </div>
+</div>
+
+<div class="confirm" *ngIf="data.type=='confirm'">
+    <h1 mat-dialog-title>{{data.title}}</h1>
+    <div mat-dialog-content>{{data.text}}</div>
+    <div mat-dialog-actions style="float: right;">
+        <button mat-raised-button [mat-dialog-close]="false">{{data.btnFalse}}</button>
+        <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial>{{data.btnTrue || 'Okay'}}</button>
+    </div>
+</div>
+
+<div class="prompt" *ngIf="data.type=='prompt'">
+    <h1 mat-dialog-title>{{data.title}}</h1>
+    <div mat-dialog-content>
+        <p>{{data.text}}</p>
+        <mat-form-field>
+          <mat-label>{{data.inputLabel}}</mat-label>
+          <input matInput [(ngModel)]="inputValue">
+        </mat-form-field>
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="false">{{data.btnFalse}}</button>
+        <button mat-button [mat-dialog-close]="inputValue" cdkFocusInitial>{{data.btnTrue || 'Okay'}}</button>
+      </div>
+</div>

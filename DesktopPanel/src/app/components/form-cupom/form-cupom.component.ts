@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FirebaseProvider } from 'src/providers/firebase';
+import { showAlertDialog } from '../alert-component/alert-component.component';
 
 @Component({
   selector: 'app-form-cupom',
@@ -20,6 +21,7 @@ export class FormCupomComponent implements OnInit {
     public dialogRef: MatDialogRef<FormCupomComponent>,
     private formBuilder: FormBuilder,
     private fb: FirebaseProvider,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
     ) { 
       this.initForm();
@@ -42,9 +44,16 @@ export class FormCupomComponent implements OnInit {
       this.data.push(this.formulario.value);
     }
   }
-  deleteCupom(index){
-    if(confirm("Você deseja remover o cupom?")){
-      this.fb.deleteCupom(this.data[index].id).then(r=>console.log(r));
+  async deleteCupom(index){
+    if(await showAlertDialog({
+      type: 'confirm',
+      title: 'Confirme',
+      text: 'Realmente deseja remover o cupom?',
+      btnFalse: 'Voltar',
+      btnTrue: 'Sim!',
+      inputLabel: null
+    }, this.dialog)){
+      this.fb.deleteCupom(this.data[index].id);
       this.data.splice(index, 1);
     }
   }

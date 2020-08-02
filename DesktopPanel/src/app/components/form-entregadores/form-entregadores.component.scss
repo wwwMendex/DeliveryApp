@@ -1,0 +1,34 @@
+// colors
+$laranja-padrao: #E5690B;
+$marrom: #6e340d;
+$cinza: #262618;
+$cinza-claro: #31312c;
+$prata: #929292;
+$prata-claro: #f6f6f6;
+$laranja-avermelhado: rgb(233, 79, 33);
+$branco: rgb(240, 238, 217);
+
+.modal-entregadores{
+    border-radius: 5px;
+    background: #fff;
+    mat-form-field{
+        width: 100%;
+    }
+    mat-icon{
+        float: right;
+    }
+    button{
+        width: 100%;
+        color: white;
+        font-weight: 700;
+        margin-top: 20px;
+    }
+    .btnRemover{
+        color: $laranja-avermelhado;
+        float: right;
+    }
+    .entregadores{
+        max-height: 150px;
+        overflow: auto;
+    }
+}

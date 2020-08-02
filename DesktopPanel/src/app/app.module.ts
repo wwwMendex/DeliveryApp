@@ -37,6 +37,8 @@ import { FormPedidoComponent } from './components/form-pedido/form-pedido.compon
 import { FormCupomComponent } from './components/form-cupom/form-cupom.component';
 import { HistoricoCaixaComponent } from './components/historico-caixa/historico-caixa.component';
 import { PedidoEntregueComponent } from './components/pedido-entregue/pedido-entregue.component';
+import { AlertComponentComponent } from './components/alert-component/alert-component.component';
+import { FormEntregadoresComponent } from './components/form-entregadores/form-entregadores.component';
 
 @NgModule({
   entryComponents: [
@@ -61,6 +63,8 @@ import { PedidoEntregueComponent } from './components/pedido-entregue/pedido-ent
     FormCupomComponent,
     HistoricoCaixaComponent,
     PedidoEntregueComponent,
+    AlertComponentComponent,
+    FormEntregadoresComponent,
     
   ],
   imports: [
@@ -83,7 +87,8 @@ import { PedidoEntregueComponent } from './components/pedido-entregue/pedido-ent
     MatIconModule,
     MatChipsModule,
     MatAutocompleteModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    
   ],
   providers: [
     FirebaseProvider,

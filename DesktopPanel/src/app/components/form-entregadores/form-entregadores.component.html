@@ -1,0 +1,23 @@
+<div class="modal-entregadores">
+    <div class="pad-25">
+        <mat-icon aria-hidden="false" (click)="closeDialog()">close</mat-icon>
+        <h5 class="center century bold cinza">Cadastrar novo entregador</h5>
+        <form [formGroup]="entregadoresForm" (ngSubmit)="cadastrarEntregador()">
+            <mat-form-field appearance="outline" color="accent" class="mg-top-20">
+                <mat-label>Nome</mat-label>
+                <input matInput formControlName="nome">
+            </mat-form-field>
+            <button mat-flat-button type="submit" color="accent" class="no-margin">
+                CADASTRAR ENTREGADOR
+            </button>
+        </form>
+    </div>
+    <div *ngIf="entregadores?.length > 0">
+        <div class="pad-25 entregadores">
+            <h6 class="center century bold cinza mg-top-10">Remover entregadores</h6>
+            <p class="cinza no-margin bold" *ngFor="let e of entregadores; let i = index">
+                <span class="btnRemover" (click)="removerEntregador(i)">Remover</span>
+                {{e.nome}}
+            </p>
+        </div>
+    </div>

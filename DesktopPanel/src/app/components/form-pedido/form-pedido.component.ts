@@ -1,9 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FirebaseProvider } from 'src/providers/firebase';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {map, startWith, throttleTime} from 'rxjs/operators';
+import { showAlertDialog } from '../alert-component/alert-component.component';
 
 
 export interface Item {
@@ -52,11 +53,10 @@ export class FormPedidoComponent implements OnInit {
   pagamento = new FormControl('', [Validators.required]);
   troco = new FormControl('', Validators.pattern(/[0-9.,]/g));
 
-
   constructor(
     private fb: FirebaseProvider,
     private dialogRef: MatDialogRef<FormPedidoComponent>,
-    private formBuilder: FormBuilder,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { 
 
@@ -82,39 +82,43 @@ export class FormPedidoComponent implements OnInit {
     }
   }
   verificaForm(): boolean{
+    let message = null;
     if(!this.tel_cliente.valid){
-      alert('Telefone inválido!');
-      return false;
+      message= 'Telefone inválido!';
     }
     if(!this.nome_cliente.valid){
-      alert('Nome do cliente inválido!');
-      return false;
+      message= 'Nome do cliente inválido!';
     }
     if(!this.end_cliente.valid){
-      alert('Endereço do cliente inválido!');
-      return false;
+      message= 'Endereço do cliente inválido!';
     }
     if(!this.bairro_cliente.valid){
-      alert('Selecione um bairro!');
-      return false;
+      message= 'Selecione um bairro!';
     }
     if(!this.pagamento.valid){
-      alert('Selecione uma forma de pagamento!');
-      return false;
+      message= 'Selecione uma forma de pagamento!';
     }
     if(!this.bairro_cliente.valid){
-      alert('Selecione um bairro!');
-      return false;
+      message= 'Selecione um bairro!';
     }
     if(this.pagamento.value == 'dinheiro'){
       let troco = parseFloat(this.troco.value.replace(',', '.'));
       if(!this.troco.valid || troco < this.pedidoFechado.total){
-        alert('Valor do troco inválido! O valor deve ser maior que o total do pedido!');
-        return false;
+        message= 'Valor do troco inválido! O valor deve ser maior que o total do pedido!';
       }
     }
     if(this.pedidoSelect.length <= 0){
-      alert('Pedido vazio!');
+      message= 'Pedido vazio!';
+    }
+    if(message){
+      showAlertDialog({
+        type: 'alert',
+        title: 'Confira',
+        text: message,
+        btnFalse: null,
+        btnTrue: null,
+        inputLabel: null
+      }, this.dialog);
       return false;
     }
     return true;
@@ -240,8 +244,15 @@ export class FormPedidoComponent implements OnInit {
     this.pedidoFechado['taxa_entrega'] = this.bairro_cliente.value['valor'];
     this.atualizarTotal();
   }
-  removeItem(index){
-    if(confirm('Remover item do pedido?')){
+  async removeItem(index){
+    if(await showAlertDialog({
+      type: 'confirm',
+      title: 'Confirme',
+      text: 'Realmente deseja remover o item do pedido?',
+      btnFalse: 'Voltar',
+      btnTrue: 'Sim!',
+      inputLabel: null
+    }, this.dialog)){
       this.atualizarSubtotal(-this.pedidoSelect[index].price);
       this.pedidoSelect.splice(index, 1);
     }
@@ -290,8 +301,6 @@ export class FormPedidoComponent implements OnInit {
     return lista.filter(option => option.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(filterValue));
   }
   
-
-
   closeDialog() {
     this.dialogRef.close();
   }

@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { FirebaseProvider } from 'src/providers/firebase';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import {storage} from 'firebase';
+import { showAlertDialog } from '../alert-component/alert-component.component';
 
 @Component({
   selector: 'app-form-slides',
@@ -24,6 +25,7 @@ export class FormSlidesComponent implements OnInit {
     public dialogRef: MatDialogRef<FormSlidesComponent>,
     private formBuilder: FormBuilder,
     private fb: FirebaseProvider,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
     ) { 
       
@@ -79,8 +81,15 @@ export class FormSlidesComponent implements OnInit {
       this.editar();
     }
   }
-  deleteSlide(id){
-    if(confirm("Você deseja apagar o slide?")){
+  async deleteSlide(id){
+    if(await showAlertDialog({
+      type: 'confirm',
+      title: 'Confirme',
+      text: 'Realmente deseja apagar o slide?',
+      btnFalse: 'Voltar',
+      btnTrue: 'Sim!',
+      inputLabel: null
+    }, this.dialog)){
       this.fb.deleteSlide(id);
       this.slides.splice(this.selected, 1);
       this.selected = '0';

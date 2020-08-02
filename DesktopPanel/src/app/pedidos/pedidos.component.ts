@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseProvider } from 'src/providers/firebase';
-import { HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
-import { notificationKey } from '../../environments/environment';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ImpressaoService } from 'src/services/impressao.service';
+import { showAlertDialog } from '../components/alert-component/alert-component.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-pedidos',
@@ -21,9 +21,9 @@ export class PedidosComponent implements OnInit {
   });
   constructor(
     private fb: FirebaseProvider,
-    private http: HttpClient,
     private formBuilder: FormBuilder,
-    private impressaoService: ImpressaoService
+    private impressaoService: ImpressaoService,
+    private dialog: MatDialog
   ) { 
     //setInterval(()=> this.getPedidosNovos,60000) // atualiza a cada minuto
     this.entregadoresForm = this.formBuilder.group({
@@ -63,7 +63,7 @@ export class PedidosComponent implements OnInit {
   }
   
   confirmarPedido(pedido, index){
-    this.enviarPush("Seu pedido foi confirmado!", "Está em preparo, te avisaremos quando ele sair para entrega.", this.pedidosNovos[index].token);
+    this.fb.enviarPush("Seu pedido foi confirmado!", "Está em preparo, te avisaremos quando ele sair para entrega.", this.pedidosNovos[index].token);
     pedido.status = 2;
     if(pedido.pagamento =='pontos'){
       this.fb.atualizarPontos(pedido.user_id, (-10 * pedido.qtd_pizza_pontos)); // remove 10 pontos por pizza
@@ -76,18 +76,32 @@ export class PedidosComponent implements OnInit {
     this.pedidosNovos.splice(index, 1);
   }
 
-  rejeitarPedido(pedido, index){
-    if(confirm("Rejeitar pedido ?")){
-      this.enviarPush("Seu pedido foi rejeitado!", "O restaurante não aceitou seu pedido.", pedido.token);
+  async rejeitarPedido(pedido, index){
+    if(await showAlertDialog({
+      type: 'confirm',
+      title: 'Confirme',
+      text: 'Deseja rejeitar o pedido?',
+      btnFalse: 'Voltar',
+      btnTrue: 'Sim!',
+      inputLabel: null
+    }, this.dialog)){
+      this.fb.enviarPush("Seu pedido foi rejeitado!", "O restaurante não aceitou seu pedido.", pedido.token);
       pedido.status = 5;
       this.fb.atualizarPedido(pedido);
       this.pedidosNovos.splice(index, 1);
     }
   }
 
-  cancelarPedido(pedido, index){
-    if(confirm("Cancelar pedido ?")){
-      this.enviarPush("Seu pedido foi cancelado!", "O restaurante não entregará mais seu pedido.", pedido.token);
+  async cancelarPedido(pedido, index){
+    if(await showAlertDialog({
+      type: 'confirm',
+      title: 'Confirme',
+      text: 'Deseja cancelar o pedido?',
+      btnFalse: 'Voltar',
+      btnTrue: 'Sim!',
+      inputLabel: null
+    }, this.dialog)){
+      this.fb.enviarPush("Seu pedido foi cancelado!", "O restaurante não entregará mais seu pedido.", pedido.token);
       if(pedido.pagamento =='pontos'){
         this.fb.atualizarPontos(pedido.user_id, 10 * pedido.qtd_pizza_pontos);
       } // devolve 10 pontos por pizza
@@ -104,34 +118,12 @@ export class PedidosComponent implements OnInit {
     if(this.entregadoresForm.valid){
       this.pedidosPreparo[this.indexPedidoSaiu].status = 3;
       this.pedidosPreparo[this.indexPedidoSaiu].entregador = this.entregadoresForm.get('nome').value;
-      this.enviarPush("Seu pedido está a caminho!", `${this.pedidosPreparo[this.indexPedidoSaiu].entregador} está levando até você.`, this.pedidosPreparo[this.indexPedidoSaiu].token);
+      this.fb.enviarPush("Seu pedido está a caminho!", `${this.pedidosPreparo[this.indexPedidoSaiu].entregador} está levando até você.`, this.pedidosPreparo[this.indexPedidoSaiu].token);
       this.fb.atualizarPedido(this.pedidosPreparo[this.indexPedidoSaiu]);
       this.pedidosPreparo.splice(this.indexPedidoSaiu, 1);
       this.indexPedidoSaiu = null;
       this.modalEntregador = false;
       this.entregadoresForm.reset();
-    }
-  }
-
-  enviarPush(titulo, desc, token){
-    if(token){
-      let headers = new HttpHeaders({'Content-Type':'application/json', 'Authorization':notificationKey});
-      const url = 'https://fcm.googleapis.com/fcm/send';
-      const body = JSON.stringify({
-        "notification":{
-          "title" : titulo,
-          "body" : desc,
-          "icon" : "fcm_push_icon"
-        },
-        "to" : token,
-      });
-      return this.http.post(
-        url, 
-        body, 
-        { headers: headers}
-      ).subscribe(
-        data => console.log(data => console.log(data))
-      );
     }
   }
 
