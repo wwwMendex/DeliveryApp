@@ -25,7 +25,7 @@ export class PedidosComponent implements OnInit {
     private impressaoService: ImpressaoService,
     private dialog: MatDialog
   ) { 
-    //setInterval(()=> this.getPedidosNovos,60000) // atualiza a cada minuto
+ 
     this.entregadoresForm = this.formBuilder.group({
       nome: ['', Validators.required],
     });
@@ -42,6 +42,7 @@ export class PedidosComponent implements OnInit {
   }
 
   async getPedidosNovos(){
+    console.log('procurando');
     this.pedidosNovos = await this.fb.getAllPedidoByStatus(1);
   }
   async getPedidosPreparo(){

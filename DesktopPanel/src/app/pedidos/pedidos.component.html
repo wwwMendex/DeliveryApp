@@ -24,6 +24,7 @@
         <h4 class="corbel bold center laranja-padrao mg-top-20">NOVOS PEDIDOS</h4>
         <p class="linha no-margin mg-top-5"></p>
         <br/>
+        <button mat-flat-button color="primary" (click)="getPedidosNovos()" class="btn-refresh">Atualizar<mat-icon>refresh</mat-icon></button>
         <div *ngIf="pedidosNovos?.length > 0">
             <mat-card class="card-pedido mg-top-10" *ngFor="let p of pedidosNovos; let i = index">
                 <div class="pad-5">

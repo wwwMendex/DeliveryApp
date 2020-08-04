@@ -57,6 +57,16 @@ $branco: rgb(240, 238, 217);
         overflow: auto;
         box-shadow: 1px 2px 8px 1px rgba(68, 68, 68, 0.25);
         z-index: 5;
+        .btn-refresh{
+            width: 90%;
+            margin-left: 5%;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2em;
+            .mat-icon{
+                color: white;
+            }
+        }
         .card-pedido{
             width: 90%;
             margin-left: 5%;

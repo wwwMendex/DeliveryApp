@@ -30,7 +30,7 @@ export class PainelComponent implements OnInit {
   }
 
   async ngOnInit() {
-    setInterval(()=> this.getPedidosNovos() ,30000); // atualiza a cada 1 minuto e meio
+    setInterval(()=> this.getPedidosNovos() ,90000); // atualiza a cada 1 minuto e meio
     this.getPedidosNovos();
     this.getCupons();
     this.isOpen = await this.fb.getStatus().then(r => r['status']);
