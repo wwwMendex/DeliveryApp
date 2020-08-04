@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FirebaseProvider } from 'src/providers/firebase';
 import { EnderecosPage } from '../enderecos/enderecos.page';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-menu',
@@ -18,7 +19,8 @@ export class MenuPage implements OnInit {
     private modalCtrl: ModalController,
     private storage: Storage,
     private router: Router,
-    private firebaseProvider: FirebaseProvider
+    private firebaseProvider: FirebaseProvider,
+    private afs: AngularFireAuth
   ) { }
 
   async ngOnInit() {
@@ -42,10 +44,12 @@ export class MenuPage implements OnInit {
     });
     return await modal.present();
   }
-  logout(){
+  async logout(){
     this.storage.remove('user');
     this.storage.remove('pedido');
+    this.storage.remove('pedidoEfetuado');
     this.router.navigateByUrl('auth');
+    await this.afs.signOut();
     this.closeModal();
   }
 

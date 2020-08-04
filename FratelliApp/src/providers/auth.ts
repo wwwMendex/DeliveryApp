@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
 
 @Injectable()
 export class AuthProvider{
@@ -9,8 +10,11 @@ export class AuthProvider{
     }
 
     // Create user
-    register = (data) => this.afAuth.createUserWithEmailAndPassword(data.email, data.password);
+    register = (data: {email: string, password: string}) => this.afAuth.createUserWithEmailAndPassword(data.email, data.password);
 
     // Login user
-    login = (data) => this.afAuth.signInWithEmailAndPassword(data.email, data.password);
+    login = async (data: {email: string, password: string}) => {
+        await this.afAuth.setPersistence(auth.Auth.Persistence.LOCAL);
+        return this.afAuth.signInWithEmailAndPassword(data.email, data.password);
+    }
 }

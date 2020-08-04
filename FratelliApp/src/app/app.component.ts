@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { FirebaseProvider } from 'src/providers/firebase';
 
+
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -16,7 +18,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private fb: FirebaseProvider,
-    private alert: AlertController
+    private alert: AlertController,
   ) {
     this.initializeApp();
   }
@@ -30,6 +32,8 @@ export class AppComponent {
 
     
   }
+
+  
   verificaStatus(){
     this.fb.getStatus()
       .then(async r => {

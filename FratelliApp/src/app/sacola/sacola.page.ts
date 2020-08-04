@@ -104,6 +104,7 @@ export class SacolaPage implements OnInit {
       } catch (e) {
         this.taxa_entrega = null;
       }
+      this.atualizarTotal();
     });
   }
   pagamentoDin(){
