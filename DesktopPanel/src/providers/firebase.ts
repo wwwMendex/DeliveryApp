@@ -4,6 +4,7 @@ import {
 } from "@angular/fire/firestore";
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { notificationKey } from 'src/environments/environment';
+import { resolve } from 'dns';
 
 
 
@@ -121,20 +122,21 @@ export class FirebaseProvider {
     }
   }
 
-  getAllPedidoByStatus(status){
+  getAllPedidoByStatus(status) {
     return new Promise((resolve, reject) => {
-      this.afs.firestore.collection('Pedidos')
+      let promise = [];
+      let array = [];
+      promise.push(this.afs.firestore.collection('Pedidos')
       .orderBy('horario_pedido', 'asc')
       .where("status", "==",status)
       .get()
       .then((r) => {
-        let array = [];
         r.forEach((d) => {
           let item = d.data();
           array.push(item);
         });
-        resolve(array);
-      });
+      }));
+      Promise.all(promise).then(() => resolve(array));
     });
   }
 

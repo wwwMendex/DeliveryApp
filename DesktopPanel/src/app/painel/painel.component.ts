@@ -18,18 +18,21 @@ export class PainelComponent implements OnInit {
   caixaAberto:any = JSON.parse(localStorage.getItem('caixaAberto')) || null;
   cupons: any = JSON.parse(sessionStorage.getItem('cupons')) || [];
   pedido:any = [];
+  notification: HTMLAudioElement = new Audio();
+  
   constructor(
     private fb: FirebaseProvider,
     private dialog: MatDialog,
     private impressaoService: ImpressaoService
-  ) { 
-    //setInterval(()=> this.getPedidosNovos,90000) // atualiza a cada 1 minuto e meio
+  ) {
+    this.notification.src = "file:///src/assets/sounds/notification.mp3";
+    this.notification.load();
   }
 
   async ngOnInit() {
+    setInterval(()=> this.getPedidosNovos() ,30000); // atualiza a cada 1 minuto e meio
     this.getPedidosNovos();
     this.getCupons();
-    // this.getCaixaAberto();
     this.isOpen = await this.fb.getStatus().then(r => r['status']);
     sessionStorage.setItem('status', JSON.stringify(this.isOpen));
   }
@@ -115,7 +118,17 @@ export class PainelComponent implements OnInit {
 
 
   async getPedidosNovos(){
-    this.pedidosNovos = await this.fb.getAllPedidoByStatus(1);
+    console.log('atualizando');
+    this.fb.getAllPedidoByStatus(1)
+    .then((res => {
+      if((res as any).length){
+        this.pedidosNovos = res;
+        console.log('pedidos novos');
+        this.notification.play().catch(e => console.log('erro ' + e));
+      }else{
+        return false;
+      }
+    }));
   }
   async getCupons(){
     if(this.cupons.length == 0){

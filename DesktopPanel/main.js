@@ -122,7 +122,8 @@ function createWindow () {
     }
   });
 
-  win.setMenu(null);
+  // win.setMenu(null);
+
   win.loadURL(`file://${__dirname}/dist/DesktopPanel/index.html`);
 
 
@@ -132,6 +133,7 @@ function createWindow () {
 }
 
 // Create window on electron intialization
+app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 app.on('ready', () =>{
   createWindow(); 
   initServer();

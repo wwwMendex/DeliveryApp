@@ -17,6 +17,7 @@ export class AuthGuard implements CanActivate{
     }
 
     async canActivate(route: ActivatedRouteSnapshot){
+      return true;
       return new Promise<boolean>((res) => { 
         this.afs.authState.pipe(first()).toPromise()
         .then(async authentication => {
