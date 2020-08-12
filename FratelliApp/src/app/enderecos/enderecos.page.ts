@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController, ActionSheetController, AlertController, ToastController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Storage } from '@ionic/storage';
@@ -16,7 +16,6 @@ export class EnderecosPage implements OnInit {
     private modalCtrl: ModalController,
     private formBuilder: FormBuilder,
     private storage: Storage,
-    private cdr: ChangeDetectorRef,
     private actionSheetCtrl: ActionSheetController,
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,

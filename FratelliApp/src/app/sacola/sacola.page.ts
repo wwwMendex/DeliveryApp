@@ -346,10 +346,11 @@ export class SacolaPage implements OnInit {
       }catch(e){
         console.log(e);
       }
+      let enderecoCompleto = `${this.endereco.rua}, ${this.endereco.numero}` + (this.endereco.complemento ? `,  ${this.endereco.complemento}` : '') + `, ${this.endereco.bairro}` + (this.endereco.referencia ? `, Ref: ${this.endereco.referencia}` : '');
       // Organizando dados
       let pedido = {
         contato: this.user.tel,
-        endereco: this.endereco.rua + ", " + this.endereco.numero + ", " + this.endereco.bairro,
+        endereco: enderecoCompleto,
         entregador: null,
         data_pedido: data,
         horario_pedido: horario ,
@@ -392,7 +393,10 @@ export class SacolaPage implements OnInit {
           .then(() => {
             this.storage.remove('pedido');
             this.closeModal();
-            this.router.navigateByUrl('status');
+            this.modalCtrl.create({
+              component: StatusPage,
+              swipeToClose: true,
+            }).then(r => r.present());
           });
         });
       }

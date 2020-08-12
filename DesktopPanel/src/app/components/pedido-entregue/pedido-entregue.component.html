@@ -3,7 +3,7 @@
     <h4 class="center">Pedido #{{data.id}}</h4>
     <h5 class="mg-top-10">Cliente: {{data.nome_usuario}}</h5>
     <h5>Contato: {{data.contato}}</h5>
-    <h5>Forma de Pagamento: {{data.pagamento}}</h5>
+    <h5>Forma de Pagamento: {{data.pagamento == 'card' ? 'cartão' : data.pagamento}}</h5>
     <h5 *ngIf="data.troco">Troco para {{data.troco}}</h5>
     <br>
     <h5>Pedido: <span *ngFor="let item of data.pedido">{{item.qtd + ' x ' + item.name}} </span></h5>

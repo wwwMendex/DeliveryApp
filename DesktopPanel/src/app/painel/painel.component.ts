@@ -53,7 +53,7 @@ export class PainelComponent implements OnInit {
       btnFalse: 'Voltar',
       btnTrue: 'Abrir!',
       inputLabel: 'R$:'
-    }, this.dialog).then(res => res.toString().match(/[\d\.\,]+/g));
+    }, this.dialog).then(res => res ? res.toString().match(/[\d\.\,]+/g) : null);
     let input = await valorCaixa;
     if(input){
       this.caixaAberto = [];

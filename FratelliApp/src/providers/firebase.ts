@@ -59,7 +59,7 @@ export class FirebaseProvider {
       this.afs.firestore.collection('Pedidos')
       .orderBy('contato')
       .where("user_id", "==", uid).where("status", "==",4)
-      .limitToLast(3)
+      .limitToLast(5)
       .get()
       .then((r) => {
         let array = [];
@@ -88,7 +88,7 @@ export class FirebaseProvider {
     switch(id){
       case '1': // Cardapio salgadas
         return new Promise((resolve, reject) =>{
-          this.afs.firestore.collection('Cardapio').doc('pizzas').collection('salgadas').get()
+          this.afs.firestore.collection('Cardapio').doc('pizzas').collection('salgadas').orderBy('name').get()
           .then((r) => {
             let array = [];
             r.forEach((d) => {
@@ -100,7 +100,7 @@ export class FirebaseProvider {
         });
       case '2': //cardapio doces
         return new Promise((resolve, reject) =>{
-          this.afs.firestore.collection('Cardapio').doc('pizzas').collection('doces').get()
+          this.afs.firestore.collection('Cardapio').doc('pizzas').collection('doces').orderBy('name').get()
           .then((r) => {
             let array = [];
             r.forEach((d) => {
@@ -112,7 +112,7 @@ export class FirebaseProvider {
         });
       case '3': //cardapio bebidas
         return new Promise((resolve, reject) =>{
-          this.afs.firestore.collection('Cardapio').doc('bebidas').collection('options').get()
+          this.afs.firestore.collection('Cardapio').doc('bebidas').collection('options').orderBy('name').get()
           .then((r) => {
             let array = [];
             r.forEach((d) => {
@@ -127,7 +127,7 @@ export class FirebaseProvider {
 
   getBairros(){
     return new Promise((resolve, reject) =>{
-      this.afs.firestore.collection('Tarifa').get()
+      this.afs.firestore.collection('Tarifa').orderBy('bairro').get()
       .then((r) => {
         let array = [];
         r.forEach((d) => {

@@ -3,7 +3,6 @@ import { ModalController, AlertController } from '@ionic/angular';
 import { FirebaseProvider } from 'src/providers/firebase';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
-import { FCM } from '@ionic-native/fcm/ngx';
 
 @Component({
   selector: 'app-status',
@@ -18,7 +17,6 @@ export class StatusPage implements OnInit {
     private fb: FirebaseProvider,
     private storage: Storage,
     private router: Router,
-    private fcm : FCM,
     private alertCtrl: AlertController
   ) { 
     
@@ -27,7 +25,6 @@ export class StatusPage implements OnInit {
   async ngOnInit() {
     this.id = await this.storage.get('pedidoEfetuado');
     this.atualizarPedido(this.id);
-    this.fcm.onNotification().subscribe(() => this.atualizarPedido(this.id));
   }
 
   doRefresh(event) {
@@ -50,6 +47,7 @@ export class StatusPage implements OnInit {
         pedidoAberto--;
         if(pedidoAberto == 0){
           this.storage.remove('pedidoEfetuado');
+          this.storage.remove('pedidoPontos');
           this.closeModal();
         }
       }

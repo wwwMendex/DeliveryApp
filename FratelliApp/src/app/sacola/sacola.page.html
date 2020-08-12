@@ -42,7 +42,7 @@
       <ion-button class="addMoreItens corbel" expand="full" fill="clear" (click)="goToHome()" color="danger">Escolher mais itens</ion-button>
       <p class="linha"></p>
       <p class="lblTotal corbel italic no-margin mg-top-5">Subtotal<span class="valTotal">R$ {{subtotal}}</span></p>
-      <p class="lblTotal corbel no-margin">Taxa de entrega<span class="valTotal">R$ {{taxa_entrega}}</span></p>
+      <p class="lblTotal corbel no-margin">Taxa de entrega<span class="valTotal">{{taxa_entrega ? 'R$ ' + taxa_entrega : 'Grátis'}}</span></p>
       <p class="lblTotal total corbel extra-bold no-margin">Total<span class="valTotal">R$ {{total}}</span></p>
     </div>
     <div class="cupom mg-top-10">

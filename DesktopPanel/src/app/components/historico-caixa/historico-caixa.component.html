@@ -17,7 +17,7 @@
                 </mat-chip-list>
                 <div *ngIf="pedidoSelecionado" class="pad-10 mg-top-10">
                     <p>{{pedidoSelecionado.nome_usuario}}, tel: {{pedidoSelecionado.contato}}</p>
-                    <p>Pagamento: {{pedidoSelecionado.pagamento}}<span *ngIf="pedidoSelecionado.troco">, troco: {{pedidoSelecionado.troco}}</span></p>
+                    <p>Pagamento: {{pedidoSelecionado.pagamento == 'card' ? 'cartão' : pedidoSelecionado.pagamento}}<span *ngIf="pedidoSelecionado.troco">, troco: {{pedidoSelecionado.troco}}</span></p>
                     <p>Pedido: <span *ngFor="let item of pedidoSelecionado.pedido">{{item.qtd + ' x ' + item.name}} </span></p>
                     <p>Subtotal: R${{pedidoSelecionado.subtotal}}, taxa: R${{pedidoSelecionado.taxa_entrega}}</p>
                     <p *ngIf="pedidoSelecionado.cupom">Cupom: {{pedidoSelecionado.cupom}}, subtotal sem cupom: R${{pedidoSelecionado.subtotal_sem_cupom}}</p>

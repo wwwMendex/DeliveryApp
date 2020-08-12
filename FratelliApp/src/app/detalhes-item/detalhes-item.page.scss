@@ -4,9 +4,12 @@ ion-toolbar{
 .bg-item-details{
     width: 100%;
     height: 35%;
-    background-image: url('../../assets/imgs/item_details.jpg');
-    background-size: cover;
-    background-position: center;
+    overflow: hidden;
+    img{
+        width: 100%;
+        height: auto;
+        margin: auto;
+    }
 }
 .btnClose{
     right: 0;

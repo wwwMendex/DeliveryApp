@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
-import { Platform, AlertController } from '@ionic/angular';
+import { Platform, AlertController, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { FirebaseProvider } from 'src/providers/firebase';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 
 
@@ -19,6 +20,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     private fb: FirebaseProvider,
     private alert: AlertController,
+    private fcm: FCM,
+    private toastCtrl: ToastController
   ) {
     this.initializeApp();
   }
@@ -28,13 +31,25 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.verificaStatus();
+      this.subscribePush();
     });
 
     
   }
 
-  
+  subscribePush(){
+    this.fcm.onNotification().subscribe(data =>{  
+      this.toastCtrl.create({
+        message: 'O status do seu pedido foi atualizado!',
+        duration: 2000,
+        position: "bottom",
+        color: "danger"
+      }).then((toast) => toast.present());
+    });
+  }
+
   verificaStatus(){
+    console.log('chegou aq');
     this.fb.getStatus()
       .then(async r => {
         if(!r['status']){
@@ -49,7 +64,7 @@ export class AppComponent {
             ]
           });
           alert.present();
-      }
-    });
+        }
+      });
   }
 }

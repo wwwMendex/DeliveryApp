@@ -38,7 +38,7 @@ export class FormCardapioComponent implements OnInit {
     
     this.formulario = this.formBuilder.group({
       type: [this.data?.type ||'', Validators.required],
-      sub_type: [this.data?.sub_type ||'', Validators.required],
+      sub_type: [this.data?.sub_type ||'option', Validators.required],
       name: [this.data?.name ||'', Validators.required],
       description: [this.data?.description || '', Validators.required],
       price: [this.data?.price || '', Validators.required],
@@ -47,8 +47,9 @@ export class FormCardapioComponent implements OnInit {
     });
   }
   async submitForm(){
-    if(this.formulario.get('type').value =='bebida')
+    if(this.formulario.get('type').value =='bebida'){
       this.formulario.get('sub_type').setValue('option');
+    }
     if(this.formulario.valid){
       const price = this.formulario.get('price').value.toString().match(/[\d\.\,]+/g).toString();
       this.formulario.get('price').setValue(parseFloat(price.replace(/,/g, '.')));

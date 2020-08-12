@@ -32,15 +32,10 @@ export class CardapioComponent implements OnInit {
     });
   }
   abrirSlides(){
-    // let dialogRef = 
     this.dialog.open(FormSlidesComponent, {
       height: '80vh',
       width: '40vw',
     });
-    // dialogRef.afterClosed().subscribe(async result => {
-    //   if (result) this.cardapio = await this.fb.getCardapio();
-    //   this.edit = false;
-    // });
   }
 
 

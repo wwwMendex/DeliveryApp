@@ -31,7 +31,7 @@
   <div class="pedidos conteudo mg-top-10">
     <h3 class="no-margin lblUltimosPedidos calibri bold cinza mg-top-5">Últimos pedidos</h3>
     <img class="icon-pontos mg-top-10" src="./assets/icon/pontos.png">
-    <p class="no-margin lblPontos century bold cinza">Você tem <span class="pontos">{{user?.pontos_fidelidade}}</span> pontos de fidelidade</p>
+    <p class="no-margin lblPontos century bold cinza">Você tem <span class="pontos">{{user?.pontos_fidelidade || 0}}</span> pontos de fidelidade</p>
     <p class="no-margin subLblPontos century">Troque 10 pontos por uma pizza grátis!</p>
     <div class="mg-top-5-percent">
       <p class="sem-pedidos century bold no-margin" *ngIf="!pedidos || pedidos?.length == 0">Você ainda não fez pedidos</p>
