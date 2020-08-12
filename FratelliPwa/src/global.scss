@@ -1,0 +1,200 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+*/
+// import fonts
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:ital,wght@0,300;0,400;0,700;0,800;1,600&display=swap');
+
+.century{
+    font-family: 'Didact Gothic', sans-serif;
+}
+.corbel{
+    font-family: 'Open Sans', sans-serif;
+}
+.calibri{
+    font-family: 'Noto Sans', sans-serif;
+}
+
+// font style
+.extra-bold{
+    font-weight: 800;
+}
+.bold{
+    font-weight: 700;
+}
+.light{
+    font-weight: 300;
+}
+.italic{
+    font-style: italic;
+}
+
+// Color classes
+  // App colors
+  $laranja-padrao: #E5690B;
+  $marrom: #502407;
+  $cinza: #262618;
+  $laranja-avermelhado: #ED4410;
+  $branco: rgb(240, 238, 217);
+
+.laranja-padrao{
+    color: $laranja-padrao;
+}
+.marrom{
+    color: $marrom;
+}
+.cinza{
+    color: $cinza;
+}
+.laranja-avermelhado{
+    color: $laranja-avermelhado;
+}
+.branco{
+    color: $branco;
+}
+ion-button{
+    outline: none !important;
+}
+// position classes
+.center{
+    text-align: center;
+}
+.modal{
+    --height: calc(100% - 60px);
+    margin-bottom: -30px;
+    --border-radius: 10px 10px 0 0;
+}
+.modal-menu{
+    --width: calc(100% - 60px);
+    margin-left: -30px;
+    --border-radius: 0 10px 10px 0;
+}
+//margins
+.no-margin{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.mg-top-5-percent{
+    margin-top: 5%;
+}
+.mg-top-10-percent{
+    margin-top: 10%;
+}
+.mg-top-15-percent{
+    margin-top: 15%;
+}
+.mg-top-20-percent{
+    margin-top: 20%;
+}
+.mg-top-25-percent{
+    margin-top: 25%;
+}
+.mg-top-30-percent{
+    margin-top: 30%;
+}
+.mg-top-35-percent{
+    margin-top: 35%;
+}
+.mg-top-40-percent{
+    margin-top: 40%;
+}
+
+.mg-top-5{
+    margin-top: 5px;
+}
+.mg-top-10{
+    margin-top: 10px;
+}
+.mg-top-15{
+    margin-top: 15px;
+}
+.mg-top-20{
+    margin-top: 20px;
+}
+.mg-top-25{
+    margin-top: 25px;
+}
+.mg-top-30{
+    margin-top: 30px;
+}
+.mg-top-40{
+    margin-top: 40px;
+}
+//paddings
+.no-pad{
+    padding: 0;
+}
+
+.pad-25{
+    padding: 25px 25px 0px 25px;
+}
+.pad-10{
+    padding: 10px 10px 0px 10px;
+}
+
+.pad-5{
+    padding: 5px 5px 5px 5px;
+}
+.pad-top-5-percent{
+    padding-top: 5%;
+}
+.pad-top-10-percent{
+    padding-top: 10%;
+}
+.pad-top-15-percent{
+    padding-top: 15%;
+}
+.pad-top-20-percent{
+    padding-top: 20%;
+}
+.pad-top-25-percent{
+    padding-top: 25%;
+}
+.pad-top-30-percent{
+    padding-top: 30%;
+}
+.pad-top-35-percent{
+    padding-top: 35%;
+}
+.pad-top-40-percent{
+    padding-top: 40%;
+}
+
+.pad-top-5{
+    padding-top: 5px;
+}
+.pad-top-10{
+    padding-top: 10px;
+}
+.pad-top-15{
+    padding-top: 15px;
+}
+.pad-top-20{
+    padding-top: 20px;
+}
+.pad-top-25{
+    padding-top: 25px;
+}
+.pad-top-30{
+    padding-top: 30px;
+}
+.pad-top-40{
+    padding-top: 35px;
+}
+
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";

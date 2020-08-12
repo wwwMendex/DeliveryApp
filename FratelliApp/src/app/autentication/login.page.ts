@@ -49,22 +49,22 @@ export class LoginPage implements OnInit {
       private keyboard: Keyboard,
       private toastCtrl: ToastController
     ){ 
-      this.keyboard.onKeyboardDidShow()
-      .subscribe(() => {
-        if(this.register){
-          document.getElementById("bg-register").style.height = "165%";
-        }else{
-          document.getElementById("bg-login").style.height = "165%";
-        }
-      });
-      this.keyboard.onKeyboardDidHide()
-      .subscribe(() => {
-        if(this.register){
-          document.getElementById("bg-register").style.height = "100%";
-        }else{
-          document.getElementById("bg-login").style.height = "100%";
-        }
-      });
+      // this.keyboard.onKeyboardDidShow()
+      // .subscribe(() => {
+      //   if(this.register){
+      //     document.getElementById("bg-register").style.height = "165%";
+      //   }else{
+      //     document.getElementById("bg-login").style.height = "165%";
+      //   }
+      // });
+      // this.keyboard.onKeyboardDidHide()
+      // .subscribe(() => {
+      //   if(this.register){
+      //     document.getElementById("bg-register").style.height = "100%";
+      //   }else{
+      //     document.getElementById("bg-login").style.height = "100%";
+      //   }
+      // });
   }
 
   async fazerLogin(){
@@ -126,6 +126,8 @@ export class LoginPage implements OnInit {
         this.router.navigateByUrl('home');
       }
     });
+    
+    
     
   }
   

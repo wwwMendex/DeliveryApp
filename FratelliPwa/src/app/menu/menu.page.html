@@ -1,0 +1,96 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="bold">Menu</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">
+          <ion-icon slot="icon-only" name="chevron-back-outline" color="dark"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="perfil conteudo">
+    <p class="no-margin lblDados calibri italic bold cinza">Seus dados</p>
+    <ion-item *ngIf="user">
+      <ion-avatar slot="start">
+        <img src="./assets/icon/user.jpg">
+      </ion-avatar>
+      <ion-label>
+        <p class="perfil-nome century bold">{{user.name}}</p>
+        <p class="perfil-tel century">{{user.tel}}</p>
+      </ion-label>
+    </ion-item>
+    <div class="ion-padding custom-skeleton" *ngIf="!user">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+    </div>
+  </div>
+  <div class="pedidos conteudo mg-top-10">
+    <h3 class="no-margin lblUltimosPedidos calibri bold cinza mg-top-5">Últimos pedidos</h3>
+    <img class="icon-pontos mg-top-10" src="./assets/icon/pontos.png">
+    <p class="no-margin lblPontos century bold cinza">Você tem <span class="pontos">{{user?.pontos_fidelidade || 0}}</span> pontos de fidelidade</p>
+    <p class="no-margin subLblPontos century">Troque 10 pontos por uma pizza grátis!</p>
+    <div class="mg-top-5-percent">
+      <p class="sem-pedidos century bold no-margin" *ngIf="!pedidos || pedidos?.length == 0">Você ainda não fez pedidos</p>
+      <div *ngIf="pedidos?.length > 0">
+        <div class="pedido mg-top-20" *ngFor="let pedido of pedidos">
+          <p class="item-name century bold no-margin" *ngFor="let item of pedido.pedido">{{item.qtd + ' x ' + item.name}}</p>
+          <p class="pedido-total corbel italic no-margin">Total: <span class="total bold">R$ {{pedido.total}}</span></p>
+          <p class="item-date corbel italic no-margin">{{pedido.data_pedido + ' ' + pedido.horario_pedido}}</p>
+          <p class="linha pad-top-15"></p>
+        </div>
+      </div>
+      <div *ngIf="!pedidos">  <!-- skeleton -->
+        <div class="ion-padding custom-skeleton">
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </div>
+        <div class="ion-padding custom-skeleton">
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </div>
+        <div class="ion-padding custom-skeleton">
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="conteudo enderecos mg-top-10">
+    <div class="btnEnd" (click)="abrirEndereco()">
+      <p class="lblEnd century bold no-margin">Endereços</p>
+      <p class="subLblEnd century no-margin">Modificar locais para entrega</p>
+      <ion-icon class="icon-end" name="location-outline" slot="start"> </ion-icon>
+    </div>
+  </div>
+
+  <div class="conteudo mg-top-10">
+    <ion-item>
+      <ion-label>
+        <ion-button class="century" fill="clear" expand="full" color="dark">
+          <ion-icon slot="start" name="information-circle-outline"></ion-icon> Informações
+        </ion-button>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+    <ion-label>
+      <ion-button class="century" (click)="logout()" fill="clear" expand="full" color="danger">
+        <ion-icon slot="start" name="exit-outline"></ion-icon> Sair (deslogar)
+      </ion-button>
+    </ion-label>
+  </ion-item>
+  </div>
+  
+</ion-content>

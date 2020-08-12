@@ -1,0 +1,225 @@
+ion-toolbar{
+    --background: #f3f3f3;  
+    position: absolute;
+}
+ion-content{
+    --ion-background-color: #ebebeb;   
+    position: absolute;
+}
+ion-title{
+    color: rgb(87, 87, 87);
+}
+
+.conteudo{
+    background-color: #f3f3f3;
+    padding-bottom: 15px;
+}
+.label{
+    font-size: 20px;
+    margin-left: 10%;
+    color: #3b3b3b;
+}
+.btnEnd{
+    width: 90%;
+    margin-left: 5%;
+    text-transform: unset;
+    font-size: 18px;
+}
+.endereco{
+    width: 90%;
+    text-align: left;
+}
+.linha{
+    border-bottom: 2px solid #e2e2e2;
+    width: 85%;
+    margin-left: 7.5%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.item-type{
+    color: #464646;
+    font-size: 24px;
+    width: 80%;
+    margin-left: 7.5%;
+}
+.item-name{
+    color: #585858;
+    font-size: 20px;
+    width: 70%;
+    margin-left: 7%;
+}
+.label-promo{
+    float: right;
+}
+.item-obs{
+    color: #585858;
+    font-size: 18px;
+    width: 80%; 
+    margin-left: 7%;
+}
+.item-price{
+    color: #E5690B;
+    font-size: 22px;
+    margin-left: 7%;
+}
+.quantidade{
+    position: absolute;
+    right: 7.5%;
+    margin-top: 35px;
+    
+}
+.buttonQtd{
+    font-size: 24px;
+    font-weight: 700;
+    color: #E5690B;
+    background: #f7f7f7;
+    border: 1px solid #464646;
+    border-radius: 25px;
+    height: 30px;
+    width: 30px;
+    outline: none;
+}
+
+.buttonQtd:active{
+    background: #e4e4e4;
+}
+.numQtd{
+    font-size: 22px;
+    color: #575757;
+}
+.addMoreItens{
+    text-transform: unset;
+    font-size: 18px;
+}
+.lblTotal{
+    color: #777777;
+    font-size: 18px;
+    margin-left: 7.5%;
+}
+.total{
+    font-size: 20px;
+}
+.valTotal{
+    float: right;
+    margin-right: 7.5%;
+}
+.cupom-icon{
+    font-size: 40px;
+}
+.lblCupom{
+    font-size: 18px;
+    color: #575757;
+    padding-top: 10px;
+}
+.cupom{
+    background-color: #f3f3f3;
+    padding-bottom: 10px;
+}
+ion-item{
+    --background: #f3f3f3;
+}
+.radioPontos{
+    --color-checked: rgb(173, 81, 10);
+}
+.radioDin{
+    --color-checked: #279623;
+}
+.radioCard{
+    --color-checked: #275aa7;
+}
+.iconPontos{
+    font-size: 22px;
+    color: rgb(173, 81, 10);
+    position: absolute;
+}
+.iconDin{
+    font-size: 22px;
+    color: #1c6d19;
+    position: absolute;
+}
+.iconCard{
+    font-size: 22px;
+    color: #214a86;
+    position: absolute;
+}
+.lblPagamento{
+    margin-left: 30px;
+}
+.pagamento{
+    width: 85%;
+}
+.div-pagamento{
+    background-color: #f3f3f3;
+    padding-bottom: 5px;
+}
+.btnAdd{
+    margin-top: 20px;
+    width: 90%;
+    margin-left: 5%;
+}
+@media (min-height: 710px){
+    .label, .item-obs{
+        font-size: 15px;
+    }
+    .btnEnd{
+        font-size: 15px;
+    }
+    .item-type, .item-price, .btnAdd{
+        font-size: 18px;
+    }
+    .item-name, .lblTotal{
+        font-size: 16px;
+    }
+    .buttonQtd{
+        font-size: 18px;
+    }
+    .addMoreItens{
+        font-size: 16px;
+    }
+    .cupom-icon, .btnAdd ion-icon{
+        font-size: 25px;
+    }
+    .lblCupom, .lblPagamento{
+        font-size: 16px;
+    }
+    .iconDin, .iconCard, .iconPontos, .numQtd{
+        font-size: 20px;
+    }
+}
+@media (max-height: 650px) 
+{
+    .label, .item-obs{
+        font-size: 14px;
+    }
+    .btnEnd{
+        height: 40px;
+        font-size: 14px;
+        text-overflow: ellipsis;
+    }
+    .item-type, .item-price, .btnAdd{
+        font-size: 18px;
+    }
+    .item-name, .lblTotal{
+        font-size: 16px;
+    }
+    .buttonQtd{
+        font-size: 18px;
+        font-weight: 500;
+        width: 22px;
+        height: 22px;
+    }
+    .addMoreItens{
+        font-size: 16px;
+        height: 30px;
+    }
+    .cupom-icon, .btnAdd ion-icon{
+        font-size: 24px;
+    }
+    .lblCupom, .lblPagamento{
+        font-size: 15px;
+    }
+    .iconDin, .iconCard, .iconPontos, .numQtd{
+        font-size: 20px;
+    }
+}

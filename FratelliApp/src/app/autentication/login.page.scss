@@ -1,10 +1,12 @@
     
     .bg-login{
+        background: url('../../assets/imgs/background_login.jpg') fixed;
         width: 100%;
         height: 100%;
-        background-image: url('../../assets/imgs/background_login.jpg');
-        background-size: cover;
-        background-position: center;
+        // overflow: hidden;
+        background-size: 150%;
+        // background-position-x: 50%, center;
+        
     }
     
     .bg-register{
@@ -14,13 +16,17 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url('../../assets/imgs/background_register.jpg');
+        background: url('../../assets/imgs/background_register.jpg');
         background-size: cover;
         background-position: center;
     }
     .overlay{
         width: 100%;
         height: 100%;
+        overflow: hidden;
+        position: fixed;
+        bottom: 0;
+        top: 0;
         background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.9));
     }
     .logo-login{

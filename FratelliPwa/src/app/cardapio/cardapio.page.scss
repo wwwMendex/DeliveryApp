@@ -1,0 +1,87 @@
+ion-toolbar{
+    --background: #E5690B;
+}
+ion-title{
+    padding-left: 45px;
+}
+.pad-right-10{
+    padding-right: 10px;
+}
+.sub-categoria{
+    font-weight: 700;
+    font-size: 20px;
+    color: #502407;
+}
+.border-img{
+    border: 2px solid #502407;
+}
+.item-title{
+    color: #383825;
+    font-weight: 700;
+    font-size: 19px;
+    text-transform: uppercase;
+    width: 80%;
+}
+.item-promo{
+    float: right;
+    color: #E5690B;
+}
+.item-description{
+    color: #535353;
+    font-size: 16px;
+    font-style: italic;
+    width: 80%;
+}
+.item-price{
+    color: #252519;
+    font-size: 19px;
+    font-weight: 700;
+    float: right;
+    bottom: 13px;
+}
+ion-avatar{
+    width: 60px;
+    height: 60px;
+}
+@media (min-height: 710px){
+    ion-avatar{
+        width: 40px;
+        height: 40px;
+    }
+    ion-title{
+        font-size: 15px;
+    }
+    .sub-categoria{
+        font-size: 15px;
+    }
+    .item-title{
+        font-size: 16px;
+    }
+    .item-description{
+        font-size: 13px;
+    }
+    .item-price{
+        font-size: 15px;
+    }
+}
+@media (max-height: 650px){
+    ion-avatar{
+        width: 45px;
+        height: 45px;
+    }
+    ion-title{
+        font-size: 15px;
+    }
+    .sub-categoria{
+        font-size: 15px;
+    }
+    .item-title{
+        font-size: 16px;
+    }
+    .item-description{
+        font-size: 13px;
+    }
+    .item-price{
+        font-size: 15px;
+    }
+}

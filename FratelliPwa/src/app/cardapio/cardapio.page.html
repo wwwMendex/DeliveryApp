@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button (click)="goToHome()" fill="clear" slot="start" color="light">
+      <ion-icon slot="icon-only" name="chevron-back-outline"> </ion-icon>
+    </ion-button>
+    <ion-title color="light"> {{ header_title }}</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div *ngIf='cardapio?.length > 0'>
+      <!-- Cardapio Salgadas -->
+    <ion-list *ngIf="tipo_cardapio==1">
+      <ion-list-header class="sub-categoria">
+        Sabores Especiais
+      </ion-list-header>
+
+      <ion-item *ngFor="let pizza of cardapio_especiais" (click)="detalhesItem(pizza.id)">
+        <ion-avatar slot="start">
+          <img class="border-img" src="./assets/imgs/pizza.jpg">
+        </ion-avatar>
+        <ion-label>
+          <p class="laranja-avermelhado item-promo" *ngIf="pizza.promo && user.pontos_fidelidade >= 10">PROMO</p>
+          <p class="item-title century">{{pizza.name}}</p>
+          <p class="item-price century">R$ {{pizza.price}}</p>
+          <p class="item-description corbel">{{pizza.description}}</p>
+        </ion-label>
+      </ion-item>
+      
+      <ion-list-header class="sub-categoria mg-top-20">
+        Sabores Tradicionais
+      </ion-list-header>
+
+      <ion-item *ngFor="let pizza of cardapio_tradicionais" (click)="detalhesItem(pizza.id)">
+        <ion-avatar slot="start">
+          <img class="border-img" src="./assets/imgs/pizza.jpg">
+        </ion-avatar>
+        <ion-label>
+          <p class="laranja-avermelhado item-promo" *ngIf="pizza.promo && user.pontos_fidelidade > 10">PROMO</p>
+          <p class="item-title century">{{pizza.name}}</p>
+          <p class="item-price century">R$ {{pizza.price}}</p>
+          <p class="item-description corbel">{{pizza.description}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+        <!-- Cardapio Doces -->
+    <ion-list *ngIf="tipo_cardapio==2">
+      <ion-list-header class="sub-categoria">
+        Sabores
+      </ion-list-header>
+
+      <ion-item *ngFor="let pizza of cardapio" (click)="detalhesItem(pizza.id)">
+        <ion-avatar slot="start">
+          <img class="border-img" src="./assets/imgs/pizza.jpg">
+        </ion-avatar>
+        <ion-label>
+          <span class="laranja-avermelhado item-promo bold corbel" *ngIf="pizza.promo && user.pontos_fidelidade >= 10">PROMO</span>
+          <p class="item-title century">{{pizza.name}}</p>
+          <p class="item-price century">R$ {{pizza.price}}</p>
+          <p class="item-description corbel">{{pizza.description}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+        <!-- Cardapio Bebidas -->
+    <ion-list *ngIf="tipo_cardapio==3">
+      <ion-list-header class="sub-categoria">
+        Opções
+      </ion-list-header>
+
+      <ion-item *ngFor="let bebida of cardapio" (click)="detalhesItem(bebida.id)">
+        <ion-avatar slot="start">
+          <img class="border-img" src="./assets/imgs/pizza.jpg">
+        </ion-avatar>
+        <ion-label>
+          <p class="item-title century">{{bebida.name}}</p>
+          <p class="item-price century">R$ {{bebida.price}}</p>
+          <p class="item-description corbel">{{bebida.description}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div *ngIf="!cardapio">  <!-- skeleton -->
+    <div class="ion-padding custom-skeleton" *ngFor="let i of skeleton">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </div>
+  </div>
+</ion-content>
+<app-footer-sacola *ngIf="footer==1"></app-footer-sacola>
+<app-footer-status *ngIf="footer==2"></app-footer-status>

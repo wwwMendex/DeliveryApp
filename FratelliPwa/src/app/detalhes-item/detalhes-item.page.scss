@@ -1,0 +1,116 @@
+ion-toolbar{
+    --background: rgb(240, 238, 217);
+}
+.bg-item-details{
+    width: 100%;
+    height: 35%;
+    overflow: hidden;
+    img{
+        width: 100%;
+        height: auto;
+        margin: auto;
+    }
+}
+.btnClose{
+    right: 0;
+    position: absolute;
+}
+.item-name{
+    text-transform: uppercase;
+    margin-left: 10px;
+    color: #383825;
+}
+.div-description{
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 20px 15px;
+}
+.item-description{
+    color: #E5690B;
+    font-size: 20px;
+}
+.div-observation{
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 2px 15px;
+}
+.item-observation{
+    --color: #E5690B;
+    --placeholder-opacity: 0.8;
+    font-size: 20px;
+}
+.btnQtd{
+    margin-top: 0 !important;
+}
+.numQtd{
+    font-size: 28px;
+    color: #383825;
+}
+.btnAdd{
+    padding: 0px 10px 5px 10px;
+    margin-top: 20px;
+}
+.lblDetalhes{
+    margin-top: 20px;
+}
+@media (min-height: 710px){
+    .item-name{
+        font-size: 18px;
+    }
+    .div-description{
+        padding: 10px 10px;
+    }
+    .item-description{
+        font-size: 16px;
+    }
+    .item-observation{
+        font-size: 15px;
+    }
+    h4{
+        font-size: 16px;
+    }
+    .numQtd{
+        font-size: 22px;
+    }
+    .lblQtd{
+        font-size: 13px;
+    }
+}
+@media (max-height: 650px){
+    .bg-item-details{
+        height: 30%;
+    }
+    .item-name{
+        font-size: 18px;
+    }
+    .div-description{
+        padding: 10px 10px;
+    }
+    .item-description{
+        font-size: 15px;
+    }
+    .item-observation{
+        font-size: 15px;
+    }
+    h4{
+        font-size: 16px;
+    }
+    .btnQtd{
+        width: 40px;
+    }
+    .numQtd{
+        font-size: 24px;
+    }
+    .lblQtd{
+        font-size: 12px;
+    }
+    .btnAdd{
+        margin-top: 5px;
+        height: 40px;
+        padding: 0px 0px 0px 0px;
+    }
+    .lblDetalhes{
+        margin-top: 10px;
+    }
+
+}

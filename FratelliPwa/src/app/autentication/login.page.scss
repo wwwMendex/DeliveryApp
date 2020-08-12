@@ -1,0 +1,62 @@
+    
+    .bg-login{
+        background: url('../../assets/imgs/background_login.jpg') fixed;
+        width: 100%;
+        height: 100%;
+        // overflow: hidden;
+        background-size: 150%;
+        // background-position-x: 50%, center;
+        
+    }
+    
+    .bg-register{
+        z-index: 999;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('../../assets/imgs/background_register.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+    .overlay{
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: fixed;
+        bottom: 0;
+        top: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.9));
+    }
+    .logo-login{
+        width: 45%;
+    }
+    h2{
+        letter-spacing: 4px;
+        text-shadow: 1px 1px 5px rgba(235, 232, 191, 0.4);
+    }
+    h5{
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.555);
+    }
+    .seta{
+        width: 15%;
+    }
+    .bg-transparent{
+        --ion-item-background: transparent;
+        --padding-start: 0;
+
+    }
+    .placeholder{
+        --placeholder-opacity: 0.85;
+    }
+    ion-button{
+        --background: rgb(235, 39, 25);
+        --background-hover: rgb(238, 56, 43);
+        --background-activated: rgb(163, 26, 16);
+        --background-focused: rgb(241, 68, 25);
+        --box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.842);
+    }
+    a:hover{
+        cursor: pointer;
+    }

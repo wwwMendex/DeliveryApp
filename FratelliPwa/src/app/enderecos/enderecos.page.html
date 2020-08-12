@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-title class="bold">Endereços</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">
+          <ion-icon slot="icon-only" name="chevron-down-outline" color="dark"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="cadastrarEnd pad-20">
+    <h3 class="lblCadastro century bold laranja-padrao">Cadastre um novo endereço</h3>
+    <form [formGroup]="formEndereco" (ngSubmit)="cadastrarEndereco()">
+      <ion-item class="mg-top-10">
+        <ion-label position="floating">Nome. Ex: Casa, Trabalho, Facul ...</ion-label>
+        <ion-input formControlName="nome"></ion-input>
+      </ion-item>
+      <p class="error no-margin" *ngIf="isSubmitted && errorControl.nome.errors?.required">
+        Nome obrigatório!
+      </p>
+      <p class="error no-margin" *ngIf="isSubmitted && errorControl.nome.errors?.minlength">
+        Nome muito curto.
+      </p>
+      <ion-item>
+        <ion-label position="floating">Rua</ion-label>
+        <ion-input formControlName="rua"></ion-input>
+      </ion-item>
+      <p class="error no-margin" *ngIf="isSubmitted && errorControl.rua.errors?.required">
+        Você precisa inserir sua Rua!
+      </p>
+      <p class="error no-margin" *ngIf="isSubmitted && errorControl.rua.errors?.minlength">
+        No mínimo 5 caracteres.
+      </p>
+      <ion-item>
+        <ion-label position="floating">Número</ion-label>
+        <ion-input formControlName="numero"></ion-input>
+      </ion-item>
+      <p class="error no-margin" *ngIf="isSubmitted && errorControl.numero.errors?.required">
+        Precisamos do número da residência!
+      </p>
+      <ion-item>
+        <ion-label position="floating">Complemento (opicional)</ion-label>
+        <ion-input formControlName="complemento"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Ponto de referência (opicional)</ion-label>
+        <ion-input formControlName="referencia"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label>Selecione o bairro</ion-label>
+        <ion-select formControlName="bairro">
+          <ion-select-option *ngFor="let bairro of bairros">{{bairro.bairro}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <p class="error no-margin" *ngIf="isSubmitted && errorControl.bairro.errors?.required">
+        Selecione seu bairro!
+      </p>
+
+      <ion-button class="mg-top-10" type="submit" color="danger" expand="block" *ngIf="cadastrar">Cadastrar</ion-button>
+      <ion-button class="mg-top-10" type="submit" color="primary" expand="block" *ngIf="editar">Salvar alterações</ion-button>
+    </form>
+  </div>
+  <div class="pad-20" *ngIf="enderecos.cadastrados?.length > 0">
+    <p class="no-margin center">OU SELECIONE ALGUM DO SEUS</p>
+    <ion-card button="true" *ngFor="let end of enderecos.cadastrados; let i = index" [ngClass]="{'card-selected':i==0}">
+      <ion-item>
+        <ion-icon name="location" slot="start"></ion-icon>
+        <ion-label (click)="selecionarEndereco(end.id)">{{end.nome}}</ion-label>
+        <ion-icon name="checkmark-circle" color="danger" *ngIf="i == 0"></ion-icon>
+        <ion-button fill="clear" (click)="presentActionSheet(i)">
+          <ion-icon name="ellipsis-vertical-outline" slot="end" color="dark"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-card-content (click)="selecionarEndereco(end.id)">
+        {{end.rua}}, {{end.numero}}. {{end.bairro}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>

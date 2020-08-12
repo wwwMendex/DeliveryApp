@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-title class="bold">Seu pedido</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">
+          <ion-icon slot="icon-only" name="chevron-down-outline" color="dark"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content 
+        pullingIcon="chevron-down"
+        pullingText="Puxe para atualizar"
+        refreshingSpinner="crescent"
+        refreshingText="Verificando pedido...">
+      </ion-refresher-content>
+    </ion-refresher>
+  <div *ngIf="pedidos?.length > 0">
+    <div *ngFor="let pedido of pedidos">
+      <div class="pad-10">
+        <h3 class="century bold cinza" *ngIf="pedido">Pedido #{{pedido.id}}</h3>
+        <ion-card>
+          <div *ngIf="pedido">
+            <ion-item>
+              <ion-icon name="checkmark-circle-outline" class="status-icon" slot="start" *ngIf="pedido.status==1"></ion-icon> 
+              <ion-icon name="hourglass" slot="start" class="status-icon" *ngIf="pedido.status==2"></ion-icon> 
+              <ion-icon name="paper-plane" slot="start" class="status-icon" *ngIf="pedido.status==3"></ion-icon>
+              <ion-icon name="checkmark-circle" slot="start" class="status-icon" *ngIf="pedido.status==4"></ion-icon>
+              <ion-label class="bold cinza century lblStatus">STATUS: </ion-label>
+              <ion-button color="warning" fill="outline" *ngIf="pedido.status==1">Pedido enviado</ion-button> 
+              <ion-button color="primary" fill="outline" *ngIf="pedido.status==2">Em preparo</ion-button>
+              <ion-button color="danger" fill="outline" *ngIf="pedido.status==3">Saiu para entrega</ion-button>
+              <ion-button color="success" fill="outline" *ngIf="pedido.status==4">Pedido entregue</ion-button>
+              <ion-button color="dark" fill="outline" *ngIf="pedido.status==5">Pedido cancelado</ion-button>
+              <ion-button fill="clear" (click)="presentHelpAlert()">
+                <ion-icon name="help" slot="end" color="dark"></ion-icon>
+              </ion-button>
+            </ion-item>
+            <ion-card-content>
+              <p class="no-margin item-name" *ngFor="let item of pedido.pedido">{{item.qtd + ' x ' + item.name}}</p>
+              <p class="item-date corbel italic no-margin">Pedido {{pedido.data_pedido + ' ' + pedido.horario_pedido}}</p>
+              <p class="item-date corbel italic no-margin" *ngIf="pedido.horario_entrega">Entregue {{pedido.horario_entrega}}</p>
+              <div class="center mg-top-10">
+                <div class="sts-enviado" *ngIf="pedido.status==1">
+                  <ion-icon name="chevron-down-circle" size="large" color="warning"></ion-icon>
+                  <ion-icon name="git-commit-outline" size="large"></ion-icon>
+                  <ion-icon name="git-commit-outline" size="large"></ion-icon>
+                  <ion-icon name="git-commit-outline" size="large"></ion-icon>
+                </div>
+                <div class="sts-preparo" *ngIf="pedido.status==2">
+                  <ion-icon name="git-commit-outline" size="large"></ion-icon>
+                  <ion-icon name="chevron-down-circle" size="large" color="primary"></ion-icon>
+                  <ion-icon name="git-commit-outline" size="large"></ion-icon>
+                  <ion-icon name="git-commit-outline" size="large"></ion-icon>
+                </div>
+                <div class="sts-saiu" *ngIf="pedido.status==3">
+                  <ion-icon name="git-commit-outline" size="large"></ion-icon>
+                  <ion-icon name="git-commit-outline" size="large"></ion-icon>
+                  <ion-icon name="chevron-down-circle" size="large" color="danger"></ion-icon>
+                  <ion-icon name="git-commit-outline" size="large"></ion-icon>
+                </div>
+                <div class="sts-entregue" *ngIf="pedido.status==4">
+                  <ion-icon name="git-commit-outline" size="large"></ion-icon>
+                  <ion-icon name="git-commit-outline" size="large"></ion-icon>
+                  <ion-icon name="git-commit-outline" size="large"></ion-icon>
+                  <ion-icon name="checkmark-circle" size="large" color="success"></ion-icon>
+                </div>
+              </div>
+              <div class="mg-top-10">
+                <p class="lblTotal corbel italic no-margin mg-top-5">Subtotal<span class="valTotal">R$ {{pedido.subtotal}}</span></p>
+                <p class="lblTotal corbel no-margin">Taxa de entrega<span class="valTotal">R$ {{pedido.taxa_entrega}}</span></p>
+                <p class="lblTotal total corbel no-margin">Total<span class="valTotal">R$ {{pedido.total}}</span></p>
+                <p class="lblTotal total corbel no-margin" *ngIf="pedido.troco">Seu troco: <span class="valTotal">R$ {{(pedido.troco-pedido.total).toFixed(2)}}</span></p>
+              </div>
+            </ion-card-content>
+          </div>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+  <div class="pad-10" *ngIf="pedidos?.length == 0">
+    <ion-skeleton-text class="pad-10" animated style="width: 60%" *ngIf="pedidos?.length == 0"></ion-skeleton-text>
+    <div class="ion-padding custom-skeleton">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <br>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <br>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 68%"></ion-skeleton-text>
+    </div>
+  </div>
+  
+</ion-content>
