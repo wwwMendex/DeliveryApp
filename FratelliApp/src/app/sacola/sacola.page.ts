@@ -25,7 +25,7 @@ export class SacolaPage implements OnInit {
   total: number = 0;
   endereco: any = [];
   disabled = true;
-  fechado:any = false;
+  fechado:any = "VERIFICANDO...";
   pontosPedido = 0;
   pedidoPontosAtivo = true;
   qtd_promo = 0;
@@ -42,14 +42,18 @@ export class SacolaPage implements OnInit {
       
   }
   async ngOnInit() {
+    this.verificaStatus();
     this.pedido = await this.getPedido();
     if(this.pedido){
       this.pedidoPontosAtivo = await this.storage.get('pedidoPontos');
       this.endereco = await this.getEndereco();
+      if(!this.endereco){
+        this.abrirEndereco();
+        this.closeModal();
+      }
       this.user = await this.getUsuario();
       this.podePagarComPontos = this.validaPedidoPontos(this.pedido, this.user);
       this.getTaxaEntrega();
-      this.verificaStatus();
       this.atualizarTotal();
     }
   }
@@ -92,8 +96,11 @@ export class SacolaPage implements OnInit {
           this.disabled = true;
           this.fechado = "LOJA FECHADA!";
           return false;
+        }else{
+          this.fechado = null;
         }
         this.disabled = false;
+        
         return true;
       });
   }
@@ -110,13 +117,16 @@ export class SacolaPage implements OnInit {
   pagamentoDin(){
       this.pagamento = "dinheiro";
       this.alertTroco("");
+      this.atualizarTotal();
   }
   pagamentoCard(){
     this.pagamento = "card";
+    this.atualizarTotal();
   }
   pagamentoPontos(){
     if(this.user.pontos_fidelidade >=10){
       this.pagamento = "pontos";
+      this.atualizarTotal();
     }
   }
   atualizarTotal(){
@@ -128,6 +138,9 @@ export class SacolaPage implements OnInit {
       }else if(this.cupom[0].type == "porcentagem"){
         this.subtotal = parseFloat((this.subtotal * ((100 - this.cupom[0].value) / 100)).toFixed(2));
       }
+    }
+    if(this.pagamento=='pontos'){
+      this.subtotal = 0;
     }
     this.total = Number(this.subtotal) + Number(this.taxa_entrega);
     this.total = parseFloat(this.total.toFixed(2)); 
@@ -155,7 +168,7 @@ export class SacolaPage implements OnInit {
     console.log(pedidoAtual);
     
     pedidoAtual.forEach(item => {
-      if((item.type =="salgada" || item.type =="doce") && !item.promo){
+      if(item.type =="salgada" || item.type =="doce"){
         this.pontosPedido += item.qtd;
       }
     });

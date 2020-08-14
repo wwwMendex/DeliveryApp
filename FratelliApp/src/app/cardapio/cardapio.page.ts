@@ -20,7 +20,7 @@ export class CardapioPage implements OnInit {
   header_title: String;
   footer: number = 1;
   user:any;
-  private skeleton = Array(10);
+  skeleton = Array(10);
   constructor(
     private modalCtrl: ModalController,
     private firebaseProvider: FirebaseProvider, 

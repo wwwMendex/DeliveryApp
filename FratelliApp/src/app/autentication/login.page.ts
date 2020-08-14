@@ -5,7 +5,7 @@ import { FirebaseProvider } from '../../providers/firebase';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import { Keyboard } from '@ionic-native/keyboard/ngx';
+// import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -46,7 +46,7 @@ export class LoginPage implements OnInit {
       private loadingController: LoadingController,
       private router: Router,
       private storage: Storage,
-      private keyboard: Keyboard,
+      // private keyboard: Keyboard,
       private toastCtrl: ToastController
     ){ 
       // this.keyboard.onKeyboardDidShow()

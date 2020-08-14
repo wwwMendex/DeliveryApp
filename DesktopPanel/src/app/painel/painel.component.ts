@@ -100,7 +100,7 @@ export class PainelComponent implements OnInit {
   confirmarPedido(){
     if(this.pedido.length > 0){
       this.fb.atualizarPedido(Object.assign({}, this.pedido[0]));
-      this.imprimirPedido(this.pedido);
+      this.imprimirPedido(this.pedido[0]);
       showAlertDialog({
         type: 'alert',
         title: 'Pedido lançado!',
